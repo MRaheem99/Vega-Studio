@@ -1361,6 +1361,55 @@ body.alt-pan .tracks-ruler-container:active { cursor: grabbing; }
     animation: ss-render-pulse 1s ease-in-out infinite;
 }
 
+/* ----- Track Manager Danger Zone ----- */
+.track-manager-danger-zone {
+    display: flex;
+    gap: 8px;
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border, rgba(255,255,255,0.08));
+}
+
+.track-manager-danger-btn {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 9px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 6px;
+    border: 1px solid var(--border, rgba(255,255,255,0.12));
+    background: rgba(255,255,255,0.04);
+    color: var(--text-main, #e5e5e5);
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.track-manager-danger-btn:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.25);
+}
+.track-manager-danger-btn:active {
+    transform: translateY(1px);
+}
+
+.track-manager-danger-btn.danger {
+    background: rgba(229, 57, 53, 0.12);
+    border-color: rgba(229, 57, 53, 0.4);
+    color: #ff6b6b;
+}
+.track-manager-danger-btn.danger:hover {
+    background: rgba(229, 57, 53, 0.22);
+    border-color: rgba(229, 57, 53, 0.65);
+    color: #ff8b8b;
+}
+
+.track-manager-danger-btn i {
+    font-size: 11px;
+    opacity: 0.85;
+}
+
 @keyframes ss-render-pulse {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.3; }

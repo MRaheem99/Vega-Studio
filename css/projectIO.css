@@ -1,0 +1,74 @@
+/* Export options dialog */
+.export-options-content {
+    max-width: 480px;
+    width: 92vw;
+}
+.export-options-content .modal-body {
+    padding: 16px 20px;
+}
+.export-options-content .clip-manager-btn.primary {
+    background: var(--accent, #00e676);
+    border-color: var(--accent, #00e676);
+    color: #000;
+    font-weight: 600;
+}
+
+/* Progress modal */
+.export-progress-overlay {
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    z-index: 10000;
+}
+.export-progress-content {
+    max-width: 400px;
+    width: 88vw;
+    padding: 22px 24px;
+    background: var(--surface, #1a1a1a);
+    border: 1px solid var(--border, rgba(255,255,255,0.1));
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+.export-progress-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    font-size: 14px;
+    color: var(--text-main, #e5e5e5);
+}
+.export-progress-header i {
+    color: var(--accent, #00e676);
+    font-size: 18px;
+}
+.export-progress-title {
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+.export-progress-label {
+    font-size: 12px;
+    color: var(--text-dim, #888);
+    margin-bottom: 12px;
+    min-height: 16px;
+    word-break: break-word;
+}
+.export-progress-bar-wrap {
+    background: rgba(255,255,255,0.08);
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+.export-progress-bar {
+    background: linear-gradient(90deg, #00e676, #00b0ff);
+    height: 100%;
+    width: 0%;
+    border-radius: 4px;
+    transition: width 0.2s ease;
+}
+.export-progress-count {
+    font-size: 11px;
+    color: var(--text-dim, #888);
+    letter-spacing: 0.05em;
+}

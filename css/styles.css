@@ -37,6 +37,25 @@ body {
     scrollbar-width: none;
 } 
 
+/* Cursor state during Ctrl-pan */
+body.daw-panning,
+body.daw-panning * {
+    cursor: grabbing !important;
+    user-select: none !important;
+}
+
+/* Subtle hint that Ctrl is held (optional) */
+body.daw-ctrl-held #tracks-scroll-area {
+    cursor: grab;
+}
+
+/* Panel takes Ctrl+drag without text selection */
+#tracks-scroll-area,
+.tracks-ruler-container {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
 body.mode-drum-pads #drum-pad-container {
     display: grid !important;
     grid-template-columns: repeat(4, 1fr) !important;
