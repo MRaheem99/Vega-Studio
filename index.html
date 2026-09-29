@@ -11,6 +11,8 @@
         <link rel="stylesheet" href="./css/fxModal.css"/>
         <link rel="stylesheet" href="./css/tonePicker.css"/>
         <link rel="stylesheet" href="./css/presetParams.css"/>
+        <link rel="stylesheet" href="./css/songPanel.css"/>
+        <link rel="stylesheet" href="./css/projectIO.css"/>
     </head>
     <body>
         <div id="workspace">
@@ -90,6 +92,14 @@
                             onchange="app.projectIO.importProjectJSON(this.files[0])">
                         <span id="project-name-display" class="project-name-display" title="Project name">Untitled</span>
                     </div>
+                    <button class="menu-btn" id="gen-full-btn" 
+                            onclick="app.generateFullSong()" 
+                            title="Generate full song from genre">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </button>
+                    <button class="menu-btn" id="song-panel-btn" onclick="app.songBuilder.openPanel()" title="Song Arrangement">
+                        <i class="fa-solid fa-music"></i>
+                    </button>
                     <div class="menu-group">
                         <button class="menu-btn" onclick="app.toggleSettings('s')" title="Settings">
                             <i class="fa-solid fa-gear"></i>
@@ -271,7 +281,6 @@
 
                 <div id="panel-sequencer" class="panel">
                     <div class="panel-header">
-                       
                     </div>
                     
                     <div id="sequencer"></div>
@@ -311,6 +320,32 @@
                             </select>
                         </div>
                         <div class="setting-row">
+                            <span class="setting-label">Genre</span>
+                            <select id="proj-genre" class="modal-select">
+                                <!-- populated by Genres.populateGenreSelect() -->
+                            </select>
+                        </div>
+                        <div class="setting-row">
+                            <span class="setting-label">Song Length (bars)</span>
+                            <input type="number" id="proj-song-length" value="32" min="8" max="128" class="modal-input">
+                        </div>
+                        <div class="setting-row">
+                            <span class="setting-label">Break Count</span>
+                            <input type="number" id="proj-break-count" value="2" min="0" max="6" class="modal-input">
+                        </div>
+                        <div class="setting-row">
+                            <span class="setting-label">WAV Cache</span>
+                            <div style="display:flex; gap:8px; align-items:center;">
+                                <span id="audio-cache-stats" style="font-size:11px; color:var(--text-dim);">—</span>
+                                <button type="button" class="fx-toggle-btn" onclick="app.showAudioCacheStats()" title="Refresh stats" style="padding:4px 8px; font-size:11px;">
+                                    <i class="fa-solid fa-sync"></i>
+                                </button>
+                                <button type="button" class="fx-toggle-btn" onclick="app.clearAudioCache()" title="Clear cache" style="padding:4px 8px; font-size:11px; color:var(--danger);">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="setting-row">
                             <span class="setting-label">BPM</span>
                             <input type="number" id="proj-bpm" value="120" min="40" max="300" class="modal-input">
                         </div>
@@ -333,6 +368,21 @@
                         <div class="setting-row">
                             <span class="setting-label">Swing</span>
                             <input type="range" id="proj-swing" min="0" max="0.5" step="0.01" value="0" class="modal-input">
+                        </div>
+                        <div class="setting-row" style="display:flex;gap:4px;">
+                            <div><span class="setting-label">Generate</span></div>
+                            <div style="display:flex;gap:4px;">
+                                <button class="fx-toggle-btn" id="gen-melody-btn" 
+                                        onclick="app.generateMelodyFromGenre()" 
+                                        title="Generate melody from project genre/key">
+                                    <i class="fa-solid fa-dice"></i> Melody
+                                </button>
+                                <button class="fx-toggle-btn" id="gen-chords-btn" 
+                                        onclick="app.generateChordsFromGenre()" 
+                                        title="Generate chords from project genre/key">
+                                    <i class="fa-solid fa-dice"></i> Chords
+                                </button>
+                            </div>
                         </div>
                         <div class="setting-row">
                             <span class="setting-label">Key</span>
@@ -520,15 +570,54 @@
                             <span class="setting-label" style="margin-bottom: 6px;">Pan</span>
                             <div id="track-manager-pan-slider"></div>
                         </div>
+
+                        <div class="track-manager-danger-zone">
+                            <button type="button" class="track-manager-danger-btn"
+                                    id="track-manager-clear"
+                                    title="Remove all clips from this track">
+                                <i class="fa-solid fa-eraser"></i> Clear Track
+                            </button>
+                            <button type="button" class="track-manager-danger-btn danger"
+                                    id="track-manager-delete"
+                                    title="Delete this track and its clips">
+                                <i class="fa-solid fa-trash"></i> Delete Track
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div> 
+            <!-- Song Builder Panel -->
+            <div id="song-panel-modal" class="modal-overlay">
+                <div class="modal-content song-panel-content">
+                    <div class="modal-header">
+                        <h3><i class="fa-solid fa-music"></i> Song Arrangement</h3>
+                        <button class="menu-btn" onclick="app.songBuilder.closePanel()" style="color:var(--danger)">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                    <div class="song-panel-toolbar">
+                        <button class="song-toolbar-btn" onclick="app.songBuilder._regenAllFromUI()" title="Regenerate song">
+                            <i class="fa-solid fa-dice"></i> Regenerate All
+                        </button>
+                        <button class="song-toolbar-btn" onclick="app.songBuilder.clearSong()" title="Clear song">
+                            <i class="fa-solid fa-trash"></i> Clear
+                        </button>
+                        <button class="song-toolbar-btn primary" onclick="app.songBuilder.pushToTracks()" title="Send all sections to the track timeline">
+                            <i class="fa-solid fa-arrow-right-to-bracket"></i> Push to Tracks
+                        </button>
+                    </div>
+                    <div class="song-panel-body">
+                        <div id="song-sections-list" class="song-sections-list"></div>
+                    </div>
+                </div>
+            </div>
         </div>
         <script src="./js/fxConfig.js"></script>
         <script src="./js/engineVoice.js"></script>
         <script src="./js/voiceScheduler.js"></script>
         <script src="./js/musicTheory.js"></script> 
         <script src="./js/genres.js"></script>
+        <script src="./js/genreSongProfiles.js"></script>
         <script src="./js/genreGenerator.js"></script>
         <script src="./js/trackTypes.js"></script>
         <script src="./js/rnSlider.js"></script>
@@ -543,10 +632,12 @@
         <script src="./js/sequencer.js"></script>
         <script src="./js/synthSequencer.js"></script>
         <script src="./js/tracks.js"></script>
+        <script src="./js/songBuilder.js"></script>
         <script src="./js/stepContextMenu.js"></script>
         <script src="./js/history.js"></script>
         <script src="./js/metronome.js"></script>
         <script src="./js/audioEngine.js"></script>
+        <script src="./js/audioCache.js"></script>
         <script src="./js/projectIO.js"></script>
         <script src="./js/fxModal.js"></script>
         <script src="./js/padManager.js"></script>
