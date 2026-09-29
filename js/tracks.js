@@ -185,27 +185,36 @@ class TrackSystem {
         const scrollArea = document.getElementById('tracks-scroll-area');
         if (!rulerContainer || !scrollArea) return;
 
-        const seekTo = (clientX) => {
+        const seekTo = (clientX, opts = {}) => {
             const rect = rulerContainer.getBoundingClientRect();
             const labelWidth = window.innerWidth <= 768 ? 120 : 180;
             const x = clientX - rect.left;
             if (x < labelWidth) return;
 
-            // Preserve current selection — scrubbing shouldn't clear it
+            // Preserve current selection
             const savedTrack = this.selectedTrack;
             const savedClip = this.selectedClip;
 
-            const time = (x - labelWidth + scrollArea.scrollLeft) / this.zoom;
-            this.playheadPosition = Math.max(0, time);
+            const time = Math.max(0, (x - labelWidth + scrollArea.scrollLeft) / this.zoom);
+
+            const wasPlaying = this.isPlaying;
+            const isFinal = opts.final !== false;   // during scrub we skip audio resync
+
+            this.playheadPosition = time;
             this.playheadActive = true;
             this.updatePlayhead(true);
 
             const timeEl = document.getElementById('tracks-time-value');
             if (timeEl) timeEl.innerText = this.formatTime(this.playheadPosition);
 
-            // Restore selection (defensive — nothing should have cleared it)
+            // Restore selection
             this.selectedTrack = savedTrack;
             this.selectedClip = savedClip;
+
+            // If playing and this is a finalized seek, resync audio
+            if (wasPlaying && isFinal) {
+                this._rescheduleFromPlayhead();
+            }
         };
 
         const startAltPan = (e) => {
@@ -239,25 +248,35 @@ class TrackSystem {
         rulerContainer.addEventListener('mousedown', (e) => {
             if (startAltPan(e)) return;
             this.scrubbing = true;
-            seekTo(e.clientX);
+            seekTo(e.clientX, { final: false });   // don't reschedule on first click
         });
 
         rulerContainer.addEventListener('pointerdown', (e) => {
             if (e.pointerType === 'mouse') return;
             try { rulerContainer.setPointerCapture(e.pointerId); } catch (_) {}
             this.scrubbing = true;
-            seekTo(e.clientX);
+            seekTo(e.clientX, { final: false });
         });
 
         const moveHandler = (e) => {
             if (e.altKey && e.buttons === 1) return;
             if (!this.scrubbing) return;
-            seekTo(e.clientX);
+            seekTo(e.clientX, { final: false });   // scrub — no reschedule yet
         };
         rulerContainer.addEventListener('pointermove', moveHandler);
         rulerContainer.addEventListener('mousemove', moveHandler);
 
-        const end = () => { this.scrubbing = false; };
+        const end = (e) => {
+            if (!this.scrubbing) return;
+            this.scrubbing = false;
+            // Final seek — now actually reschedule audio if playing
+            const x = (e.clientX ?? e.changedTouches?.[0]?.clientX);
+            if (typeof x === 'number') {
+                seekTo(x, { final: true });
+            } else {
+                this._rescheduleFromPlayhead();
+            }
+        };
         rulerContainer.addEventListener('pointerup', end);
         rulerContainer.addEventListener('pointercancel', end);
         rulerContainer.addEventListener('pointerleave', end);
@@ -3331,6 +3350,166 @@ el.addEventListener('click', (e) => {
             });
         });
         this.animatePlayhead();
+    }
+
+        /**
+     * Re-schedule all audio from the current playhead position.
+     * Called when the user seeks while playing — keeps audio and playhead in sync.
+     */
+    async _rescheduleFromPlayhead() {
+        if (!this.isPlaying) return;
+
+        const ctx = this.audioContext || this.app.audioEngine.ctx;
+        if (!ctx) return;
+
+        // 1. Stop everything currently playing
+        this.activeSources.forEach(({ source }) => {
+            try { source.stop(); } catch (_) {}
+        });
+        this.activeSources = [];
+
+        // 2. Reset the animation baseline
+        cancelAnimationFrame(this.animationFrame);
+        this.animationFrame = null;
+
+        // 3. Clear envelope gains on clips so they don't leak
+        this.tracks.forEach(track => {
+            track.clips.forEach(clip => {
+                if (clip._activeEnvelopeGain) {
+                    try { clip._activeEnvelopeGain.disconnect(); } catch (_) {}
+                    clip._activeEnvelopeGain = null;
+                }
+            });
+        });
+
+        // 4. Set the new start position
+        this.playStartPosition = this.playheadPosition;
+
+        // 5. Re-schedule everything from here
+        const now = ctx.currentTime;
+        const startOffset = this.playheadPosition;
+        const soloActive = this.tracks.some(t => t.solo);
+
+        this.tracks.forEach(track => {
+            const trackNodes = this._getTrackNodes(track.id);
+            if (trackNodes) {
+                this._refreshTrackGain(track.id);
+                this._refreshTrackPan(track.id);
+            }
+
+            track.clips.forEach(clip => {
+                if (clip.muted) return;
+                const clipEnd = clip.startTime + clip.duration;
+                if (clipEnd <= startOffset) return;
+
+                try {
+                    if (clip.type === 'pattern') {
+                        if (clip.mode === 'wav' && clip._frozen && clip._frozen.buffer) {
+                            this._scheduleFrozenClip(clip, track, startOffset, now);
+                            return;
+                        }
+                        this._schedulePatternClip(clip, track, startOffset, now, soloActive);
+                        return;
+                    }
+
+                    // Audio clips
+                    const playFrom = Math.max(0, startOffset - clip.startTime);
+                    const remaining = clip.duration - playFrom;
+                    if (remaining <= 0) return;
+
+                    const source = ctx.createBufferSource();
+                    source.buffer = clip.buffer;
+                    source.playbackRate.value = clip.speed || 1;
+
+                    const baseGain = clip.volume || 1;
+                    const gain = ctx.createGain();
+
+                    const clipPanner = ctx.createStereoPanner();
+                    clipPanner.pan.value = clip.pan || 0;
+
+                    source.connect(gain);
+                    gain.connect(clipPanner);
+                    if (trackNodes) clipPanner.connect(trackNodes.gain);
+                    else clipPanner.connect(this.app.audioEngine.panner);
+
+                    const bufDur = clip.buffer.duration;
+                    const loopOn = clip.loop && bufDur > 0 && clip.duration > bufDur * 1.001;
+                    const startAt = now + Math.max(0, clip.startTime - startOffset);
+
+                    let offsetInBuffer = (clip.offset || 0) + playFrom;
+                    if (bufDur > 0) {
+                        if (loopOn) offsetInBuffer = ((offsetInBuffer % bufDur) + bufDur) % bufDur;
+                        else offsetInBuffer = Math.max(0, Math.min(bufDur - 0.001, offsetInBuffer));
+                    }
+
+                    const availableFromBuffer = bufDur > 0 ? Math.max(0, bufDur - offsetInBuffer) : 0;
+                    const playDuration = loopOn ? remaining : Math.min(remaining, availableFromBuffer);
+                    if (playDuration <= 0.001) return;
+
+                    if (loopOn) {
+                        source.loop = true;
+                        source.loopStart = clip.loopStart ?? 0;
+                        source.loopEnd = clip.loopEnd ?? bufDur;
+                        source.start(startAt, offsetInBuffer);
+                        try { source.stop(startAt + remaining); } catch (_) {}
+                    } else {
+                        source.start(startAt, offsetInBuffer, playDuration);
+                    }
+
+                    this._scheduleClipEnvelope(gain, baseGain, clip, startAt, playFrom, playDuration);
+                    const estStop = startAt + (playDuration || remaining) + 0.2;
+                    this.activeSources.push({ source, stopAt: estStop });
+                } catch (err) {
+                    console.warn('[reschedule] Failed for clip', clip.id, err);
+                }
+            });
+        });
+
+        // 6. Restart the animation loop with the new baseline
+        this._resumePlayheadAnimation();
+    }
+
+    _resumePlayheadAnimation() {
+        if (!this.isPlaying) return;
+        if (this.animationFrame) cancelAnimationFrame(this.animationFrame);
+
+        const timeEl = document.getElementById('tracks-time-value');
+        let lastSecondRendered = -1;
+        let lastTime = performance.now();
+
+        const computeMaxTime = () => {
+            let max = 0;
+            for (const t of this.tracks) {
+                for (const c of t.clips) {
+                    const end = c.startTime + c.duration;
+                    if (end > max) max = end;
+                }
+            }
+            return max;
+        };
+        const maxTime = computeMaxTime();
+
+        const animate = (now) => {
+            if (!this.isPlaying) return;
+            const dt = (now - lastTime) / 1000;
+            lastTime = now;
+            this.playheadPosition += dt;
+
+            this.updatePlayhead();
+
+            const wholeSecond = Math.floor(this.playheadPosition);
+            if (timeEl && wholeSecond !== lastSecondRendered) {
+                lastSecondRendered = wholeSecond;
+                timeEl.innerText = this.formatTime(this.playheadPosition);
+            }
+
+            if (maxTime > 0 && this.playheadPosition >= maxTime) {
+                this.stop();
+                return;
+            }
+            this.animationFrame = requestAnimationFrame(animate);
+        };
+        this.animationFrame = requestAnimationFrame(animate);
     }
 
     _schedulePatternClip(clip, track, startOffset, now, soloActive) {
