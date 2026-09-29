@@ -1,0 +1,558 @@
+    <!DOCTYPE html> 
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>Vega Studio</title>
+        <link href="./img/favicon.png" rel="icon">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="stylesheet" href="./css/styles.css"/>
+        <link rel="stylesheet" href="./css/tracks.css"/>
+        <link rel="stylesheet" href="./css/fxModal.css"/>
+        <link rel="stylesheet" href="./css/tonePicker.css"/>
+        <link rel="stylesheet" href="./css/presetParams.css"/>
+    </head>
+    <body>
+        <div id="workspace">
+            <div class="spectrum">
+                <canvas id="viz-canvas"></canvas>
+                <div id="status-display">
+    				<div class="status-column">
+        				<div class="status-col-headerr"></div>
+        				<div class="status-item">
+            				<span class="status-label">Source</span>
+            				<span class="status-value" id="stat-source">Sawtooth</span>
+        				</div>
+        				<div class="status-item">
+            				<span class="status-label">Volume</span>
+            				<span class="status-value" id="stat-vol-val">0%</span>
+        				</div>
+        				<div class="status-item">
+            				<span class="status-label">Effects</span>
+            				<span class="status-value" id="stat-fx">None</span>
+        				</div>
+    				</div>
+    				<div class="status-divider-v"></div>
+    				<div class="status-column">
+        				<div class="status-col-headerr"></div>
+        					<div class="status-item">
+            					<span class="status-label">Mode</span>
+            					<span class="status-value" id="stat-mode">Tracks</span>
+        					</div>
+        					<div class="status-item">
+            					<span class="status-label">Tracks</span>
+            					<span class="status-value" id="stat-tracks">0</span>
+        					</div>
+        					<div class="status-item">
+            					<span class="status-label">Playing</span>
+            					<span class="status-value" id="stat-playing">▪</span>
+        					</div>
+    					</div>
+					</div>
+
+                <div id="main-menu">
+                    <div class="menu-group">
+                        <button class="menu-btn" onclick="app.setMode('synthseq', this)" title="Synth Sequencer">
+                            <i class="fa-solid fa-wave-square"></i>
+                        </button>
+
+                        <button class="menu-btn" onclick="app.setMode('sequencer', this)" title="Drum Sequencer">
+                            <i class="fa fa-th"></i>
+                        </button>
+
+                        <button class="menu-btn active" onclick="app.showPanel('tracks', this)" title="Tracks">
+                            <i class="fa-solid fa-list-ul"></i>
+                        </button>
+
+                        <button class="menu-btn" id="metronome-btn" onclick="app.toggleMetronome()" title="Metronome">
+                            <i class="fa-solid fa-bell"></i>
+                        </button>
+
+                        <button class="transport-btn" id="tracks-undo-btn" title="Undo (Ctrl+Z)">
+                            <i class="fa-solid fa-rotate-left"></i>
+                        </button>
+                        <button class="transport-btn" id="tracks-redo-btn" title="Redo (Ctrl+Shift+Z)">
+                            <i class="fa-solid fa-rotate-right"></i>
+                        </button>
+                    </div>
+
+                    <div class="menu-group">
+                        <button class="menu-btn" onclick="app.projectIO.exportProjectJSON()" title="Export Project as JSON">
+                            <i class="fa-solid fa-file-export"></i>
+                        </button>
+                        <button class="menu-btn" id="render-btn" onclick="app.projectIO.exportProjectWAV()" title="Export Project as WAV (right-click for quality)">
+                            <i class="fa-solid fa-music"></i>
+                        </button>
+                        <button class="menu-btn" onclick="document.getElementById('project-import-input').click()" title="Load Project">
+                            <i class="fa-solid fa-file-import"></i>
+                        </button>
+                        <input type="file" id="project-import-input" accept=".json" style="display:none;"
+                            onchange="app.projectIO.importProjectJSON(this.files[0])">
+                        <span id="project-name-display" class="project-name-display" title="Project name">Untitled</span>
+                    </div>
+                    <div class="menu-group">
+                        <button class="menu-btn" onclick="app.toggleSettings('s')" title="Settings">
+                            <i class="fa-solid fa-gear"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="panel-container">
+                <div id="pattern-toolbar-wrapper" class="pattern-toolbar-group">
+                    <div class="pattern-toolbar">
+                        <div class="pattern-toolbar-row">
+                            <input type="text" id="pattern-name" placeholder="Pattern name..."
+                                style="background:var(--surface-light); border:1px solid var(--border); 
+                                        color:var(--text-main); padding:6px 10px; border-radius:4px; 
+                                        min-width:120px; font-size:13px;" value="Pattern 1">
+
+                            <button class="fx-toggle-btn" onclick="app.patterns.create()" title="Create New Pattern">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                            <button class="fx-toggle-btn" onclick="app.patterns.save()" title="Save Pattern">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                            </button>
+
+                            <select id="pattern-list" class="fx-select"
+                                    style="min-width:100px; font-size:11px;"
+                                    onchange="app.patterns.load(this.value)" title="Load Saved Pattern">
+                                <option value="">-- Load --</option>
+                            </select>
+
+                            <button class="fx-toggle-btn" onclick="app.patterns.deleteSelected()" title="Delete Selected Pattern">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                            <button class="fx-toggle-btn" onclick="app.patterns.export()" title="Export Pattern as JSON">
+                                <i class="fa-solid fa-download"></i>
+                            </button>
+                            <button class="fx-toggle-btn" onclick="document.getElementById('pattern-import').click()" title="Import Pattern from JSON">
+                                <i class="fa-solid fa-upload"></i>
+                            </button>
+                            <input type="file" id="pattern-import" accept=".json" style="display:none;"
+                                onchange="app.patterns.import(this)">
+                        </div>
+                    </div> 
+                </div>
+                <div id="panel-tracks" class="panel">
+                    <div id="tracks-timeline"></div>
+                </div>
+                <div id="panel-synthseq" class="panel active">
+                    <div class="panel-header">
+                         
+                        <div style="display:flex; gap:8px; align-items:center;">
+                            <div style="position: relative;">
+                                <button class="fx-toggle-btn" id="btn-fx-menu" onclick="app.toggleFxDropdown()" title="Effects">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                                </button>
+                                <div class="fx-dropdown" id="fx-dropdown">
+                                    <div class="fx-item" onclick="app.openSynthFx('adsr')">
+                                        ADSR <i class="fa-solid fa-wave-square"></i>
+                                    </div>
+                                    <div class="fx-item" onclick="app.openSynthFx('echo')">
+                                        Echo (Delay) <i class="fa-solid fa-repeat"></i>
+                                    </div>
+                                    <div class="fx-item" onclick="app.openSynthFx('reverb')">
+                                        Reverb <i class="fa-solid fa-room"></i>
+                                    </div>
+                                    <div class="fx-item" onclick="app.openSynthFx('chorus')">
+                                        Chorus <i class="fa-solid fa-users"></i>
+                                    </div>
+                                    <div class="fx-item" onclick="app.openSynthFx('flanger')">
+                                        Flanger <i class="fa-solid fa-wave-sine"></i>
+                                    </div>
+                                    <div class="fx-item" onclick="app.openSynthFx('equalizer')">
+                                        Equalizer <i class="fa-solid fa-sliders"></i>
+                                    </div>
+                                    <div class="fx-item" onclick="app.openSynthFx('distortion')">
+                                        Distortion
+                                    </div>
+                                    <div class="fx-item" onclick="app.openSynthFx('compressor')">
+                                        Compressor
+                                    </div>
+                                    <div class="fx-item" onclick="app.openSynthFx('vibrato')">
+                                        Vibrato <i class="fa-solid fa-wave-square"></i>
+                                    </div>
+                                    <div class="fx-item" onclick="app.openSynthFx('bitcrusher')">
+                                        Bitcrusher
+                                    </div>
+                                    <div class="fx-item" onclick="app.openSynthFx('phaser')">
+                                        Phaser
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <button class="fx-toggle-btn" id="synthseq-open-osc" title="Oscillator Panel"
+                                    onclick="app.openOscillatorPanel(this)">
+                                <i class="fa-solid fa-sliders"></i>
+                            </button>
+                            <select id="synthseq-waveform" class="waveform-select" style="width: 150px;"
+                                    onchange="app.audioEngine.setWaveform(this.value); document.getElementById('waveform-selector').value = this.value;">
+                                <option value="sawtooth">Sawtooth</option>
+                                <option value="square">Square</option>
+                                <option value="triangle">Triangle</option>
+                                <option value="sine">Sine</option>
+                                <option value="sample">Sample...</option>
+                            </select>
+
+                            <button class="fx-toggle-btn" onclick="document.getElementById('file-input-sample').click()" title="Load Sample">
+                                <i class="fa-solid fa-upload"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="synthseq"></div>
+                </div>
+                <div id="panel-synth" class="panel">
+                    <div class="panel-header">
+                        <h3>Oscillator & Filter</h3>
+                        <div style="display:flex; gap:10px; align-items:center;">
+                            <input type="file" id="file-input-sample" accept="audio/*" style="display:none;">
+                            <select id="waveform-selector" class="waveform-select" style="width: 150px;" onchange="app.audioEngine.setWaveform(this.value); document.getElementById('synthseq-waveform').value = this.value;">
+                                <option value="sawtooth">Sawtooth</option>
+                                <option value="square">Square</option>
+                                <option value="triangle">Triangle</option>
+                                <option value="sine">Sine</option>
+                                <option value="sample">Sample...</option>
+                            </select>
+                        </div>
+                    </div>
+                    <input type="file" id="file-input-sample" accept="audio/*" style="display:none;">
+                    <button class="fx-toggle-btn" onclick="document.getElementById('file-input-sample').click()">
+                        <i class="fa-solid fa-upload"></i> Load Sample
+                    </button>
+                    <span id="sample-name" style="font-size:11px;color:var(--text-dim);">No sample</span>
+                    <div class="panel-grid">
+                        <div class="control-group">
+                            <h4>Master Output</h4>
+                            <div class="slider-row" id="master-sliders"></div>
+                        </div>
+                        <div class="control-group">
+                            <h4>Bus Volumes</h4>
+                            <div class="slider-row" id="bus-sliders"></div>
+                        </div>
+                        <div class="control-group">
+                            <h4>Main Oscillator</h4>
+                            <div class="slider-row" id="osc-sliders"></div>
+                        </div>
+                        <div class="control-group">
+                            <h4>Sub Oscillator</h4>
+                            <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                                <span style="font-size:12px; color:#aaa;">Enable</span>
+                                <input type="checkbox" id="sub-osc-toggle" onchange="app.audioEngine.toggleSubOsc(this.checked)">
+                            </div>
+                            <select id="sub-waveform-select" class="fx-select" style="margin-bottom:10px;" onchange="app.audioEngine.setSubWaveform(this.value)">
+                                <option value="sine">Sine</option>
+                                <option value="square">Square</option>
+                                <option value="sawtooth">Saw</option>
+                            </select>
+                            <div class="slider-row" id="sub-osc-sliders"></div>
+                        </div>
+                        <div class="control-group">
+                            <h4>Filter</h4>
+                            <div class="slider-row" id="filter-sliders"></div>
+                        </div>
+                        <div class="control-group">
+                            <h4>Envelope (ADSR)</h4>
+                            <div class="slider-row" id="env-sliders"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="fx-editor-modal" class="fx-editor-modal">
+                    <div class="fx-editor-header" id="fx-editor-header">
+                        <span id="fx-editor-title">FX</span>
+                        <button class="menu-btn" onclick="app.closeFxEditor()" style="color:var(--danger)">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                    <div class="fx-editor-body" id="fx-editor-body"></div>
+                </div>
+
+                <div id="panel-sequencer" class="panel">
+                    <div class="panel-header">
+                       
+                    </div>
+                    
+                    <div id="sequencer"></div>
+                    <div style="display:none;margin-top:10px; font-size:11px; color:var(--text-dim); text-align:center;">
+                        <span id="pattern-kind-badge" class="pattern-kind-badge">DRUMS</span>
+                        <span id="pattern-info">8 pads × 16 steps • BPM: <span id="pattern-bpm">120</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="keyboard-section">
+                <div id="piano-container">
+                    <div id="piano-scrollbar">Piano</div>
+                    <div id="piano-keys"></div>
+                </div>
+                <div id="drum-pad-container" style="display:none;"></div>
+            </div>
+
+            <div id="settings-modal" class="modal-overlay">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Settings</h3>
+                        <button class="menu-btn" onclick="app.toggleSettings('h')" style="color:var(--danger)">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="setting-row">
+                            <span class="setting-label">Project Name</span>
+                            <input type="text" id="proj-name" value="New Project" class="modal-input" maxlength="48">
+                        </div>
+                        <div class="setting-row">
+                            <span class="setting-label">WAV Quality</span>
+                            <select id="proj-wav-quality" class="modal-select">
+                                <option value="16">16-bit PCM (standard)</option>
+                                <option value="32">32-bit float (studio)</option>
+                            </select>
+                        </div>
+                        <div class="setting-row">
+                            <span class="setting-label">BPM</span>
+                            <input type="number" id="proj-bpm" value="120" min="40" max="300" class="modal-input">
+                        </div>
+                        <div class="setting-row">
+                            <span class="setting-label">Bars</span>
+                            <input type="number" id="proj-bars" value="8" min="1" max="64" class="modal-input">
+                        </div>
+                        <div class="setting-row">
+                            <span class="setting-label">Metronome Volume</span>
+                            <input type="range" id="proj-metronome-vol" min="0" max="1" step="0.01" value="0.5" class="modal-input">
+                        </div>
+                        <div class="setting-row">
+                            <span class="setting-label">Time Signature</span>
+                            <select id="proj-timesig" class="modal-select">
+                                <option>4/4</option>
+                                <option>3/4</option>
+                                <option>6/8</option>
+                            </select>
+                        </div>
+                        <div class="setting-row">
+                            <span class="setting-label">Swing</span>
+                            <input type="range" id="proj-swing" min="0" max="0.5" step="0.01" value="0" class="modal-input">
+                        </div>
+                        <div class="setting-row">
+                            <span class="setting-label">Key</span>
+                            <select id="proj-key" class="modal-select">
+                                <option>C</option>
+                                <option>C#</option>
+                                <option>D</option>
+                                <option>D#</option>
+                                <option>E</option>
+                                <option>F</option>
+                                <option>F#</option>
+                                <option>G</option>
+                                <option>G#</option>
+                                <option>A</option>
+                                <option>A#</option>
+                                <option>B</option>
+                            </select>
+                        </div>
+                        <div class="setting-row">
+                            <span class="setting-label">Scale</span>
+                            <select id="proj-scale" class="modal-select">
+                                <option>major</option>
+                                <option>minor</option>
+                            </select>
+                        </div>
+                        <div class="setting-row">
+                            <span class="setting-label">Display Mode</span>
+                            <select id="display-mode-select" class="modal-select" onchange="app.setDisplayMode(this.value)">
+                                <option value="status">Status</option>
+                                <option value="spectrum">Spectrum</option>
+                            </select>
+                        </div>
+                        <div class="setting-row">
+                            <span class="setting-label">MIDI Input</span>
+                            <span style="color:var(--text-dim); font-size:12px;">Enabled</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="clip-manager-modal" class="modal-overlay">
+                <div class="modal-content" style="max-width: 450px;">
+                    <div class="modal-header">
+                        <h3 id="clip-manager-title">Clip Settings</h3>
+                        <button class="menu-btn" onclick="app.tracks.closeClipManager()" style="color:var(--danger)">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="clip-manager-grid">
+                            <div class="clip-manager-row">
+                                <label>Volume</label>
+                                <input type="range" id="clip-manager-volume" min="0" max="2" step="0.01">
+                            </div>
+                            <div class="clip-manager-row">
+                                <label>Pan</label>
+                                <input type="range" id="clip-manager-pan" min="-1" max="1" step="0.01">
+                            </div>
+                            <div class="clip-manager-row">
+                                <label>Speed</label>
+                                <input type="range" id="clip-manager-speed" min="0.5" max="2" step="0.1">
+                            </div>
+                            <div class="clip-manager-row">
+                                <label>Loop</label>
+                                <input type="checkbox" id="clip-manager-loop">
+                            </div>
+                        </div>
+                        <div class="clip-manager-actions">
+                            <button class="clip-manager-btn" onclick="app.tracks.splitClip()">
+                                <i class="fa-solid fa-scissors"></i> Split
+                            </button>
+                            <button class="clip-manager-btn" onclick="app.tracks.duplicateClip()">
+                                <i class="fa-solid fa-copy"></i> Duplicate
+                            </button>
+                            <button class="clip-manager-btn" onclick="app.tracks.deleteClip()">
+                                <i class="fa-solid fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="clip-context-menu" class="clip-context-menu">
+                <div class="clip-context-item" onclick="app.tracks.openClipManager()">
+                    <i class="fa-solid fa-sliders"></i> Clip Settings
+                </div>
+                <div class="clip-context-item" onclick="app.tracks.duplicateClip()">
+                    <i class="fa-solid fa-copy"></i> Duplicate
+                </div>
+                <div class="clip-context-item" onclick="app.tracks.splitClip()">
+                    <i class="fa-solid fa-scissors"></i> Split
+                </div>
+                <div class="clip-context-divider"></div>
+                <div class="clip-context-item" onclick="app.tracks.deleteClip()">
+                    <i class="fa-solid fa-trash"></i> Delete
+                </div>
+                <div class="clip-context-item" onclick="app.tracks.toggleClipLoop()">
+                    <i class="fa-solid fa-repeat"></i> Toggle Loop
+                </div>
+                <div class="clip-context-item" onclick="app.tracks.toggleClipMute()">
+                    <i class="fa-solid fa-volume-xmark"></i> Toggle Mute
+                </div>
+            </div>
+
+            <div id="pattern-popup" class="pattern-popup">
+                <h4>Add Pattern to Track</h4>
+                <div id="pattern-list-container"></div>
+                <div class="clip-context-divider"></div>
+                <div class="pattern-item" onclick="app.tracks._importFromPopup()">
+                    <span class="pattern-item-name">📁 Import Audio File</span>
+                    <span class="pattern-item-info">WAV, MP3, M4A, FLAC</span>
+                </div>
+            </div>
+
+            <div id="clip-manager-modal" class="modal-overlay">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="clip-manager-title">Clip Settings</h3>
+                        <button class="menu-btn" onclick="app.tracks.closeClipManager()" style="color:var(--danger)">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="clip-manager-grid">
+                            <div class="clip-manager-row">
+                                <label>Volume</label>
+                                <input type="range" id="clip-manager-volume" min="0" max="2" step="0.01">
+                            </div>
+                            <div class="clip-manager-row">
+                                <label>Pan</label>
+                                <input type="range" id="clip-manager-pan" min="-1" max="1" step="0.01">
+                            </div>
+                            <div class="clip-manager-row">
+                                <label>Speed</label>
+                                <input type="range" id="clip-manager-speed" min="0.5" max="2" step="0.1">
+                            </div>
+                            <div class="clip-manager-row">
+                                <label>Loop</label>
+                                <input type="checkbox" id="clip-manager-loop">
+                            </div>
+                        </div>
+                        <div class="clip-manager-actions">
+                            <button class="clip-manager-btn" onclick="app.tracks.splitClip()">
+                                <i class="fa-solid fa-scissors"></i> Split
+                            </button>
+                            <button class="clip-manager-btn" onclick="app.tracks.duplicateClip()">
+                                <i class="fa-solid fa-copy"></i> Duplicate
+                            </button>
+                            <button class="clip-manager-btn" onclick="app.tracks.deleteClip()">
+                                <i class="fa-solid fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="track-manager-modal" class="modal-overlay">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="track-manager-title">Track Settings</h3>
+                        <button class="menu-btn" onclick="app.tracks.closeTrackManager()" style="color:var(--danger)">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="setting-row">
+                            <span class="setting-label">Type</span>
+                            <select id="track-manager-type" class="modal-select"></select>
+                        </div>
+                        <div class="setting-row">
+                            <span class="setting-label">Name</span>
+                            <input type="text" id="track-manager-name" class="modal-input" placeholder="Track name" maxlength="32">
+                        </div>
+                        <div class="setting-row">
+                            <span class="setting-label">Color</span>
+                            <input type="color" id="track-manager-color" style="width: 60px;">
+                        </div>
+
+                        <div class="setting-row" style="flex-direction: column; align-items: stretch;">
+                            <span class="setting-label" style="margin-bottom: 6px;">Volume</span>
+                            <div id="track-manager-volume-slider"></div>
+                        </div>
+
+                        <div class="setting-row" style="flex-direction: column; align-items: stretch;">
+                            <span class="setting-label" style="margin-bottom: 6px;">Pan</span>
+                            <div id="track-manager-pan-slider"></div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <script src="./js/fxConfig.js"></script>
+        <script src="./js/engineVoice.js"></script>
+        <script src="./js/voiceScheduler.js"></script>
+        <script src="./js/musicTheory.js"></script> 
+        <script src="./js/genres.js"></script>
+        <script src="./js/genreGenerator.js"></script>
+        <script src="./js/trackTypes.js"></script>
+        <script src="./js/rnSlider.js"></script>
+        <script src="./js/rnSliderAdapter.js"></script>
+        <script src="./js/effects.js"></script>
+        <script src="./js/scheduler.js"></script>
+        <script src="./js/clipFreezer.js"></script>
+        <script src="./js/drumMachine.js"></script>
+        <script src="./js/project.js"></script>
+        <script src="./js/transport.js"></script>
+        <script src="./js/patternManager.js"></script>
+        <script src="./js/sequencer.js"></script>
+        <script src="./js/synthSequencer.js"></script>
+        <script src="./js/tracks.js"></script>
+        <script src="./js/stepContextMenu.js"></script>
+        <script src="./js/history.js"></script>
+        <script src="./js/metronome.js"></script>
+        <script src="./js/audioEngine.js"></script>
+        <script src="./js/projectIO.js"></script>
+        <script src="./js/fxModal.js"></script>
+        <script src="./js/padManager.js"></script>
+        <script src="./js/toneLibrary.js"></script>
+        <script src="./js/tonePicker.js"></script>
+        <script src="./js/presetParams.js"></script>
+        <script src="./js/app.js"></script>
+    </body>
+</html>
