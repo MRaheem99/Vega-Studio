@@ -1,0 +1,405 @@
+
+.fx-cards-root {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2100;
+    overflow: visible;
+}
+
+.fx-card {
+    position: absolute;
+    pointer-events: auto;
+    min-width: 240px;
+    max-width: calc(100vw - 16px);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.16s ease, transform 0.16s ease;
+    touch-action: auto;
+}
+
+.fx-card.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.fx-card:not(.show) {
+    pointer-events: none;
+}
+
+.fx-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 10px 8px 12px;
+    background: var(--surface-light);
+    border-bottom: 1px solid var(--border);
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+    min-height: 34px;
+    box-sizing: border-box;
+}
+.fx-card-header:active { cursor: grabbing; }
+
+.fx-card-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    color: var(--primary);
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.fx-card-close {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    font-size: 13px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+.fx-card-close:hover,
+.fx-card-close:active {
+    color: var(--danger);
+    background: rgba(255, 82, 82, 0.12);
+}
+
+.fx-card-body {
+    padding: 10px 12px 12px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: calc(100vh - 180px);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.fx-card-actions {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+}
+
+.fx-card-btn {
+    flex: 1 1 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 10px;
+    min-height: 34px;
+    background: var(--surface-light);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    color: var(--text-main);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+.fx-card-btn:hover,
+.fx-card-btn:active {
+    background: rgba(0, 230, 118, 0.12);
+    border-color: var(--primary);
+    color: var(--primary);
+}
+.fx-card-btn.active {
+    background: var(--primary) !important;
+    color: #000 !important;
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 8px rgba(0, 230, 118, 0.45);
+}
+.fx-card-btn i { font-size: 12px; }
+
+.fx-card-sliders {
+    display: flex;
+    width: 100%;
+}
+
+.fx-card-layout-stack {
+    flex-direction: column;
+    gap: 6px;
+}
+
+.fx-card-slider-stack {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.fx-card-layout-row-compact-vertical {
+    flex-direction: row;
+    gap: 6px;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 4px 0 6px;
+}
+
+.fx-card-slider-eq {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex: 0 0 auto;
+}
+
+.fx-card-slider-label {
+    font-size: 9px;
+    color: var(--text-dim);
+    letter-spacing: 0.3px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.fx-card-slider-host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 56px;
+}
+
+.fx-card-slider-stack .fx-card-slider-host { min-height: 56px; }
+.fx-card-slider-eq .fx-card-slider-host { min-height: 160px; min-width: 44px; }
+
+.fx-card-slider-host .rn-slider-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+/* --- Pad FX launcher buttons (inside the pad manager modal) --- */
+.pad-fx-launchers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 6px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.pad-fx-btn {
+    padding: 8px 6px;
+    background: var(--surface-light);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    color: var(--text-dim);
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: center;
+    min-height: 36px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.pad-fx-btn:hover,
+.pad-fx-btn:active {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.pad-fx-btn.active {
+    background: var(--primary);
+    color: #000;
+    border-color: var(--primary);
+    font-weight: 700;
+    box-shadow: 0 0 8px rgba(0, 230, 118, 0.35);
+}
+
+/* Static floating card (defined in HTML, not created by fxModal.js) */
+.pad-manager-card {
+    top: 120px;
+    left: 40px;
+    width: 340px;
+    max-width: calc(100vw - 24px);
+    display: none;
+    opacity: 0;
+    transform: translateY(6px);
+    z-index: 20;
+}
+.pad-manager-card.show {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+}
+.step-editor-card {
+    width: 400px;
+    max-width: calc(100vw - 24px);
+    max-height: calc(100vh - 120px);
+    z-index: 2150;
+    pointer-events: auto;
+}
+
+.step-editor-card .fx-card-body {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* ============================================================
+   ADSR OVERRIDE SECTION (inside step editor card)
+   ============================================================ */
+
+.adsr-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.adsr-header label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.adsr-master-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    background: var(--surface-light);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    color: var(--text-dim);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+.adsr-master-toggle:hover,
+.adsr-master-toggle:active {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+.adsr-master-toggle.active {
+    background: var(--primary);
+    color: #000;
+    border-color: var(--primary);
+}
+.adsr-master-toggle i { font-size: 10px; }
+
+.adsr-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.adsr-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 2px;
+}
+
+.adsr-toggle {
+    flex: 0 0 auto;
+    width: 26px;
+    height: 26px;
+    background: var(--surface-light);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    color: var(--text-dim);
+    font-size: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+.adsr-toggle:hover,
+.adsr-toggle:active {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+.adsr-toggle.active {
+    background: var(--primary);
+    color: #000;
+    border-color: var(--primary);
+    box-shadow: 0 0 8px rgba(0, 230, 118, 0.4);
+}
+
+.adsr-label {
+    flex: 1 1 auto;
+    font-size: 11px;
+    color: var(--text-main);
+    letter-spacing: 0.3px;
+}
+
+.adsr-value {
+    flex: 0 0 auto;
+    min-width: 50px;
+    text-align: right;
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.adsr-slider-host {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    min-height: 50px;
+}
+
+.adsr-hint {
+    display: inline-block;
+    padding: 6px 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px dashed var(--border);
+    border-radius: 5px;
+    font-size: 11px;
+    color: var(--text-dim);
+    font-style: italic;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+@media (max-width: 520px) {
+    .step-editor-card {
+        width: calc(100vw - 16px);
+        max-height: calc(100vh - 80px);
+    }
+}
+
+@media (max-width: 480px) {
+    .fx-card {
+        min-width: 200px;
+        max-width: calc(100vw - 12px);
+    }
+    .fx-card-title { font-size: 11px; }
+    .fx-card-body { padding: 8px 10px 10px; gap: 8px; }
+    .fx-card-layout-row-compact-vertical { gap: 4px; }
+    .fx-card-slider-eq .slider-canvas { width: 42px !important; }
+    .fx-card-slider-eq .slider-canvas { height: 140px !important; }
+}
