@@ -1,0 +1,2030 @@
+{
+  "format": "mrsm-tones",
+  "version": 2,
+  "presets": [
+    {
+      "name": "Concert Grand",
+      "category": "Keys",
+      "author": "factory",
+      "tags": ["acoustic", "bright", "velocity"],
+      "voice": {
+        "waveform": "triangle", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 2, "unisonSpread": 6, "unisonPanSpread": 0.3,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": 3, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.2, "osc2Pan": 0.2,
+        "noiseEnabled": true, "noiseLevel": 0.04, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.002, "decay": 0.7, "sustain": 0.4, "release": 0.6,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 6500, "resonance": 0.9, "filterKeytrack": 35,
+        "filterEnvEnabled": true, "filterEnvAmount": 45, "filterEnvAttack": 0.001, "filterEnvDecay": 0.6, "filterEnvSustain": 0.15, "filterEnvRelease": 0.7,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true, "compressor": true }, "states": { "reverb": { "decay": 1.8, "mix": 0.22 }, "compressor": { "threshold": -18, "ratio": 4, "attack": 0.005, "release": 0.2 } } }
+    },
+    {
+      "name": "Studio Grand",
+      "category": "Keys",
+      "author": "factory",
+      "tags": ["acoustic", "warm", "pop"],
+      "voice": {
+        "waveform": "triangle", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 2, "unisonSpread": 5, "unisonPanSpread": 0.4,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sine", "osc2Detune": 2, "osc2Octave": 2, "osc2Semitone": 0, "osc2Level": 0.18, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.05, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.002, "decay": 1.0, "sustain": 0.35, "release": 0.9,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 5000, "resonance": 1.0, "filterKeytrack": 40,
+        "filterEnvEnabled": true, "filterEnvAmount": 40, "filterEnvAttack": 0.001, "filterEnvDecay": 0.8, "filterEnvSustain": 0.12, "filterEnvRelease": 0.9,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true, "equalizer": true }, "states": { "reverb": { "decay": 2.2, "mix": 0.28 }, "equalizer": { "band1": 2, "band2": 1, "band3": 0, "band4": 1, "band5": 2 } } }
+    },
+    {
+      "name": "Honky Tonk",
+      "category": "Keys",
+      "author": "factory",
+      "tags": ["detuned", "saloon", "bright"],
+      "voice": {
+        "waveform": "triangle", "detune": 12, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 3, "unisonSpread": 20, "unisonPanSpread": 0.6,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": -8, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.25, "osc2Pan": -0.3,
+        "noiseEnabled": true, "noiseLevel": 0.06, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.002, "decay": 0.6, "sustain": 0.35, "release": 0.5,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 6000, "resonance": 1.2, "filterKeytrack": 30,
+        "filterEnvEnabled": true, "filterEnvAmount": 40, "filterEnvAttack": 0.001, "filterEnvDecay": 0.5, "filterEnvSustain": 0.15, "filterEnvRelease": 0.6,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 1.5, "mix": 0.22 } } }
+    },
+    {
+      "name": "Rhodes 70s",
+      "category": "Keys",
+      "author": "factory",
+      "tags": ["electric", "vintage", "funk"],
+      "voice": {
+        "waveform": "sine", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 2, "unisonSpread": 4, "unisonPanSpread": 0.3,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sine", "osc2Detune": 8, "osc2Octave": 2, "osc2Semitone": 0, "osc2Level": 0.28, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.03, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.003, "decay": 1.2, "sustain": 0.45, "release": 1.2,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 4200, "resonance": 1.5, "filterKeytrack": 25,
+        "filterEnvEnabled": true, "filterEnvAmount": 55, "filterEnvAttack": 0.001, "filterEnvDecay": 0.8, "filterEnvSustain": 0.15, "filterEnvRelease": 0.9,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "chorus": true, "reverb": true, "compressor": true }, "states": { "chorus": { "rate": 0.6, "depth": 0.003, "mix": 0.5, "type": "chorus" }, "reverb": { "decay": 2.5, "mix": 0.3 }, "compressor": { "threshold": -18, "ratio": 5, "attack": 0.005, "release": 0.2 } } }
+    },
+    {
+      "name": "Wurlitzer",
+      "category": "Keys",
+      "author": "factory",
+      "tags": ["reed", "vintage", "warm"],
+      "voice": {
+        "waveform": "triangle", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 2, "unisonSpread": 5, "unisonPanSpread": 0.3,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "square", "osc2Detune": 12, "osc2Octave": 1, "osc2Semitone": 0, "osc2Level": 0.2, "osc2Pan": 0.15,
+        "noiseEnabled": true, "noiseLevel": 0.05, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.003, "decay": 0.9, "sustain": 0.35, "release": 0.8,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 3200, "resonance": 2.2, "filterKeytrack": 30,
+        "filterEnvEnabled": true, "filterEnvAmount": 50, "filterEnvAttack": 0.001, "filterEnvDecay": 0.6, "filterEnvSustain": 0.1, "filterEnvRelease": 0.7,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "chorus": true, "reverb": true }, "states": { "chorus": { "rate": 0.4, "depth": 0.0035, "mix": 0.55, "type": "chorus" }, "reverb": { "decay": 1.8, "mix": 0.25 } } }
+    },
+    {
+      "name": "FM Piano",
+      "category": "Keys",
+      "author": "factory",
+      "tags": ["digital", "bright", "80s"],
+      "voice": {
+        "waveform": "sine", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sine", "osc2Detune": 0, "osc2Octave": 3, "osc2Semitone": 4, "osc2Level": 0.35, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.04, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 0.8, "sustain": 0.3, "release": 0.7,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 5500, "resonance": 1.0, "filterKeytrack": 40,
+        "filterEnvEnabled": true, "filterEnvAmount": 55, "filterEnvAttack": 0.001, "filterEnvDecay": 0.5, "filterEnvSustain": 0.1, "filterEnvRelease": 0.6,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "chorus": true, "reverb": true }, "states": { "chorus": { "rate": 0.7, "depth": 0.002, "mix": 0.35, "type": "chorus" }, "reverb": { "decay": 2.2, "mix": 0.3 } } }
+    },
+    {
+      "name": "DX Rhodes",
+      "category": "Keys",
+      "author": "factory",
+      "tags": ["fm", "80s", "electric"],
+      "voice": {
+        "waveform": "sine", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sine", "osc2Detune": 0, "osc2Octave": 4, "osc2Semitone": 0, "osc2Level": 0.22, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.05, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 1.5, "sustain": 0.35, "release": 1.3,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 4000, "resonance": 1.0, "filterKeytrack": 35,
+        "filterEnvEnabled": true, "filterEnvAmount": 50, "filterEnvAttack": 0.001, "filterEnvDecay": 1.2, "filterEnvSustain": 0.1, "filterEnvRelease": 1.0,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "chorus": true, "reverb": true, "compressor": true }, "states": { "chorus": { "rate": 0.5, "depth": 0.0025, "mix": 0.45, "type": "chorus" }, "reverb": { "decay": 2.5, "mix": 0.32 }, "compressor": { "threshold": -20, "ratio": 4, "attack": 0.005, "release": 0.25 } } }
+    },
+    {
+      "name": "Clavinet",
+      "category": "Keys",
+      "author": "factory",
+      "tags": ["funk", "plucky", "bright"],
+      "voice": {
+        "waveform": "square", "detune": 0, "pulseWidth": 0.3, "octaveOffset": 0,
+        "unisonVoices": 2, "unisonSpread": 8, "unisonPanSpread": 0.3,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "square", "osc2Detune": 6, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.35, "osc2Pan": -0.2,
+        "noiseEnabled": false, "noiseLevel": 0.15, "noiseColor": "white", "noiseMode": "amp",
+        "attack": 0.001, "decay": 0.3, "sustain": 0.2, "release": 0.2,
+        "filterType": "bandpass", "filterSlope": "12db", "cutoff": 2400, "resonance": 2.8, "filterKeytrack": 50,
+        "filterEnvEnabled": true, "filterEnvAmount": 55, "filterEnvAttack": 0.001, "filterEnvDecay": 0.2, "filterEnvSustain": 0.1, "filterEnvRelease": 0.3,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "compressor": true, "equalizer": true, "reverb": true }, "states": { "compressor": { "threshold": -18, "ratio": 6, "attack": 0.003, "release": 0.15 }, "equalizer": { "band1": 3, "band2": 0, "band3": 2, "band4": 4, "band5": 1 }, "reverb": { "decay": 1.2, "mix": 0.18 } } }
+    },
+    {
+      "name": "Drawbar Organ",
+      "category": "Keys",
+      "author": "factory",
+      "tags": ["organ", "gospel", "smooth"],
+      "voice": {
+        "waveform": "sine", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": true, "subWaveform": "sine", "subVolume": 0.6,
+        "osc2Enabled": true, "osc2Waveform": "sine", "osc2Detune": 0, "osc2Octave": 1, "osc2Semitone": 7, "osc2Level": 0.4, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.02, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.005, "decay": 0.05, "sustain": 0.95, "release": 0.05,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 9000, "resonance": 0.7, "filterKeytrack": 20,
+        "filterEnvEnabled": false, "filterEnvAmount": 0, "filterEnvAttack": 0.05, "filterEnvDecay": 0.3, "filterEnvSustain": 0.6, "filterEnvRelease": 0.3,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 6.2, "lfoDepth": 22, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "chorus": true, "reverb": true }, "states": { "chorus": { "rate": 6, "depth": 0.004, "mix": 0.6, "type": "chorus" }, "reverb": { "decay": 1.5, "mix": 0.15 } } }
+    },
+    {
+      "name": "Gospel Organ",
+      "category": "Keys",
+      "author": "factory",
+      "tags": ["organ", "bright", "leslie"],
+      "voice": {
+        "waveform": "square", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": true, "subWaveform": "square", "subVolume": 0.45,
+        "osc2Enabled": true, "osc2Waveform": "sine", "osc2Detune": 0, "osc2Octave": 2, "osc2Semitone": 0, "osc2Level": 0.35, "osc2Pan": 0.3,
+        "noiseEnabled": true, "noiseLevel": 0.02, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.004, "decay": 0.04, "sustain": 0.95, "release": 0.05,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 10000, "resonance": 0.8, "filterKeytrack": 15,
+        "filterEnvEnabled": false, "filterEnvAmount": 0, "filterEnvAttack": 0.05, "filterEnvDecay": 0.3, "filterEnvSustain": 0.6, "filterEnvRelease": 0.3,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 6.5, "lfoDepth": 18, "lfoTarget": "amp",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "chorus": true, "reverb": true }, "states": { "chorus": { "rate": 6.5, "depth": 0.005, "mix": 0.65, "type": "chorus" }, "reverb": { "decay": 1.8, "mix": 0.2 } } }
+    },
+    {
+      "name": "Church Organ",
+      "category": "Keys",
+      "author": "factory",
+      "tags": ["organ", "cathedral", "deep"],
+      "voice": {
+        "waveform": "sine", "detune": 0, "pulseWidth": 0.5, "octaveOffset": -1,
+        "unisonVoices": 2, "unisonSpread": 3, "unisonPanSpread": 0.4,
+        "subEnabled": true, "subWaveform": "sine", "subVolume": 0.7,
+        "osc2Enabled": true, "osc2Waveform": "sine", "osc2Detune": 0, "osc2Octave": 2, "osc2Semitone": 7, "osc2Level": 0.35, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.03, "noiseColor": "white", "noiseMode": "amp",
+        "attack": 0.15, "decay": 0.1, "sustain": 0.95, "release": 0.6,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 8000, "resonance": 0.6, "filterKeytrack": 15,
+        "filterEnvEnabled": false, "filterEnvAmount": 0, "filterEnvAttack": 0.05, "filterEnvDecay": 0.3, "filterEnvSustain": 0.6, "filterEnvRelease": 0.3,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 5.0, "mix": 0.5 } } }
+    },
+    {
+      "name": "Harpsichord",
+      "category": "Keys",
+      "author": "factory",
+      "tags": ["baroque", "plucked", "bright"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 2, "unisonSpread": 10, "unisonPanSpread": 0.5,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": 4, "osc2Octave": 1, "osc2Semitone": 0, "osc2Level": 0.3, "osc2Pan": 0.15,
+        "noiseEnabled": true, "noiseLevel": 0.06, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 0.5, "sustain": 0.1, "release": 0.4,
+        "filterType": "bandpass", "filterSlope": "12db", "cutoff": 3200, "resonance": 1.8, "filterKeytrack": 60,
+        "filterEnvEnabled": true, "filterEnvAmount": 30, "filterEnvAttack": 0.001, "filterEnvDecay": 0.4, "filterEnvSustain": 0.1, "filterEnvRelease": 0.5,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 1.5, "mix": 0.22 } } }
+    },
+    {
+      "name": "Celesta",
+      "category": "Keys",
+      "author": "factory",
+      "tags": ["bell", "delicate", "bright"],
+      "voice": {
+        "waveform": "sine", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 1,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sine", "osc2Detune": 0, "osc2Octave": 3, "osc2Semitone": 0, "osc2Level": 0.15, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.04, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 1.2, "sustain": 0.08, "release": 1.5,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 10000, "resonance": 1.0, "filterKeytrack": 40,
+        "filterEnvEnabled": true, "filterEnvAmount": 25, "filterEnvAttack": 0.001, "filterEnvDecay": 0.6, "filterEnvSustain": 0.05, "filterEnvRelease": 1.2,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 3.0, "mix": 0.35 } } }
+    },
+    {
+      "name": "Toy Piano",
+      "category": "Keys",
+      "author": "factory",
+      "tags": ["bell", "bright", "playful"],
+      "voice": {
+        "waveform": "triangle", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 1,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sine", "osc2Detune": 8, "osc2Octave": 2, "osc2Semitone": 0, "osc2Level": 0.22, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.06, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 0.4, "sustain": 0.15, "release": 0.4,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 8000, "resonance": 1.0, "filterKeytrack": 40,
+        "filterEnvEnabled": true, "filterEnvAmount": 30, "filterEnvAttack": 0.001, "filterEnvDecay": 0.3, "filterEnvSustain": 0.15, "filterEnvRelease": 0.4,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 1.8, "mix": 0.25 } } }
+    },
+    {
+      "name": "Music Box",
+      "category": "Keys",
+      "author": "factory",
+      "tags": ["bell", "delicate", "nostalgic"],
+      "voice": {
+        "waveform": "sine", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 2,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sine", "osc2Detune": 15, "osc2Octave": 3, "osc2Semitone": 0, "osc2Level": 0.15, "osc2Pan": 0.3,
+        "noiseEnabled": true, "noiseLevel": 0.05, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 0.9, "sustain": 0.05, "release": 1.2,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 8000, "resonance": 1.0, "filterKeytrack": 35,
+        "filterEnvEnabled": true, "filterEnvAmount": 30, "filterEnvAttack": 0.001, "filterEnvDecay": 0.5, "filterEnvSustain": 0.02, "filterEnvRelease": 1.0,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 3.0, "mix": 0.4 } } }
+    },
+
+    {
+      "name": "Warm Analog Pad",
+      "category": "Pads",
+      "author": "factory",
+      "tags": ["warm", "analog", "soft"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 8, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 5, "unisonSpread": 22, "unisonPanSpread": 0.8,
+        "subEnabled": true, "subWaveform": "sine", "subVolume": 0.35,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": -8, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.4, "osc2Pan": -0.4,
+        "noiseEnabled": true, "noiseLevel": 0.03, "noiseColor": "pink", "noiseMode": "amp",
+        "attack": 0.9, "decay": 0.8, "sustain": 0.85, "release": 1.8,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 1500, "resonance": 3.5, "filterKeytrack": 20,
+        "filterEnvEnabled": true, "filterEnvAmount": 20, "filterEnvAttack": 1.2, "filterEnvDecay": 1.5, "filterEnvSustain": 0.7, "filterEnvRelease": 2.0,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 0.5, "lfoDepth": 12, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "chorus": true, "reverb": true, "equalizer": true }, "states": { "chorus": { "rate": 0.4, "depth": 0.003, "mix": 0.55, "type": "chorus" }, "reverb": { "decay": 3.5, "mix": 0.4 }, "equalizer": { "band1": 2, "band2": 0, "band3": -1, "band4": 1, "band5": 3 } } }
+    },
+    {
+      "name": "Supersaw Pad",
+      "category": "Pads",
+      "author": "factory",
+      "tags": ["supersaw", "wide", "bright"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 7, "unisonSpread": 32, "unisonPanSpread": 1.0,
+        "subEnabled": true, "subWaveform": "sine", "subVolume": 0.3,
+        "osc2Enabled": false, "osc2Waveform": "sawtooth", "osc2Detune": 0, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.5, "osc2Pan": 0,
+        "noiseEnabled": false, "noiseLevel": 0.15, "noiseColor": "white", "noiseMode": "amp",
+        "attack": 0.6, "decay": 0.6, "sustain": 0.85, "release": 1.5,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 3000, "resonance": 4.5, "filterKeytrack": 30,
+        "filterEnvEnabled": true, "filterEnvAmount": 25, "filterEnvAttack": 0.8, "filterEnvDecay": 1.0, "filterEnvSustain": 0.7, "filterEnvRelease": 2.0,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "chorus": true, "reverb": true }, "states": { "chorus": { "rate": 0.3, "depth": 0.004, "mix": 0.6, "type": "chorus" }, "reverb": { "decay": 4.0, "mix": 0.4 } } }
+    },
+    {
+      "name": "Ambient Drift",
+      "category": "Pads",
+      "author": "factory",
+      "tags": ["ambient", "cinematic", "evolving"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 5, "unisonSpread": 28, "unisonPanSpread": 1.0,
+        "subEnabled": true, "subWaveform": "sine", "subVolume": 0.3,
+        "osc2Enabled": true, "osc2Waveform": "triangle", "osc2Detune": -18, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.35, "osc2Pan": 0.6,
+        "noiseEnabled": true, "noiseLevel": 0.08, "noiseColor": "pink", "noiseMode": "amp",
+        "attack": 3.0, "decay": 2.5, "sustain": 0.8, "release": 5.0,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 1200, "resonance": 4.0, "filterKeytrack": 25,
+        "filterEnvEnabled": true, "filterEnvAmount": 30, "filterEnvAttack": 2.5, "filterEnvDecay": 3.0, "filterEnvSustain": 0.6, "filterEnvRelease": 5.0,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 0.15, "lfoDepth": 18, "lfoTarget": "filter",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "chorus": true, "reverb": true, "phaser": true }, "states": { "chorus": { "rate": 0.2, "depth": 0.005, "mix": 0.6, "type": "chorus" }, "reverb": { "decay": 6.0, "mix": 0.55 }, "phaser": { "rate": 0.15, "depth": 0.7, "feedback": 0.4, "mix": 0.35 } } }
+    },
+    {
+      "name": "Glass Pad",
+      "category": "Pads",
+      "author": "factory",
+      "tags": ["bright", "shimmer", "crystal"],
+      "voice": {
+        "waveform": "triangle", "detune": 6, "pulseWidth": 0.5, "octaveOffset": 1,
+        "unisonVoices": 4, "unisonSpread": 18, "unisonPanSpread": 0.9,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sine", "osc2Detune": 10, "osc2Octave": 1, "osc2Semitone": 0, "osc2Level": 0.35, "osc2Pan": 0.4,
+        "noiseEnabled": true, "noiseLevel": 0.05, "noiseColor": "pink", "noiseMode": "amp",
+        "attack": 1.2, "decay": 1.0, "sustain": 0.8, "release": 2.5,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 4500, "resonance": 2.5, "filterKeytrack": 40,
+        "filterEnvEnabled": true, "filterEnvAmount": 20, "filterEnvAttack": 1.5, "filterEnvDecay": 2.0, "filterEnvSustain": 0.6, "filterEnvRelease": 3.0,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 0.4, "lfoDepth": 15, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "chorus": true, "reverb": true }, "states": { "chorus": { "rate": 0.6, "depth": 0.0035, "mix": 0.5, "type": "chorus" }, "reverb": { "decay": 4.5, "mix": 0.45 } } }
+    },
+    {
+      "name": "Dark Cinematic",
+      "category": "Pads",
+      "author": "factory",
+      "tags": ["dark", "cinematic", "moody"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": -1,
+        "unisonVoices": 5, "unisonSpread": 35, "unisonPanSpread": 0.9,
+        "subEnabled": true, "subWaveform": "sawtooth", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": -12, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.5, "osc2Pan": 0.3,
+        "noiseEnabled": true, "noiseLevel": 0.06, "noiseColor": "brown", "noiseMode": "amp",
+        "attack": 1.5, "decay": 1.2, "sustain": 0.9, "release": 3.0,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 800, "resonance": 4.5, "filterKeytrack": 15,
+        "filterEnvEnabled": true, "filterEnvAmount": -25, "filterEnvAttack": 2.0, "filterEnvDecay": 2.5, "filterEnvSustain": 0.7, "filterEnvRelease": 3.5,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 0.2, "lfoDepth": 25, "lfoTarget": "filter",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "chorus": true, "reverb": true, "equalizer": true }, "states": { "chorus": { "rate": 0.25, "depth": 0.004, "mix": 0.6, "type": "chorus" }, "reverb": { "decay": 5.0, "mix": 0.5 }, "equalizer": { "band1": 4, "band2": 2, "band3": -2, "band4": -3, "band5": -4 } } }
+    },
+    {
+      "name": "Choir Pad",
+      "category": "Pads",
+      "author": "factory",
+      "tags": ["vocal", "choral", "warm"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 3, "unisonSpread": 12, "unisonPanSpread": 0.6,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "triangle", "osc2Detune": -6, "osc2Octave": 0, "osc2Semitone": 7, "osc2Level": 0.35, "osc2Pan": 0.5,
+        "noiseEnabled": true, "noiseLevel": 0.04, "noiseColor": "pink", "noiseMode": "amp",
+        "attack": 0.8, "decay": 0.6, "sustain": 0.9, "release": 1.5,
+        "filterType": "bandpass", "filterSlope": "24db", "cutoff": 1400, "resonance": 5.5, "filterKeytrack": 30,
+        "filterEnvEnabled": true, "filterEnvAmount": 20, "filterEnvAttack": 0.9, "filterEnvDecay": 1.0, "filterEnvSustain": 0.8, "filterEnvRelease": 1.8,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 5.2, "lfoDepth": 15, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "chorus": true, "reverb": true }, "states": { "chorus": { "rate": 0.5, "depth": 0.004, "mix": 0.65, "type": "chorus" }, "reverb": { "decay": 4.0, "mix": 0.4 } } }
+    },
+    {
+      "name": "Evolving Textures",
+      "category": "Pads",
+      "author": "factory",
+      "tags": ["evolving", "experimental", "textured"],
+      "voice": {
+        "waveform": "square", "detune": 0, "pulseWidth": 0.35, "octaveOffset": 0,
+        "unisonVoices": 6, "unisonSpread": 30, "unisonPanSpread": 1.0,
+        "subEnabled": true, "subWaveform": "sine", "subVolume": 0.35,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": -20, "osc2Octave": 0, "osc2Semitone": 5, "osc2Level": 0.4, "osc2Pan": -0.7,
+        "noiseEnabled": true, "noiseLevel": 0.1, "noiseColor": "brown", "noiseMode": "amp",
+        "attack": 2.5, "decay": 2.0, "sustain": 0.85, "release": 4.5,
+        "filterType": "notch", "filterSlope": "24db", "cutoff": 1000, "resonance": 3.0, "filterKeytrack": 20,
+        "filterEnvEnabled": true, "filterEnvAmount": 55, "filterEnvAttack": 3.0, "filterEnvDecay": 4.0, "filterEnvSustain": 0.5, "filterEnvRelease": 5.0,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 0.25, "lfoDepth": 45, "lfoTarget": "filter",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "chorus": true, "reverb": true, "phaser": true }, "states": { "chorus": { "rate": 0.3, "depth": 0.005, "mix": 0.6, "type": "chorus" }, "reverb": { "decay": 6.0, "mix": 0.5 }, "phaser": { "rate": 0.2, "depth": 0.8, "feedback": 0.5, "mix": 0.4 } } }
+    },
+    {
+      "name": "Bowed Glass",
+      "category": "Pads",
+      "author": "factory",
+      "tags": ["glass", "bowed", "smooth"],
+      "voice": {
+        "waveform": "sine", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 3, "unisonSpread": 10, "unisonPanSpread": 0.7,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "triangle", "osc2Detune": 8, "osc2Octave": 1, "osc2Semitone": 7, "osc2Level": 0.3, "osc2Pan": 0.3,
+        "noiseEnabled": true, "noiseLevel": 0.03, "noiseColor": "pink", "noiseMode": "amp",
+        "attack": 1.5, "decay": 1.0, "sustain": 0.9, "release": 3.0,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 5000, "resonance": 2.0, "filterKeytrack": 50,
+        "filterEnvEnabled": true, "filterEnvAmount": 15, "filterEnvAttack": 2.0, "filterEnvDecay": 2.0, "filterEnvSustain": 0.75, "filterEnvRelease": 3.0,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 4.5, "lfoDepth": 18, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "chorus": true, "reverb": true }, "states": { "chorus": { "rate": 0.3, "depth": 0.004, "mix": 0.55, "type": "chorus" }, "reverb": { "decay": 5.5, "mix": 0.45 } } }
+    },
+    {
+      "name": "Sci-Fi Drone",
+      "category": "Pads",
+      "author": "factory",
+      "tags": ["sci-fi", "motion", "wide"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 6, "unisonSpread": 40, "unisonPanSpread": 1.0,
+        "subEnabled": true, "subWaveform": "sawtooth", "subVolume": 0.4,
+        "osc2Enabled": true, "osc2Waveform": "square", "osc2Detune": -25, "osc2Octave": 0, "osc2Semitone": 5, "osc2Level": 0.45, "osc2Pan": 0.6,
+        "noiseEnabled": true, "noiseLevel": 0.08, "noiseColor": "brown", "noiseMode": "amp",
+        "attack": 1.5, "decay": 2.0, "sustain": 0.8, "release": 3.5,
+        "filterType": "bandpass", "filterSlope": "24db", "cutoff": 900, "resonance": 6.0, "filterKeytrack": 25,
+        "filterEnvEnabled": true, "filterEnvAmount": 60, "filterEnvAttack": 2.0, "filterEnvDecay": 3.0, "filterEnvSustain": 0.6, "filterEnvRelease": 4.0,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 0.15, "lfoDepth": 55, "lfoTarget": "filter",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "chorus": true, "phaser": true, "reverb": true }, "states": { "chorus": { "rate": 0.4, "depth": 0.005, "mix": 0.55, "type": "chorus" }, "phaser": { "rate": 0.3, "depth": 0.85, "feedback": 0.55, "mix": 0.4 }, "reverb": { "decay": 4.5, "mix": 0.5 } } }
+    },
+
+    {
+      "name": "Solo Violin",
+      "category": "Strings",
+      "author": "factory",
+      "tags": ["solo", "expressive", "bowed"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 2, "unisonSpread": 6, "unisonPanSpread": 0.3,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": -4, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.4, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.06, "noiseColor": "pink", "noiseMode": "amp",
+        "attack": 0.15, "decay": 0.3, "sustain": 0.85, "release": 0.5,
+        "filterType": "bandpass", "filterSlope": "12db", "cutoff": 1800, "resonance": 3.0, "filterKeytrack": 60,
+        "filterEnvEnabled": true, "filterEnvAmount": 25, "filterEnvAttack": 0.2, "filterEnvDecay": 0.4, "filterEnvSustain": 0.7, "filterEnvRelease": 0.5,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 5.5, "lfoDepth": 22, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 1.8, "mix": 0.3 } } }
+    },
+    {
+      "name": "String Ensemble",
+      "category": "Strings",
+      "author": "factory",
+      "tags": ["ensemble", "lush", "rich"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 5, "unisonSpread": 20, "unisonPanSpread": 0.9,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": -10, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.5, "osc2Pan": -0.4,
+        "noiseEnabled": true, "noiseLevel": 0.04, "noiseColor": "pink", "noiseMode": "amp",
+        "attack": 0.35, "decay": 0.4, "sustain": 0.9, "release": 0.9,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 3200, "resonance": 3.0, "filterKeytrack": 45,
+        "filterEnvEnabled": true, "filterEnvAmount": 15, "filterEnvAttack": 0.4, "filterEnvDecay": 0.6, "filterEnvSustain": 0.8, "filterEnvRelease": 1.0,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 5.0, "lfoDepth": 15, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "chorus": true, "reverb": true }, "states": { "chorus": { "rate": 0.6, "depth": 0.004, "mix": 0.5, "type": "chorus" }, "reverb": { "decay": 3.0, "mix": 0.35 } } }
+    },
+    {
+      "name": "Cello",
+      "category": "Strings",
+      "author": "factory",
+      "tags": ["low", "warm", "bowed"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": -1,
+        "unisonVoices": 2, "unisonSpread": 5, "unisonPanSpread": 0.3,
+        "subEnabled": true, "subWaveform": "sine", "subVolume": 0.3,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": -5, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.4, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.05, "noiseColor": "pink", "noiseMode": "amp",
+        "attack": 0.25, "decay": 0.35, "sustain": 0.85, "release": 0.6,
+        "filterType": "bandpass", "filterSlope": "12db", "cutoff": 900, "resonance": 3.2, "filterKeytrack": 60,
+        "filterEnvEnabled": true, "filterEnvAmount": 20, "filterEnvAttack": 0.3, "filterEnvDecay": 0.5, "filterEnvSustain": 0.75, "filterEnvRelease": 0.7,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 4.8, "lfoDepth": 20, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 2.2, "mix": 0.3 } } }
+    },
+    {
+      "name": "Analog String Machine",
+      "category": "Strings",
+      "author": "factory",
+      "tags": ["analog", "lush", "80s"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 6, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 6, "unisonSpread": 26, "unisonPanSpread": 1.0,
+        "subEnabled": true, "subWaveform": "sine", "subVolume": 0.25,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": -8, "osc2Octave": 1, "osc2Semitone": 0, "osc2Level": 0.4, "osc2Pan": 0.4,
+        "noiseEnabled": true, "noiseLevel": 0.03, "noiseColor": "pink", "noiseMode": "amp",
+        "attack": 0.6, "decay": 0.6, "sustain": 0.85, "release": 1.5,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 2800, "resonance": 4.0, "filterKeytrack": 35,
+        "filterEnvEnabled": true, "filterEnvAmount": 20, "filterEnvAttack": 0.8, "filterEnvDecay": 1.0, "filterEnvSustain": 0.7, "filterEnvRelease": 1.8,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 5.2, "lfoDepth": 12, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "chorus": true, "reverb": true }, "states": { "chorus": { "rate": 0.5, "depth": 0.004, "mix": 0.55, "type": "chorus" }, "reverb": { "decay": 3.5, "mix": 0.35 } } }
+    },
+    {
+      "name": "Pizzicato",
+      "category": "Strings",
+      "author": "factory",
+      "tags": ["plucked", "short", "orchestral"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 2, "unisonSpread": 6, "unisonPanSpread": 0.3,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": -6, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.35, "osc2Pan": 0.3,
+        "noiseEnabled": true, "noiseLevel": 0.08, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 0.15, "sustain": 0, "release": 0.25,
+        "filterType": "bandpass", "filterSlope": "12db", "cutoff": 1500, "resonance": 4.0, "filterKeytrack": 70,
+        "filterEnvEnabled": true, "filterEnvAmount": 60, "filterEnvAttack": 0.001, "filterEnvDecay": 0.15, "filterEnvSustain": 0, "filterEnvRelease": 0.25,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 1.5, "mix": 0.25 } } }
+    },
+
+    {
+      "name": "Deep Sub",
+      "category": "Bass",
+      "author": "factory",
+      "tags": ["sub", "clean", "deep"],
+      "voice": {
+        "waveform": "sine", "detune": 0, "pulseWidth": 0.5, "octaveOffset": -2,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": true, "subWaveform": "sine", "subVolume": 0.8,
+        "osc2Enabled": false, "osc2Waveform": "sine", "osc2Detune": 0, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.5, "osc2Pan": 0,
+        "noiseEnabled": false, "noiseLevel": 0.15, "noiseColor": "white", "noiseMode": "amp",
+        "attack": 0.005, "decay": 0.1, "sustain": 0.95, "release": 0.15,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 300, "resonance": 0.6, "filterKeytrack": 0,
+        "filterEnvEnabled": false, "filterEnvAmount": 0, "filterEnvAttack": 0.05, "filterEnvDecay": 0.3, "filterEnvSustain": 0.6, "filterEnvRelease": 0.3,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "compressor": true }, "states": { "compressor": { "threshold": -22, "ratio": 10, "attack": 0.003, "release": 0.08 } } }
+    },
+    {
+      "name": "Fat Analog Bass",
+      "category": "Bass",
+      "author": "factory",
+      "tags": ["fat", "analog", "punchy"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 6, "pulseWidth": 0.5, "octaveOffset": -1,
+        "unisonVoices": 3, "unisonSpread": 12, "unisonPanSpread": 0.3,
+        "subEnabled": true, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": -6, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.5, "osc2Pan": 0,
+        "noiseEnabled": false, "noiseLevel": 0.15, "noiseColor": "white", "noiseMode": "amp",
+        "attack": 0.003, "decay": 0.15, "sustain": 0.8, "release": 0.2,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 900, "resonance": 4.0, "filterKeytrack": 25,
+        "filterEnvEnabled": true, "filterEnvAmount": 55, "filterEnvAttack": 0.001, "filterEnvDecay": 0.2, "filterEnvSustain": 0.2, "filterEnvRelease": 0.25,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "compressor": true, "distortion": true }, "states": { "compressor": { "threshold": -18, "ratio": 6, "attack": 0.003, "release": 0.15 }, "distortion": { "drive": 15, "mix": 0.4 } } }
+    },
+    {
+      "name": "Reese Bass",
+      "category": "Bass",
+      "author": "factory",
+      "tags": ["detuned", "dnb", "dark"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": -1,
+        "unisonVoices": 4, "unisonSpread": 32, "unisonPanSpread": 0.7,
+        "subEnabled": true, "subWaveform": "sine", "subVolume": 0.55,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": -20, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.5, "osc2Pan": 0,
+        "noiseEnabled": false, "noiseLevel": 0.15, "noiseColor": "white", "noiseMode": "amp",
+        "attack": 0.005, "decay": 0.2, "sustain": 0.9, "release": 0.25,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 700, "resonance": 3.0, "filterKeytrack": 15,
+        "filterEnvEnabled": true, "filterEnvAmount": 25, "filterEnvAttack": 0.01, "filterEnvDecay": 0.3, "filterEnvSustain": 0.6, "filterEnvRelease": 0.4,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 0.3, "lfoDepth": 15, "lfoTarget": "filter",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "compressor": true, "reverb": true }, "states": { "compressor": { "threshold": -18, "ratio": 6, "attack": 0.003, "release": 0.15 }, "reverb": { "decay": 1.0, "mix": 0.1 } } }
+    },
+    {
+      "name": "Acid 303",
+      "category": "Bass",
+      "author": "factory",
+      "tags": ["acid", "squelch", "tb303"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": -1,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": true, "subWaveform": "sine", "subVolume": 0.3,
+        "osc2Enabled": false, "osc2Waveform": "sawtooth", "osc2Detune": 0, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.5, "osc2Pan": 0,
+        "noiseEnabled": false, "noiseLevel": 0.15, "noiseColor": "white", "noiseMode": "amp",
+        "attack": 0.001, "decay": 0.2, "sustain": 0.3, "release": 0.15,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 400, "resonance": 12.0, "filterKeytrack": 50,
+        "filterEnvEnabled": true, "filterEnvAmount": 90, "filterEnvAttack": 0.001, "filterEnvDecay": 0.25, "filterEnvSustain": 0, "filterEnvRelease": 0.2,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": true, "glideTime": 0.06
+      },
+      "effects": { "active": { "distortion": true }, "states": { "distortion": { "drive": 30, "mix": 0.5 } } }
+    },
+    {
+      "name": "Moog Mono Bass",
+      "category": "Bass",
+      "author": "factory",
+      "tags": ["analog", "mono", "punchy"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": -1,
+        "unisonVoices": 2, "unisonSpread": 4, "unisonPanSpread": 0.2,
+        "subEnabled": true, "subWaveform": "triangle", "subVolume": 0.6,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": 6, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.4, "osc2Pan": 0,
+        "noiseEnabled": false, "noiseLevel": 0.15, "noiseColor": "white", "noiseMode": "amp",
+        "attack": 0.001, "decay": 0.15, "sustain": 0.7, "release": 0.2,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 1200, "resonance": 6.0, "filterKeytrack": 35,
+        "filterEnvEnabled": true, "filterEnvAmount": 65, "filterEnvAttack": 0.001, "filterEnvDecay": 0.2, "filterEnvSustain": 0.15, "filterEnvRelease": 0.25,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": true, "glideTime": 0.08
+      },
+      "effects": { "active": { "compressor": true, "distortion": true }, "states": { "compressor": { "threshold": -16, "ratio": 5, "attack": 0.003, "release": 0.12 }, "distortion": { "drive": 20, "mix": 0.35 } } }
+    },
+    {
+      "name": "Wobble Bass",
+      "category": "Bass",
+      "author": "factory",
+      "tags": ["wobble", "dubstep", "aggressive"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": -1,
+        "unisonVoices": 3, "unisonSpread": 14, "unisonPanSpread": 0.4,
+        "subEnabled": true, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "square", "osc2Detune": -12, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.5, "osc2Pan": 0,
+        "noiseEnabled": false, "noiseLevel": 0.15, "noiseColor": "white", "noiseMode": "amp",
+        "attack": 0.001, "decay": 0.2, "sustain": 0.9, "release": 0.2,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 500, "resonance": 10.0, "filterKeytrack": 25,
+        "filterEnvEnabled": true, "filterEnvAmount": 80, "filterEnvAttack": 0.001, "filterEnvDecay": 0.25, "filterEnvSustain": 0.7, "filterEnvRelease": 0.3,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 1.5, "lfoDepth": 60, "lfoTarget": "filter",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "distortion": true, "compressor": true, "phaser": true }, "states": { "distortion": { "drive": 40, "mix": 0.5 }, "compressor": { "threshold": -16, "ratio": 8, "attack": 0.003, "release": 0.1 }, "phaser": { "rate": 1.5, "depth": 0.9, "feedback": 0.6, "mix": 0.4 } } }
+    },
+    {
+      "name": "Plucked Sub",
+      "category": "Bass",
+      "author": "factory",
+      "tags": ["pluck", "short", "modern"],
+      "voice": {
+        "waveform": "triangle", "detune": 0, "pulseWidth": 0.5, "octaveOffset": -1,
+        "unisonVoices": 2, "unisonSpread": 5, "unisonPanSpread": 0.3,
+        "subEnabled": true, "subWaveform": "sine", "subVolume": 0.7,
+        "osc2Enabled": true, "osc2Waveform": "square", "osc2Detune": 0, "osc2Octave": 1, "osc2Semitone": 0, "osc2Level": 0.3, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.05, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 0.18, "sustain": 0.15, "release": 0.2,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 800, "resonance": 5.0, "filterKeytrack": 40,
+        "filterEnvEnabled": true, "filterEnvAmount": 55, "filterEnvAttack": 0.001, "filterEnvDecay": 0.15, "filterEnvSustain": 0.05, "filterEnvRelease": 0.2,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "compressor": true, "reverb": true }, "states": { "compressor": { "threshold": -16, "ratio": 6, "attack": 0.002, "release": 0.1 }, "reverb": { "decay": 1.2, "mix": 0.15 } } }
+    },
+        {
+      "name": "Saw Lead",
+      "category": "Leads",
+      "author": "factory",
+      "tags": ["classic", "bright", "mono"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 3, "unisonSpread": 14, "unisonPanSpread": 0.5,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": -4, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.4, "osc2Pan": 0,
+        "noiseEnabled": false, "noiseLevel": 0.15, "noiseColor": "white", "noiseMode": "amp",
+        "attack": 0.01, "decay": 0.2, "sustain": 0.85, "release": 0.3,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 5000, "resonance": 3.0, "filterKeytrack": 45,
+        "filterEnvEnabled": true, "filterEnvAmount": 25, "filterEnvAttack": 0.02, "filterEnvDecay": 0.3, "filterEnvSustain": 0.7, "filterEnvRelease": 0.3,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 5.5, "lfoDepth": 12, "lfoTarget": "pitch",
+        "glideEnabled": true, "glideTime": 0.08
+      },
+      "effects": { "active": { "delay": false, "reverb": true }, "states": { "reverb": { "decay": 2.0, "mix": 0.25 } } }
+    },
+    {
+      "name": "Supersaw Lead",
+      "category": "Leads",
+      "author": "factory",
+      "tags": ["supersaw", "trance", "wide"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 7, "unisonSpread": 30, "unisonPanSpread": 1.0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": false, "osc2Waveform": "sawtooth", "osc2Detune": 0, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.5, "osc2Pan": 0,
+        "noiseEnabled": false, "noiseLevel": 0.15, "noiseColor": "white", "noiseMode": "amp",
+        "attack": 0.005, "decay": 0.1, "sustain": 0.9, "release": 0.4,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 6000, "resonance": 3.5, "filterKeytrack": 40,
+        "filterEnvEnabled": true, "filterEnvAmount": 20, "filterEnvAttack": 0.01, "filterEnvDecay": 0.15, "filterEnvSustain": 0.75, "filterEnvRelease": 0.2,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 5.0, "lfoDepth": 8, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true, "delay": false }, "states": { "reverb": { "decay": 3.0, "mix": 0.35 } } }
+    },
+    {
+      "name": "Square Lead",
+      "category": "Leads",
+      "author": "factory",
+      "tags": ["chiptune", "retro", "bright"],
+      "voice": {
+        "waveform": "square", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "square", "osc2Detune": 8, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.3, "osc2Pan": 0,
+        "noiseEnabled": false, "noiseLevel": 0.15, "noiseColor": "white", "noiseMode": "amp",
+        "attack": 0.005, "decay": 0.15, "sustain": 0.85, "release": 0.15,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 6500, "resonance": 2.0, "filterKeytrack": 35,
+        "filterEnvEnabled": false, "filterEnvAmount": 0, "filterEnvAttack": 0.05, "filterEnvDecay": 0.3, "filterEnvSustain": 0.6, "filterEnvRelease": 0.3,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 1.5, "mix": 0.2 } } }
+    },
+    {
+      "name": "Whistle Lead",
+      "category": "Leads",
+      "author": "factory",
+      "tags": ["sine", "smooth", "expressive"],
+      "voice": {
+        "waveform": "sine", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 1,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": false, "osc2Waveform": "sine", "osc2Detune": 0, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.5, "osc2Pan": 0,
+        "noiseEnabled": false, "noiseLevel": 0.15, "noiseColor": "white", "noiseMode": "amp",
+        "attack": 0.06, "decay": 0.15, "sustain": 0.9, "release": 0.35,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 12000, "resonance": 0.5, "filterKeytrack": 25,
+        "filterEnvEnabled": false, "filterEnvAmount": 0, "filterEnvAttack": 0.05, "filterEnvDecay": 0.3, "filterEnvSustain": 0.6, "filterEnvRelease": 0.3,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 5.5, "lfoDepth": 22, "lfoTarget": "pitch",
+        "glideEnabled": true, "glideTime": 0.12
+      },
+      "effects": { "active": { "vibrato": true, "reverb": true }, "states": { "vibrato": { "rate": 5.5, "depth": 25 }, "reverb": { "decay": 2.2, "mix": 0.3 } } }
+    },
+    {
+      "name": "Sync Lead",
+      "category": "Leads",
+      "author": "factory",
+      "tags": ["aggressive", "digital", "hard"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 2, "unisonSpread": 8, "unisonPanSpread": 0.3,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "square", "osc2Detune": 12, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.6, "osc2Pan": 0,
+        "noiseEnabled": false, "noiseLevel": 0.15, "noiseColor": "white", "noiseMode": "amp",
+        "attack": 0.005, "decay": 0.1, "sustain": 0.8, "release": 0.15,
+        "filterType": "bandpass", "filterSlope": "12db", "cutoff": 2800, "resonance": 5.0, "filterKeytrack": 55,
+        "filterEnvEnabled": true, "filterEnvAmount": 40, "filterEnvAttack": 0.001, "filterEnvDecay": 0.15, "filterEnvSustain": 0.3, "filterEnvRelease": 0.2,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 5.8, "lfoDepth": 10, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "distortion": true, "reverb": true }, "states": { "distortion": { "drive": 25, "mix": 0.4 }, "reverb": { "decay": 1.5, "mix": 0.2 } } }
+    },
+    {
+      "name": "Soft Lead",
+      "category": "Leads",
+      "author": "factory",
+      "tags": ["soft", "melodic", "warm"],
+      "voice": {
+        "waveform": "triangle", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 2, "unisonSpread": 6, "unisonPanSpread": 0.4,
+        "subEnabled": true, "subWaveform": "sine", "subVolume": 0.3,
+        "osc2Enabled": true, "osc2Waveform": "triangle", "osc2Detune": -3, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.4, "osc2Pan": 0,
+        "noiseEnabled": false, "noiseLevel": 0.15, "noiseColor": "white", "noiseMode": "amp",
+        "attack": 0.04, "decay": 0.2, "sustain": 0.85, "release": 0.4,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 4500, "resonance": 2.0, "filterKeytrack": 35,
+        "filterEnvEnabled": true, "filterEnvAmount": 15, "filterEnvAttack": 0.05, "filterEnvDecay": 0.3, "filterEnvSustain": 0.6, "filterEnvRelease": 0.4,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 5.2, "lfoDepth": 15, "lfoTarget": "pitch",
+        "glideEnabled": true, "glideTime": 0.1
+      },
+      "effects": { "active": { "chorus": true, "reverb": true }, "states": { "chorus": { "rate": 0.8, "depth": 0.003, "mix": 0.4, "type": "chorus" }, "reverb": { "decay": 2.5, "mix": 0.3 } } }
+    },
+    {
+      "name": "Detuned Mono Lead",
+      "category": "Leads",
+      "author": "factory",
+      "tags": ["detuned", "analog", "mono"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 2, "unisonSpread": 25, "unisonPanSpread": 0.4,
+        "subEnabled": true, "subWaveform": "sine", "subVolume": 0.35,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": -25, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.5, "osc2Pan": 0,
+        "noiseEnabled": false, "noiseLevel": 0.15, "noiseColor": "white", "noiseMode": "amp",
+        "attack": 0.01, "decay": 0.2, "sustain": 0.9, "release": 0.3,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 4000, "resonance": 4.0, "filterKeytrack": 40,
+        "filterEnvEnabled": true, "filterEnvAmount": 30, "filterEnvAttack": 0.02, "filterEnvDecay": 0.3, "filterEnvSustain": 0.65, "filterEnvRelease": 0.4,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": true, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 2.5, "mix": 0.3 } } }
+    },
+
+    {
+      "name": "Pan Flute",
+      "category": "Winds",
+      "author": "factory",
+      "tags": ["breathy", "soft", "folk"],
+      "voice": {
+        "waveform": "sine", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "triangle", "osc2Detune": 3, "osc2Octave": 1, "osc2Semitone": 0, "osc2Level": 0.15, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.15, "noiseColor": "pink", "noiseMode": "amp",
+        "attack": 0.08, "decay": 0.15, "sustain": 0.9, "release": 0.3,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 4500, "resonance": 1.2, "filterKeytrack": 45,
+        "filterEnvEnabled": false, "filterEnvAmount": 0, "filterEnvAttack": 0.05, "filterEnvDecay": 0.3, "filterEnvSustain": 0.6, "filterEnvRelease": 0.3,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 20, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "vibrato": true, "reverb": true }, "states": { "vibrato": { "rate": 5, "depth": 20 }, "reverb": { "decay": 2.5, "mix": 0.35 } } }
+    },
+    {
+      "name": "Soprano Sax",
+      "category": "Winds",
+      "author": "factory",
+      "tags": ["reed", "expressive", "jazz"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "square", "osc2Detune": 6, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.25, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.12, "noiseColor": "pink", "noiseMode": "amp",
+        "attack": 0.06, "decay": 0.2, "sustain": 0.85, "release": 0.35,
+        "filterType": "bandpass", "filterSlope": "12db", "cutoff": 1600, "resonance": 3.2, "filterKeytrack": 55,
+        "filterEnvEnabled": true, "filterEnvAmount": 30, "filterEnvAttack": 0.08, "filterEnvDecay": 0.25, "filterEnvSustain": 0.65, "filterEnvRelease": 0.4,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 5.5, "lfoDepth": 15, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "vibrato": true, "reverb": true }, "states": { "vibrato": { "rate": 5.5, "depth": 15 }, "reverb": { "decay": 2.0, "mix": 0.3 } } }
+    },
+    {
+      "name": "Clarinet",
+      "category": "Winds",
+      "author": "factory",
+      "tags": ["woodwind", "hollow", "smooth"],
+      "voice": {
+        "waveform": "square", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": true, "subWaveform": "sine", "subVolume": 0.3,
+        "osc2Enabled": false, "osc2Waveform": "sawtooth", "osc2Detune": 0, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.5, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.08, "noiseColor": "pink", "noiseMode": "amp",
+        "attack": 0.05, "decay": 0.15, "sustain": 0.85, "release": 0.25,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 2500, "resonance": 2.5, "filterKeytrack": 40,
+        "filterEnvEnabled": false, "filterEnvAmount": 0, "filterEnvAttack": 0.05, "filterEnvDecay": 0.3, "filterEnvSustain": 0.6, "filterEnvRelease": 0.3,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 5.0, "lfoDepth": 10, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 2.0, "mix": 0.25 } } }
+    },
+    {
+      "name": "Oboe",
+      "category": "Winds",
+      "author": "factory",
+      "tags": ["double-reed", "nasal", "bright"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 2, "unisonSpread": 5, "unisonPanSpread": 0.2,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "square", "osc2Detune": -3, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.3, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.1, "noiseColor": "pink", "noiseMode": "amp",
+        "attack": 0.03, "decay": 0.15, "sustain": 0.85, "release": 0.25,
+        "filterType": "bandpass", "filterSlope": "12db", "cutoff": 2000, "resonance": 4.0, "filterKeytrack": 60,
+        "filterEnvEnabled": false, "filterEnvAmount": 0, "filterEnvAttack": 0.05, "filterEnvDecay": 0.3, "filterEnvSustain": 0.6, "filterEnvRelease": 0.3,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 5.2, "lfoDepth": 12, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 2.0, "mix": 0.28 } } }
+    },
+    {
+      "name": "Bassoon",
+      "category": "Winds",
+      "author": "factory",
+      "tags": ["low", "dark", "woodwind"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": -1,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": true, "subWaveform": "square", "subVolume": 0.3,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": -3, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.35, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.1, "noiseColor": "pink", "noiseMode": "amp",
+        "attack": 0.05, "decay": 0.2, "sustain": 0.85, "release": 0.3,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 1800, "resonance": 3.0, "filterKeytrack": 40,
+        "filterEnvEnabled": false, "filterEnvAmount": 0, "filterEnvAttack": 0.05, "filterEnvDecay": 0.3, "filterEnvSustain": 0.6, "filterEnvRelease": 0.3,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 2.5, "mix": 0.3 } } }
+    },
+    {
+      "name": "Harmonica",
+      "category": "Winds",
+      "author": "factory",
+      "tags": ["blues", "reed", "expressive"],
+      "voice": {
+        "waveform": "square", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 2, "unisonSpread": 8, "unisonPanSpread": 0.3,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": -3, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.35, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.12, "noiseColor": "pink", "noiseMode": "amp",
+        "attack": 0.02, "decay": 0.1, "sustain": 0.9, "release": 0.2,
+        "filterType": "bandpass", "filterSlope": "12db", "cutoff": 1800, "resonance": 3.5, "filterKeytrack": 50,
+        "filterEnvEnabled": false, "filterEnvAmount": 0, "filterEnvAttack": 0.05, "filterEnvDecay": 0.3, "filterEnvSustain": 0.6, "filterEnvRelease": 0.3,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 6.0, "lfoDepth": 15, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "vibrato": true, "reverb": true }, "states": { "vibrato": { "rate": 6, "depth": 12 }, "reverb": { "decay": 2.0, "mix": 0.3 } } }
+    },
+    {
+      "name": "Recorder",
+      "category": "Winds",
+      "author": "factory",
+      "tags": ["folk", "bright", "simple"],
+      "voice": {
+        "waveform": "triangle", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "triangle", "osc2Detune": 4, "osc2Octave": 1, "osc2Semitone": 0, "osc2Level": 0.15, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.1, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.04, "decay": 0.1, "sustain": 0.9, "release": 0.2,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 5000, "resonance": 1.5, "filterKeytrack": 50,
+        "filterEnvEnabled": false, "filterEnvAmount": 0, "filterEnvAttack": 0.05, "filterEnvDecay": 0.3, "filterEnvSustain": 0.6, "filterEnvRelease": 0.3,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 5.5, "lfoDepth": 12, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 1.8, "mix": 0.25 } } }
+    },
+
+    {
+      "name": "Bell",
+      "category": "Bells & Mallets",
+      "author": "factory",
+      "tags": ["bright", "metallic", "clear"],
+      "voice": {
+        "waveform": "sine", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sine", "osc2Detune": 3, "osc2Octave": 2, "osc2Semitone": 4, "osc2Level": 0.3, "osc2Pan": 0.3,
+        "noiseEnabled": true, "noiseLevel": 0.05, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 1.5, "sustain": 0.1, "release": 2.0,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 12000, "resonance": 1.0, "filterKeytrack": 30,
+        "filterEnvEnabled": true, "filterEnvAmount": 30, "filterEnvAttack": 0.001, "filterEnvDecay": 1.0, "filterEnvSustain": 0.05, "filterEnvRelease": 2.0,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 3.5, "mix": 0.4 } } }
+    },
+    {
+      "name": "Tubular Bells",
+      "category": "Bells & Mallets",
+      "author": "factory",
+      "tags": ["orchestral", "metallic", "deep"],
+      "voice": {
+        "waveform": "sine", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sine", "osc2Detune": 5, "osc2Octave": 3, "osc2Semitone": 3, "osc2Level": 0.15, "osc2Pan": 0.4,
+        "noiseEnabled": true, "noiseLevel": 0.04, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 2.8, "sustain": 0.15, "release": 4.0,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 10000, "resonance": 1.0, "filterKeytrack": 25,
+        "filterEnvEnabled": true, "filterEnvAmount": 15, "filterEnvAttack": 0.001, "filterEnvDecay": 2.0, "filterEnvSustain": 0.1, "filterEnvRelease": 4.0,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 5.0, "mix": 0.45 } } }
+    },
+    {
+      "name": "Marimba",
+      "category": "Bells & Mallets",
+      "author": "factory",
+      "tags": ["wooden", "warm", "percussive"],
+      "voice": {
+        "waveform": "sine", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sine", "osc2Detune": 0, "osc2Octave": 2, "osc2Semitone": 0, "osc2Level": 0.25, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.04, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 0.6, "sustain": 0.05, "release": 0.8,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 5000, "resonance": 1.5, "filterKeytrack": 40,
+        "filterEnvEnabled": true, "filterEnvAmount": 40, "filterEnvAttack": 0.001, "filterEnvDecay": 0.3, "filterEnvSustain": 0.05, "filterEnvRelease": 0.6,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 2.0, "mix": 0.3 } } }
+    },
+    {
+      "name": "Xylophone",
+      "category": "Bells & Mallets",
+      "author": "factory",
+      "tags": ["bright", "percussive", "clear"],
+      "voice": {
+        "waveform": "sine", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 1,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sine", "osc2Detune": 0, "osc2Octave": 2, "osc2Semitone": 7, "osc2Level": 0.2, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.06, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 0.3, "sustain": 0.02, "release": 0.4,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 8000, "resonance": 1.2, "filterKeytrack": 50,
+        "filterEnvEnabled": true, "filterEnvAmount": 50, "filterEnvAttack": 0.001, "filterEnvDecay": 0.2, "filterEnvSustain": 0.02, "filterEnvRelease": 0.3,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 1.8, "mix": 0.35 } } }
+    },
+    {
+      "name": "Vibraphone",
+      "category": "Bells & Mallets",
+      "author": "factory",
+      "tags": ["jazz", "warm", "sustained"],
+      "voice": {
+        "waveform": "sine", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sine", "osc2Detune": 0, "osc2Octave": 2, "osc2Semitone": 0, "osc2Level": 0.22, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.04, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.002, "decay": 1.8, "sustain": 0.3, "release": 2.5,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 6000, "resonance": 1.0, "filterKeytrack": 40,
+        "filterEnvEnabled": false, "filterEnvAmount": 0, "filterEnvAttack": 0.05, "filterEnvDecay": 0.3, "filterEnvSustain": 0.6, "filterEnvRelease": 0.3,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 4.5, "lfoDepth": 18, "lfoTarget": "amp",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "vibrato": true, "reverb": true }, "states": { "vibrato": { "rate": 4.5, "depth": 18 }, "reverb": { "decay": 2.5, "mix": 0.35 } } }
+    },
+    {
+      "name": "Kalimba",
+      "category": "Bells & Mallets",
+      "author": "factory",
+      "tags": ["thumb-piano", "plucky", "world"],
+      "voice": {
+        "waveform": "sine", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "triangle", "osc2Detune": 8, "osc2Octave": 1, "osc2Semitone": 0, "osc2Level": 0.15, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.05, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 0.7, "sustain": 0.05, "release": 0.8,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 5500, "resonance": 1.5, "filterKeytrack": 45,
+        "filterEnvEnabled": true, "filterEnvAmount": 35, "filterEnvAttack": 0.001, "filterEnvDecay": 0.4, "filterEnvSustain": 0.05, "filterEnvRelease": 0.7,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 2.2, "mix": 0.3 } } }
+    },
+    {
+      "name": "Glockenspiel",
+      "category": "Bells & Mallets",
+      "author": "factory",
+      "tags": ["bright", "metallic", "clear"],
+      "voice": {
+        "waveform": "sine", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 1,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sine", "osc2Detune": 0, "osc2Octave": 3, "osc2Semitone": 0, "osc2Level": 0.15, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.04, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 0.6, "sustain": 0.05, "release": 0.8,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 12000, "resonance": 1.0, "filterKeytrack": 40,
+        "filterEnvEnabled": true, "filterEnvAmount": 40, "filterEnvAttack": 0.001, "filterEnvDecay": 0.3, "filterEnvSustain": 0.05, "filterEnvRelease": 0.6,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 2.8, "mix": 0.35 } } }
+    },
+    {
+      "name": "Steel Drum",
+      "category": "Bells & Mallets",
+      "author": "factory",
+      "tags": ["caribbean", "warm", "metallic"],
+      "voice": {
+        "waveform": "triangle", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sine", "osc2Detune": 0, "osc2Octave": 2, "osc2Semitone": 3, "osc2Level": 0.25, "osc2Pan": 0.3,
+        "noiseEnabled": true, "noiseLevel": 0.04, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 0.8, "sustain": 0.1, "release": 1.0,
+        "filterType": "bandpass", "filterSlope": "12db", "cutoff": 1500, "resonance": 2.5, "filterKeytrack": 60,
+        "filterEnvEnabled": true, "filterEnvAmount": 45, "filterEnvAttack": 0.001, "filterEnvDecay": 0.5, "filterEnvSustain": 0.1, "filterEnvRelease": 0.8,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 2.5, "mix": 0.32 } } }
+    },
+
+    {
+      "name": "Nylon Guitar",
+      "category": "Plucks",
+      "author": "factory",
+      "tags": ["acoustic", "warm", "spanish"],
+      "voice": {
+        "waveform": "triangle", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 2, "unisonSpread": 5, "unisonPanSpread": 0.3,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": -3, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.3, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.06, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.003, "decay": 0.5, "sustain": 0.15, "release": 0.6,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 4000, "resonance": 2.0, "filterKeytrack": 45,
+        "filterEnvEnabled": true, "filterEnvAmount": 40, "filterEnvAttack": 0.001, "filterEnvDecay": 0.4, "filterEnvSustain": 0.15, "filterEnvRelease": 0.5,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 2.0, "mix": 0.25 } } }
+    },
+    {
+      "name": "Steel Guitar",
+      "category": "Plucks",
+      "author": "factory",
+      "tags": ["bright", "metallic", "folk"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 2, "unisonSpread": 6, "unisonPanSpread": 0.4,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": -3, "osc2Octave": 1, "osc2Semitone": 0, "osc2Level": 0.25, "osc2Pan": 0.2,
+        "noiseEnabled": true, "noiseLevel": 0.08, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.002, "decay": 0.4, "sustain": 0.1, "release": 0.5,
+        "filterType": "bandpass", "filterSlope": "12db", "cutoff": 2500, "resonance": 2.5, "filterKeytrack": 55,
+        "filterEnvEnabled": true, "filterEnvAmount": 45, "filterEnvAttack": 0.001, "filterEnvDecay": 0.3, "filterEnvSustain": 0.1, "filterEnvRelease": 0.4,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 2.2, "mix": 0.3 } } }
+    },
+    {
+      "name": "Harp",
+      "category": "Plucks",
+      "author": "factory",
+      "tags": ["orchestral", "bright", "graceful"],
+      "voice": {
+        "waveform": "triangle", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sine", "osc2Detune": 0, "osc2Octave": 2, "osc2Semitone": 0, "osc2Level": 0.15, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.05, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 1.0, "sustain": 0.15, "release": 1.5,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 6500, "resonance": 1.2, "filterKeytrack": 45,
+        "filterEnvEnabled": true, "filterEnvAmount": 35, "filterEnvAttack": 0.001, "filterEnvDecay": 0.6, "filterEnvSustain": 0.1, "filterEnvRelease": 1.2,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 3.0, "mix": 0.35 } } }
+    },
+    {
+      "name": "Koto",
+      "category": "Plucks",
+      "author": "factory",
+      "tags": ["japanese", "bright", "traditional"],
+      "voice": {
+        "waveform": "triangle", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "square", "osc2Detune": 5, "osc2Octave": 1, "osc2Semitone": 0, "osc2Level": 0.2, "osc2Pan": 0.3,
+        "noiseEnabled": true, "noiseLevel": 0.06, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.002, "decay": 0.5, "sustain": 0.1, "release": 0.6,
+        "filterType": "bandpass", "filterSlope": "12db", "cutoff": 1800, "resonance": 3.0, "filterKeytrack": 65,
+        "filterEnvEnabled": true, "filterEnvAmount": 40, "filterEnvAttack": 0.001, "filterEnvDecay": 0.3, "filterEnvSustain": 0.1, "filterEnvRelease": 0.5,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 2.5, "mix": 0.35 } } }
+    },
+    {
+      "name": "Dulcimer",
+      "category": "Plucks",
+      "author": "factory",
+      "tags": ["folk", "bright", "traditional"],
+      "voice": {
+        "waveform": "triangle", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 2, "unisonSpread": 8, "unisonPanSpread": 0.4,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "triangle", "osc2Detune": -4, "osc2Octave": 1, "osc2Semitone": 0, "osc2Level": 0.3, "osc2Pan": 0.2,
+        "noiseEnabled": true, "noiseLevel": 0.06, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 0.7, "sustain": 0.1, "release": 0.8,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 6000, "resonance": 1.8, "filterKeytrack": 50,
+        "filterEnvEnabled": true, "filterEnvAmount": 40, "filterEnvAttack": 0.001, "filterEnvDecay": 0.4, "filterEnvSustain": 0.08, "filterEnvRelease": 0.7,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 2.5, "mix": 0.35 } } }
+    },
+    {
+      "name": "Sitar",
+      "category": "Plucks",
+      "author": "factory",
+      "tags": ["indian", "bright", "buzzy"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 2, "unisonSpread": 12, "unisonPanSpread": 0.5,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": 8, "osc2Octave": 1, "osc2Semitone": 0, "osc2Level": 0.3, "osc2Pan": -0.3,
+        "noiseEnabled": true, "noiseLevel": 0.08, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 1.2, "sustain": 0.2, "release": 1.5,
+        "filterType": "bandpass", "filterSlope": "24db", "cutoff": 2000, "resonance": 4.5, "filterKeytrack": 55,
+        "filterEnvEnabled": true, "filterEnvAmount": 35, "filterEnvAttack": 0.001, "filterEnvDecay": 0.8, "filterEnvSustain": 0.15, "filterEnvRelease": 1.2,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true, "distortion": true }, "states": { "reverb": { "decay": 2.5, "mix": 0.3 }, "distortion": { "drive": 15, "mix": 0.25 } } }
+    },
+    {
+      "name": "Pizzicato Synth",
+      "category": "Plucks",
+      "author": "factory",
+      "tags": ["short", "snappy", "orchestral"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 2, "unisonSpread": 6, "unisonPanSpread": 0.3,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": -4, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.35, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.08, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 0.12, "sustain": 0, "release": 0.15,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 3000, "resonance": 5.0, "filterKeytrack": 50,
+        "filterEnvEnabled": true, "filterEnvAmount": 70, "filterEnvAttack": 0.001, "filterEnvDecay": 0.1, "filterEnvSustain": 0, "filterEnvRelease": 0.15,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 1.2, "mix": 0.2 } } }
+    },
+
+    {
+      "name": "Riser FX",
+      "category": "FX",
+      "author": "factory",
+      "tags": ["transition", "riser", "cinematic"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 6, "unisonSpread": 40, "unisonPanSpread": 1.0,
+        "subEnabled": true, "subWaveform": "sawtooth", "subVolume": 0.4,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": -16, "osc2Octave": 1, "osc2Semitone": 0, "osc2Level": 0.5, "osc2Pan": -0.5,
+        "noiseEnabled": true, "noiseLevel": 0.15, "noiseColor": "pink", "noiseMode": "amp",
+        "attack": 3.0, "decay": 0.5, "sustain": 1.0, "release": 0.3,
+        "filterType": "highpass", "filterSlope": "24db", "cutoff": 300, "resonance": 6.0, "filterKeytrack": 0,
+        "filterEnvEnabled": true, "filterEnvAmount": 95, "filterEnvAttack": 3.0, "filterEnvDecay": 0.5, "filterEnvSustain": 1.0, "filterEnvRelease": 0.3,
+        "lfoEnabled": true, "lfoShape": "sawtooth", "lfoRate": 0.15, "lfoDepth": 40, "lfoTarget": "filter",
+        "glideEnabled": true, "glideTime": 2.0
+      },
+      "effects": { "active": { "reverb": true, "phaser": true }, "states": { "reverb": { "decay": 4.0, "mix": 0.5 }, "phaser": { "rate": 0.4, "depth": 0.9, "feedback": 0.6, "mix": 0.5 } } }
+    },
+    {
+      "name": "Noise Sweep",
+      "category": "FX",
+      "author": "factory",
+      "tags": ["transition", "sweep", "whoosh"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 4, "unisonSpread": 45, "unisonPanSpread": 1.0,
+        "subEnabled": true, "subWaveform": "sawtooth", "subVolume": 0.6,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": -30, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.6, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.4, "noiseColor": "brown", "noiseMode": "amp",
+        "attack": 0.5, "decay": 1.0, "sustain": 0.7, "release": 2.0,
+        "filterType": "bandpass", "filterSlope": "12db", "cutoff": 800, "resonance": 8.0, "filterKeytrack": 0,
+        "filterEnvEnabled": true, "filterEnvAmount": 70, "filterEnvAttack": 1.5, "filterEnvDecay": 2.0, "filterEnvSustain": 0.4, "filterEnvRelease": 3.0,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 0.2, "lfoDepth": 60, "lfoTarget": "filter",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true, "bitcrusher": true }, "states": { "reverb": { "decay": 5.0, "mix": 0.55 }, "bitcrusher": { "bits": 10, "normFreq": 0.5, "mix": 0.3 } } }
+    },
+    {
+      "name": "Formant Vox",
+      "category": "FX",
+      "author": "factory",
+      "tags": ["vocal", "robot", "formant"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 2, "unisonSpread": 8, "unisonPanSpread": 0.3,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "square", "osc2Detune": 12, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.5, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.05, "noiseColor": "pink", "noiseMode": "amp",
+        "attack": 0.05, "decay": 0.2, "sustain": 0.9, "release": 0.3,
+        "filterType": "bandpass", "filterSlope": "24db", "cutoff": 1200, "resonance": 12.0, "filterKeytrack": 40,
+        "filterEnvEnabled": true, "filterEnvAmount": 50, "filterEnvAttack": 0.1, "filterEnvDecay": 0.3, "filterEnvSustain": 0.6, "filterEnvRelease": 0.4,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 5.5, "lfoDepth": 25, "lfoTarget": "filter",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "chorus": true, "reverb": true, "phaser": true }, "states": { "chorus": { "rate": 0.6, "depth": 0.004, "mix": 0.5, "type": "chorus" }, "reverb": { "decay": 2.5, "mix": 0.3 }, "phaser": { "rate": 0.5, "depth": 0.8, "feedback": 0.5, "mix": 0.5 } } }
+    },
+    {
+      "name": "Glitch Stab",
+      "category": "FX",
+      "author": "factory",
+      "tags": ["glitch", "aggressive", "digital"],
+      "voice": {
+        "waveform": "square", "detune": 0, "pulseWidth": 0.2, "octaveOffset": 0,
+        "unisonVoices": 3, "unisonSpread": 40, "unisonPanSpread": 1.0,
+        "subEnabled": true, "subWaveform": "square", "subVolume": 0.4,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": -20, "osc2Octave": 0, "osc2Semitone": 5, "osc2Level": 0.6, "osc2Pan": -0.4,
+        "noiseEnabled": true, "noiseLevel": 0.2, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 0.1, "sustain": 0, "release": 0.15,
+        "filterType": "bandpass", "filterSlope": "12db", "cutoff": 1500, "resonance": 8.0, "filterKeytrack": 60,
+        "filterEnvEnabled": true, "filterEnvAmount": 60, "filterEnvAttack": 0.001, "filterEnvDecay": 0.08, "filterEnvSustain": 0, "filterEnvRelease": 0.1,
+        "lfoEnabled": true, "lfoShape": "square", "lfoRate": 15, "lfoDepth": 30, "lfoTarget": "filter",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "bitcrusher": true, "distortion": true, "reverb": true }, "states": { "bitcrusher": { "bits": 5, "normFreq": 0.4, "mix": 0.6 }, "distortion": { "drive": 50, "mix": 0.6 }, "reverb": { "decay": 1.5, "mix": 0.25 } } }
+    },
+    {
+      "name": "Alien Talk",
+      "category": "FX",
+      "author": "factory",
+      "tags": ["alien", "vibrato", "sci-fi"],
+      "voice": {
+        "waveform": "square", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 2, "unisonSpread": 15, "unisonPanSpread": 0.6,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": 15, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.3, "osc2Pan": 0.3,
+        "noiseEnabled": true, "noiseLevel": 0.08, "noiseColor": "pink", "noiseMode": "amp",
+        "attack": 0.01, "decay": 0.2, "sustain": 0.85, "release": 0.3,
+        "filterType": "bandpass", "filterSlope": "24db", "cutoff": 900, "resonance": 6.0, "filterKeytrack": 50,
+        "filterEnvEnabled": true, "filterEnvAmount": 40, "filterEnvAttack": 0.05, "filterEnvDecay": 0.2, "filterEnvSustain": 0.7, "filterEnvRelease": 0.3,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 8, "lfoDepth": 80, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "vibrato": true, "flanger": true, "reverb": true }, "states": { "vibrato": { "rate": 8, "depth": 80 }, "flanger": { "rate": 0.4, "depth": 0.005, "mix": 0.6, "type": "flanger" }, "reverb": { "decay": 2.0, "mix": 0.3 } } }
+    },
+    {
+      "name": "Drone FX",
+      "category": "FX",
+      "author": "factory",
+      "tags": ["drone", "ambient", "dark"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": -1,
+        "unisonVoices": 5, "unisonSpread": 35, "unisonPanSpread": 1.0,
+        "subEnabled": true, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": -12, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.5, "osc2Pan": 0.4,
+        "noiseEnabled": true, "noiseLevel": 0.15, "noiseColor": "brown", "noiseMode": "amp",
+        "attack": 4.0, "decay": 3.0, "sustain": 1.0, "release": 6.0,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 600, "resonance": 5.0, "filterKeytrack": 10,
+        "filterEnvEnabled": false, "filterEnvAmount": 0, "filterEnvAttack": 0.05, "filterEnvDecay": 0.3, "filterEnvSustain": 0.6, "filterEnvRelease": 0.3,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 0.08, "lfoDepth": 40, "lfoTarget": "filter",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true, "phaser": true, "equalizer": true }, "states": { "reverb": { "decay": 8.0, "mix": 0.55 }, "phaser": { "rate": 0.1, "depth": 0.9, "feedback": 0.6, "mix": 0.5 }, "equalizer": { "band1": 3, "band2": 2, "band3": -2, "band4": -4, "band5": -5 } } }
+    },
+    {
+      "name": "Impact Hit",
+      "category": "FX",
+      "author": "factory",
+      "tags": ["impact", "cinematic", "boom"],
+      "voice": {
+        "waveform": "sine", "detune": 0, "pulseWidth": 0.5, "octaveOffset": -2,
+        "unisonVoices": 3, "unisonSpread": 30, "unisonPanSpread": 0.8,
+        "subEnabled": true, "subWaveform": "sine", "subVolume": 0.9,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": -12, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.4, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.35, "noiseColor": "brown", "noiseMode": "transient",
+        "attack": 0.001, "decay": 1.8, "sustain": 0.05, "release": 2.5,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 400, "resonance": 2.0, "filterKeytrack": 0,
+        "filterEnvEnabled": true, "filterEnvAmount": 40, "filterEnvAttack": 0.001, "filterEnvDecay": 0.8, "filterEnvSustain": 0.05, "filterEnvRelease": 2.0,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true, "compressor": true }, "states": { "reverb": { "decay": 4.0, "mix": 0.4 }, "compressor": { "threshold": -14, "ratio": 8, "attack": 0.002, "release": 0.3 } } }
+    },
+    {
+      "name": "Metallic FX",
+      "category": "FX",
+      "author": "factory",
+      "tags": ["metallic", "industrial", "harsh"],
+      "voice": {
+        "waveform": "square", "detune": 0, "pulseWidth": 0.15, "octaveOffset": 0,
+        "unisonVoices": 4, "unisonSpread": 45, "unisonPanSpread": 1.0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "square", "osc2Detune": 20, "osc2Octave": 1, "osc2Semitone": 5, "osc2Level": 0.5, "osc2Pan": -0.5,
+        "noiseEnabled": true, "noiseLevel": 0.2, "noiseColor": "white", "noiseMode": "amp",
+        "attack": 0.001, "decay": 0.6, "sustain": 0.1, "release": 0.8,
+        "filterType": "bandpass", "filterSlope": "24db", "cutoff": 2000, "resonance": 10.0, "filterKeytrack": 70,
+        "filterEnvEnabled": true, "filterEnvAmount": 55, "filterEnvAttack": 0.001, "filterEnvDecay": 0.4, "filterEnvSustain": 0.1, "filterEnvRelease": 0.6,
+        "lfoEnabled": true, "lfoShape": "square", "lfoRate": 12, "lfoDepth": 25, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "distortion": true, "reverb": true, "bitcrusher": true }, "states": { "distortion": { "drive": 35, "mix": 0.5 }, "reverb": { "decay": 3.0, "mix": 0.35 }, "bitcrusher": { "bits": 8, "normFreq": 0.4, "mix": 0.4 } } }
+    },
+
+    {
+      "name": "Arp Pluck",
+      "category": "Arps",
+      "author": "factory",
+      "tags": ["arp", "pluck", "bright"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 2, "unisonSpread": 8, "unisonPanSpread": 0.4,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "square", "osc2Detune": 0, "osc2Octave": 1, "osc2Semitone": 0, "osc2Level": 0.3, "osc2Pan": 0.2,
+        "noiseEnabled": true, "noiseLevel": 0.06, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 0.2, "sustain": 0.05, "release": 0.25,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 2500, "resonance": 5.0, "filterKeytrack": 55,
+        "filterEnvEnabled": true, "filterEnvAmount": 60, "filterEnvAttack": 0.001, "filterEnvDecay": 0.15, "filterEnvSustain": 0.05, "filterEnvRelease": 0.2,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 2.5, "mix": 0.35 } } }
+    },
+    {
+      "name": "Arp Bell",
+      "category": "Arps",
+      "author": "factory",
+      "tags": ["arp", "bell", "bright"],
+      "voice": {
+        "waveform": "sine", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 1,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sine", "osc2Detune": 0, "osc2Octave": 2, "osc2Semitone": 4, "osc2Level": 0.2, "osc2Pan": 0.3,
+        "noiseEnabled": true, "noiseLevel": 0.04, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 0.6, "sustain": 0.05, "release": 0.8,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 8000, "resonance": 1.0, "filterKeytrack": 40,
+        "filterEnvEnabled": true, "filterEnvAmount": 30, "filterEnvAttack": 0.001, "filterEnvDecay": 0.4, "filterEnvSustain": 0.05, "filterEnvRelease": 0.6,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 3.0, "mix": 0.4 } } }
+    },
+    {
+      "name": "Arp Bass",
+      "category": "Arps",
+      "author": "factory",
+      "tags": ["arp", "bass", "punchy"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": -1,
+        "unisonVoices": 2, "unisonSpread": 5, "unisonPanSpread": 0.2,
+        "subEnabled": true, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": -4, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.4, "osc2Pan": 0,
+        "noiseEnabled": false, "noiseLevel": 0.15, "noiseColor": "white", "noiseMode": "amp",
+        "attack": 0.001, "decay": 0.15, "sustain": 0.3, "release": 0.2,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 800, "resonance": 5.0, "filterKeytrack": 40,
+        "filterEnvEnabled": true, "filterEnvAmount": 60, "filterEnvAttack": 0.001, "filterEnvDecay": 0.12, "filterEnvSustain": 0.1, "filterEnvRelease": 0.15,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "compressor": true, "reverb": true }, "states": { "compressor": { "threshold": -16, "ratio": 5, "attack": 0.003, "release": 0.12 }, "reverb": { "decay": 1.2, "mix": 0.15 } } }
+    },
+    {
+      "name": "Arp Pad",
+      "category": "Arps",
+      "author": "factory",
+      "tags": ["arp", "pad", "wide"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 5, "unisonSpread": 22, "unisonPanSpread": 0.9,
+        "subEnabled": true, "subWaveform": "sine", "subVolume": 0.3,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": -10, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.4, "osc2Pan": -0.4,
+        "noiseEnabled": true, "noiseLevel": 0.04, "noiseColor": "pink", "noiseMode": "amp",
+        "attack": 0.4, "decay": 0.4, "sustain": 0.85, "release": 1.2,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 2800, "resonance": 3.5, "filterKeytrack": 40,
+        "filterEnvEnabled": true, "filterEnvAmount": 20, "filterEnvAttack": 0.5, "filterEnvDecay": 0.6, "filterEnvSustain": 0.7, "filterEnvRelease": 1.5,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "chorus": true, "reverb": true }, "states": { "chorus": { "rate": 0.5, "depth": 0.004, "mix": 0.5, "type": "chorus" }, "reverb": { "decay": 3.5, "mix": 0.4 } } }
+    },
+    {
+      "name": "Arp Chiptune",
+      "category": "Arps",
+      "author": "factory",
+      "tags": ["chiptune", "8bit", "retro"],
+      "voice": {
+        "waveform": "square", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "square", "osc2Detune": 0, "osc2Octave": 1, "osc2Semitone": 0, "osc2Level": 0.3, "osc2Pan": 0,
+        "noiseEnabled": false, "noiseLevel": 0.15, "noiseColor": "white", "noiseMode": "amp",
+        "attack": 0.001, "decay": 0.1, "sustain": 0.4, "release": 0.1,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 8000, "resonance": 1.5, "filterKeytrack": 20,
+        "filterEnvEnabled": false, "filterEnvAmount": 0, "filterEnvAttack": 0.05, "filterEnvDecay": 0.3, "filterEnvSustain": 0.6, "filterEnvRelease": 0.3,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "bitcrusher": true, "reverb": true }, "states": { "bitcrusher": { "bits": 6, "normFreq": 0.7, "mix": 0.4 }, "reverb": { "decay": 1.5, "mix": 0.2 } } }
+    },
+
+    {
+      "name": "Synth Kick",
+      "category": "Percussion",
+      "author": "factory",
+      "tags": ["kick", "drums", "punchy"],
+      "voice": {
+        "waveform": "sine", "detune": 0, "pulseWidth": 0.5, "octaveOffset": -2,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": true, "subWaveform": "sine", "subVolume": 0.9,
+        "osc2Enabled": false, "osc2Waveform": "sawtooth", "osc2Detune": 0, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.5, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.15, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 0.15, "sustain": 0, "release": 0.15,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 500, "resonance": 1.0, "filterKeytrack": 0,
+        "filterEnvEnabled": true, "filterEnvAmount": 50, "filterEnvAttack": 0.001, "filterEnvDecay": 0.08, "filterEnvSustain": 0, "filterEnvRelease": 0.1,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "compressor": true }, "states": { "compressor": { "threshold": -12, "ratio": 8, "attack": 0.001, "release": 0.08 } } }
+    },
+    {
+      "name": "Synth Snare",
+      "category": "Percussion",
+      "author": "factory",
+      "tags": ["snare", "drums", "noise"],
+      "voice": {
+        "waveform": "triangle", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "triangle", "osc2Detune": 20, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.4, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.6, "noiseColor": "white", "noiseMode": "amp",
+        "attack": 0.001, "decay": 0.15, "sustain": 0, "release": 0.2,
+        "filterType": "highpass", "filterSlope": "12db", "cutoff": 800, "resonance": 1.5, "filterKeytrack": 0,
+        "filterEnvEnabled": false, "filterEnvAmount": 0, "filterEnvAttack": 0.05, "filterEnvDecay": 0.3, "filterEnvSustain": 0.6, "filterEnvRelease": 0.3,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 1.2, "mix": 0.2 } } }
+    },
+    {
+      "name": "Synth Clap",
+      "category": "Percussion",
+      "author": "factory",
+      "tags": ["clap", "drums", "snappy"],
+      "voice": {
+        "waveform": "triangle", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 2, "unisonSpread": 20, "unisonPanSpread": 0.8,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": false, "osc2Waveform": "sawtooth", "osc2Detune": 0, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.5, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.7, "noiseColor": "white", "noiseMode": "amp",
+        "attack": 0.001, "decay": 0.12, "sustain": 0, "release": 0.2,
+        "filterType": "bandpass", "filterSlope": "12db", "cutoff": 1200, "resonance": 2.5, "filterKeytrack": 0,
+        "filterEnvEnabled": false, "filterEnvAmount": 0, "filterEnvAttack": 0.05, "filterEnvDecay": 0.3, "filterEnvSustain": 0.6, "filterEnvRelease": 0.3,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 1.5, "mix": 0.22 } } }
+    },
+    {
+      "name": "Synth Tom",
+      "category": "Percussion",
+      "author": "factory",
+      "tags": ["tom", "drums", "tuned"],
+      "voice": {
+        "waveform": "sine", "detune": 0, "pulseWidth": 0.5, "octaveOffset": -1,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": false, "osc2Waveform": "sawtooth", "osc2Detune": 0, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.5, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.1, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 0.4, "sustain": 0.05, "release": 0.5,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 1500, "resonance": 1.5, "filterKeytrack": 20,
+        "filterEnvEnabled": true, "filterEnvAmount": 40, "filterEnvAttack": 0.001, "filterEnvDecay": 0.2, "filterEnvSustain": 0.1, "filterEnvRelease": 0.3,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 1.8, "mix": 0.28 } } }
+    },
+    {
+      "name": "Synth Cowbell",
+      "category": "Percussion",
+      "author": "factory",
+      "tags": ["cowbell", "metallic", "short"],
+      "voice": {
+        "waveform": "square", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 1,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "square", "osc2Detune": 0, "osc2Octave": 1, "osc2Semitone": 3, "osc2Level": 0.6, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.06, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 0.4, "sustain": 0.05, "release": 0.5,
+        "filterType": "bandpass", "filterSlope": "12db", "cutoff": 2400, "resonance": 5.0, "filterKeytrack": 40,
+        "filterEnvEnabled": true, "filterEnvAmount": 30, "filterEnvAttack": 0.001, "filterEnvDecay": 0.25, "filterEnvSustain": 0.05, "filterEnvRelease": 0.4,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 1.2, "mix": 0.2 } } }
+    },
+    {
+      "name": "Synth Woodblock",
+      "category": "Percussion",
+      "author": "factory",
+      "tags": ["woodblock", "short", "percussive"],
+      "voice": {
+        "waveform": "triangle", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 2,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "square", "osc2Detune": 10, "osc2Octave": 1, "osc2Semitone": 0, "osc2Level": 0.25, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.08, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 0.1, "sustain": 0.02, "release": 0.15,
+        "filterType": "bandpass", "filterSlope": "12db", "cutoff": 3000, "resonance": 4.0, "filterKeytrack": 50,
+        "filterEnvEnabled": true, "filterEnvAmount": 35, "filterEnvAttack": 0.001, "filterEnvDecay": 0.08, "filterEnvSustain": 0.02, "filterEnvRelease": 0.12,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 1.0, "mix": 0.18 } } }
+    },
+
+    {
+      "name": "8-bit Lead",
+      "category": "Chiptune",
+      "author": "factory",
+      "tags": ["chiptune", "8bit", "lead"],
+      "voice": {
+        "waveform": "square", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": false, "osc2Waveform": "sawtooth", "osc2Detune": 0, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.5, "osc2Pan": 0,
+        "noiseEnabled": false, "noiseLevel": 0.15, "noiseColor": "white", "noiseMode": "amp",
+        "attack": 0.001, "decay": 0.05, "sustain": 0.9, "release": 0.1,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 12000, "resonance": 1.0, "filterKeytrack": 0,
+        "filterEnvEnabled": false, "filterEnvAmount": 0, "filterEnvAttack": 0.05, "filterEnvDecay": 0.3, "filterEnvSustain": 0.6, "filterEnvRelease": 0.3,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "bitcrusher": true }, "states": { "bitcrusher": { "bits": 6, "normFreq": 0.8, "mix": 0.5 } } }
+    },
+    {
+      "name": "8-bit Bass",
+      "category": "Chiptune",
+      "author": "factory",
+      "tags": ["chiptune", "8bit", "bass"],
+      "voice": {
+        "waveform": "square", "detune": 0, "pulseWidth": 0.5, "octaveOffset": -1,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": true, "subWaveform": "square", "subVolume": 0.5,
+        "osc2Enabled": false, "osc2Waveform": "sawtooth", "osc2Detune": 0, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.5, "osc2Pan": 0,
+        "noiseEnabled": false, "noiseLevel": 0.15, "noiseColor": "white", "noiseMode": "amp",
+        "attack": 0.001, "decay": 0.08, "sustain": 0.7, "release": 0.1,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 3000, "resonance": 2.0, "filterKeytrack": 20,
+        "filterEnvEnabled": false, "filterEnvAmount": 0, "filterEnvAttack": 0.05, "filterEnvDecay": 0.3, "filterEnvSustain": 0.6, "filterEnvRelease": 0.3,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "bitcrusher": true }, "states": { "bitcrusher": { "bits": 6, "normFreq": 0.7, "mix": 0.4 } } }
+    },
+    {
+      "name": "8-bit Pad",
+      "category": "Chiptune",
+      "author": "factory",
+      "tags": ["chiptune", "8bit", "pad"],
+      "voice": {
+        "waveform": "square", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 3, "unisonSpread": 15, "unisonPanSpread": 0.6,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "triangle", "osc2Detune": -10, "osc2Octave": 0, "osc2Semitone": 7, "osc2Level": 0.3, "osc2Pan": 0.3,
+        "noiseEnabled": false, "noiseLevel": 0.15, "noiseColor": "white", "noiseMode": "amp",
+        "attack": 0.5, "decay": 0.4, "sustain": 0.8, "release": 1.2,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 5000, "resonance": 2.0, "filterKeytrack": 30,
+        "filterEnvEnabled": false, "filterEnvAmount": 0, "filterEnvAttack": 0.05, "filterEnvDecay": 0.3, "filterEnvSustain": 0.6, "filterEnvRelease": 0.3,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "chorus": true, "bitcrusher": true, "reverb": true }, "states": { "chorus": { "rate": 0.4, "depth": 0.004, "mix": 0.5, "type": "chorus" }, "bitcrusher": { "bits": 7, "normFreq": 0.6, "mix": 0.3 }, "reverb": { "decay": 2.5, "mix": 0.3 } } }
+    },
+    {
+      "name": "8-bit Bell",
+      "category": "Chiptune",
+      "author": "factory",
+      "tags": ["chiptune", "8bit", "bell"],
+      "voice": {
+        "waveform": "square", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 1,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": false, "osc2Waveform": "sawtooth", "osc2Detune": 0, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.5, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.05, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 0.4, "sustain": 0.05, "release": 0.6,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 8000, "resonance": 1.0, "filterKeytrack": 0,
+        "filterEnvEnabled": false, "filterEnvAmount": 0, "filterEnvAttack": 0.05, "filterEnvDecay": 0.3, "filterEnvSustain": 0.6, "filterEnvRelease": 0.3,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "bitcrusher": true, "reverb": true }, "states": { "bitcrusher": { "bits": 6, "normFreq": 0.8, "mix": 0.5 }, "reverb": { "decay": 2.0, "mix": 0.3 } } }
+    },
+    {
+      "name": "8-bit Arp",
+      "category": "Chiptune",
+      "author": "factory",
+      "tags": ["chiptune", "8bit", "arp"],
+      "voice": {
+        "waveform": "square", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "square", "osc2Detune": 0, "osc2Octave": 1, "osc2Semitone": 3, "osc2Level": 0.25, "osc2Pan": 0,
+        "noiseEnabled": false, "noiseLevel": 0.15, "noiseColor": "white", "noiseMode": "amp",
+        "attack": 0.001, "decay": 0.06, "sustain": 0.5, "release": 0.08,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 10000, "resonance": 1.0, "filterKeytrack": 0,
+        "filterEnvEnabled": false, "filterEnvAmount": 0, "filterEnvAttack": 0.05, "filterEnvDecay": 0.3, "filterEnvSustain": 0.6, "filterEnvRelease": 0.3,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "bitcrusher": true, "delay": false, "reverb": true }, "states": { "bitcrusher": { "bits": 7, "normFreq": 0.8, "mix": 0.35 }, "reverb": { "decay": 1.5, "mix": 0.25 } } }
+    },
+    {
+      "name": "8-bit Noise",
+      "category": "Chiptune",
+      "author": "factory",
+      "tags": ["chiptune", "8bit", "drums"],
+      "voice": {
+        "waveform": "sine", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 3,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": false, "osc2Waveform": "sawtooth", "osc2Detune": 0, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.5, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.9, "noiseColor": "white", "noiseMode": "amp",
+        "attack": 0.001, "decay": 0.08, "sustain": 0, "release": 0.1,
+        "filterType": "highpass", "filterSlope": "12db", "cutoff": 1200, "resonance": 1.0, "filterKeytrack": 0,
+        "filterEnvEnabled": false, "filterEnvAmount": 0, "filterEnvAttack": 0.05, "filterEnvDecay": 0.3, "filterEnvSustain": 0.6, "filterEnvRelease": 0.3,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "bitcrusher": true }, "states": { "bitcrusher": { "bits": 4, "normFreq": 0.5, "mix": 0.7 } } }
+    },
+        {
+      "name": "Riser Sweep",
+      "category": "FX",
+      "author": "factory",
+      "tags": ["sweep", "build", "transition"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 3, "unisonSpread": 15, "unisonPanSpread": 0.5,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": 12, "osc2Octave": 1, "osc2Semitone": 0, "osc2Level": 0.4, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.5, "noiseColor": "white", "noiseMode": "amp",
+        "attack": 4.0, "decay": 0.5, "sustain": 0.0, "release": 1.5,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 150, "resonance": 8.0, "filterKeytrack": 0,
+        "filterEnvEnabled": true, "filterEnvAmount": 110, "filterEnvAttack": 4.0, "filterEnvDecay": 0.5, "filterEnvSustain": 0.0, "filterEnvRelease": 1.5,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 0.2, "lfoDepth": 30, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true, "distortion": true }, "states": { "reverb": { "decay": 5.0, "mix": 0.45 }, "distortion": { "drive": 12, "mix": 0.25 } } }
+    },
+    {
+      "name": "Impact Boom",
+      "category": "FX",
+      "author": "factory",
+      "tags": ["impact", "boom", "cinematic"],
+      "voice": {
+        "waveform": "sine", "detune": 0, "pulseWidth": 0.5, "octaveOffset": -2,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": true, "subWaveform": "sine", "subVolume": 0.9,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": 0, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.3, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.8, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 1.8, "sustain": 0.0, "release": 1.5,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 800, "resonance": 2.0, "filterKeytrack": 0,
+        "filterEnvEnabled": true, "filterEnvAmount": 80, "filterEnvAttack": 0.001, "filterEnvDecay": 1.5, "filterEnvSustain": 0.0, "filterEnvRelease": 1.5,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true, "compressor": true }, "states": { "reverb": { "decay": 4.5, "mix": 0.5 }, "compressor": { "threshold": -20, "ratio": 8, "attack": 0.005, "release": 0.3 } } }
+    },
+    {
+      "name": "Laser Zap",
+      "category": "FX",
+      "author": "factory",
+      "tags": ["laser", "zap", "retro"],
+      "voice": {
+        "waveform": "square", "detune": 0, "pulseWidth": 0.2, "octaveOffset": 1,
+        "unisonVoices": 2, "unisonSpread": 5, "unisonPanSpread": 0.4,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": 0, "osc2Octave": 2, "osc2Semitone": 0, "osc2Level": 0.5, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.3, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 0.25, "sustain": 0.0, "release": 0.1,
+        "filterType": "bandpass", "filterSlope": "12db", "cutoff": 4500, "resonance": 9.0, "filterKeytrack": 0,
+        "filterEnvEnabled": true, "filterEnvAmount": 90, "filterEnvAttack": 0.001, "filterEnvDecay": 0.2, "filterEnvSustain": 0.0, "filterEnvRelease": 0.1,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 18.0, "lfoDepth": 85, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "distortion": true, "reverb": true }, "states": { "distortion": { "drive": 25, "mix": 0.4 }, "reverb": { "decay": 1.5, "mix": 0.25 } } }
+    },
+    {
+      "name": "Wind Howl",
+      "category": "FX",
+      "author": "factory",
+      "tags": ["wind", "atmosphere", "nature"],
+      "voice": {
+        "waveform": "sine", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": false, "osc2Waveform": "sine", "osc2Detune": 0, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0.0, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.75, "noiseColor": "pink", "noiseMode": "amp",
+        "attack": 2.5, "decay": 1.0, "sustain": 0.8, "release": 4.0,
+        "filterType": "bandpass", "filterSlope": "24db", "cutoff": 900, "resonance": 6.5, "filterKeytrack": 0,
+        "filterEnvEnabled": true, "filterEnvAmount": 35, "filterEnvAttack": 2.0, "filterEnvDecay": 1.5, "filterEnvSustain": 0.6, "filterEnvRelease": 3.5,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 0.25, "lfoDepth": 45, "lfoTarget": "filter",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true, "phaser": true }, "states": { "reverb": { "decay": 6.0, "mix": 0.55 }, "phaser": { "rate": 0.15, "depth": 0.6, "feedback": 0.4, "mix": 0.3 } } }
+    },
+    {
+      "name": "Glitch Noise",
+      "category": "FX",
+      "author": "factory",
+      "tags": ["glitch", "noise", "idm"],
+      "voice": {
+        "waveform": "square", "detune": 0, "pulseWidth": 0.1, "octaveOffset": 0,
+        "unisonVoices": 4, "unisonSpread": 25, "unisonPanSpread": 1.0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "square", "osc2Detune": 45, "osc2Octave": 0, "osc2Semitone": 7, "osc2Level": 0.4, "osc2Pan": -0.5,
+        "noiseEnabled": true, "noiseLevel": 0.4, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 0.12, "sustain": 0.0, "release": 0.05,
+        "filterType": "bandpass", "filterSlope": "24db", "cutoff": 2200, "resonance": 11.0, "filterKeytrack": 0,
+        "filterEnvEnabled": true, "filterEnvAmount": 70, "filterEnvAttack": 0.001, "filterEnvDecay": 0.1, "filterEnvSustain": 0.0, "filterEnvRelease": 0.05,
+        "lfoEnabled": true, "lfoShape": "square", "lfoRate": 22.0, "lfoDepth": 60, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "distortion": true, "phaser": true }, "states": { "distortion": { "drive": 35, "mix": 0.5 }, "phaser": { "rate": 4.0, "depth": 0.8, "feedback": 0.6, "mix": 0.4 } } }
+    },
+    {
+      "name": "Sub Drop",
+      "category": "FX",
+      "author": "factory",
+      "tags": ["drop", "sub", "bass"],
+      "voice": {
+        "waveform": "sine", "detune": 0, "pulseWidth": 0.5, "octaveOffset": -1,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": true, "subWaveform": "sine", "subVolume": 0.8,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": 0, "osc2Octave": -1, "osc2Semitone": 0, "osc2Level": 0.3, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.5, "noiseColor": "brown", "noiseMode": "transient",
+        "attack": 0.005, "decay": 1.5, "sustain": 0.0, "release": 1.2,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 2500, "resonance": 4.0, "filterKeytrack": 0,
+        "filterEnvEnabled": true, "filterEnvAmount": -80, "filterEnvAttack": 0.005, "filterEnvDecay": 1.5, "filterEnvSustain": 0.0, "filterEnvRelease": 1.0,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "compressor": true, "reverb": true }, "states": { "compressor": { "threshold": -18, "ratio": 6, "attack": 0.005, "release": 0.2 }, "reverb": { "decay": 2.5, "mix": 0.3 } } }
+    },
+    {
+      "name": "Alien Chirp",
+      "category": "FX",
+      "author": "factory",
+      "tags": ["alien", "chirp", "sci-fi"],
+      "voice": {
+        "waveform": "sine", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 2,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sine", "osc2Detune": 0, "osc2Octave": 3, "osc2Semitone": 5, "osc2Level": 0.4, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.1, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 0.3, "sustain": 0.0, "release": 0.2,
+        "filterType": "bandpass", "filterSlope": "12db", "cutoff": 6000, "resonance": 5.0, "filterKeytrack": 0,
+        "filterEnvEnabled": true, "filterEnvAmount": 40, "filterEnvAttack": 0.001, "filterEnvDecay": 0.2, "filterEnvSustain": 0.0, "filterEnvRelease": 0.2,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 25.0, "lfoDepth": 65, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true, "chorus": true }, "states": { "reverb": { "decay": 2.5, "mix": 0.4 }, "chorus": { "rate": 3.0, "depth": 0.005, "mix": 0.3, "type": "chorus" } } }
+    },
+    {
+      "name": "Tension Drone",
+      "category": "FX",
+      "author": "factory",
+      "tags": ["drone", "tension", "dark"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": -1,
+        "unisonVoices": 4, "unisonSpread": 18, "unisonPanSpread": 0.8,
+        "subEnabled": true, "subWaveform": "sine", "subVolume": 0.6,
+        "osc2Enabled": true, "osc2Waveform": "square", "osc2Detune": -7, "osc2Octave": 0, "osc2Semitone": 6, "osc2Level": 0.4, "osc2Pan": 0.5,
+        "noiseEnabled": true, "noiseLevel": 0.15, "noiseColor": "brown", "noiseMode": "amp",
+        "attack": 2.0, "decay": 1.5, "sustain": 0.9, "release": 3.0,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 600, "resonance": 3.5, "filterKeytrack": 0,
+        "filterEnvEnabled": true, "filterEnvAmount": 20, "filterEnvAttack": 2.5, "filterEnvDecay": 2.0, "filterEnvSustain": 0.8, "filterEnvRelease": 3.5,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 0.15, "lfoDepth": 30, "lfoTarget": "filter",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true, "phaser": true }, "states": { "reverb": { "decay": 7.0, "mix": 0.6 }, "phaser": { "rate": 0.1, "depth": 0.7, "feedback": 0.5, "mix": 0.35 } } }
+    },
+        {
+      "name": "Cinematic Woosh Down",
+      "category": "FX",
+      "author": "factory",
+      "tags": ["woosh", "down", "transition"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 2, "unisonSpread": 10, "unisonPanSpread": 0.6,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": false, "osc2Waveform": "sine", "osc2Detune": 0, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.8, "noiseColor": "white", "noiseMode": "amp",
+        "attack": 0.1, "decay": 0.8, "sustain": 0.0, "release": 0.5,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 8000, "resonance": 2.0, "filterKeytrack": 0,
+        "filterEnvEnabled": true, "filterEnvAmount": -100, "filterEnvAttack": 0.05, "filterEnvDecay": 0.8, "filterEnvSustain": 0.0, "filterEnvRelease": 0.5,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true, "chorus": true }, "states": { "reverb": { "decay": 2.5, "mix": 0.4 }, "chorus": { "rate": 0.5, "depth": 0.004, "mix": 0.3, "type": "chorus" } } }
+    },
+    {
+      "name": "Cinematic Whoosh Up",
+      "category": "FX",
+      "author": "factory",
+      "tags": ["whoosh", "riser", "swoosh"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 3, "unisonSpread": 15, "unisonPanSpread": 0.8,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sawtooth", "osc2Detune": 7, "osc2Octave": 1, "osc2Semitone": 0, "osc2Level": 0.3, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.6, "noiseColor": "pink", "noiseMode": "amp",
+        "attack": 0.8, "decay": 0.5, "sustain": 0.0, "release": 1.0,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 200, "resonance": 5.0, "filterKeytrack": 0,
+        "filterEnvEnabled": true, "filterEnvAmount": 110, "filterEnvAttack": 0.8, "filterEnvDecay": 0.5, "filterEnvSustain": 0.0, "filterEnvRelease": 1.0,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 0.3, "lfoDepth": 25, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true, "phaser": true }, "states": { "reverb": { "decay": 3.5, "mix": 0.5 }, "phaser": { "rate": 0.4, "depth": 0.6, "feedback": 0.4, "mix": 0.35 } } }
+    },
+    {
+      "name": "Lightning Flash",
+      "category": "FX",
+      "author": "factory",
+      "tags": ["flash", "strike", "transient"],
+      "voice": {
+        "waveform": "sawtooth", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 1,
+        "unisonVoices": 2, "unisonSpread": 8, "unisonPanSpread": 0.5,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "square", "osc2Detune": 0, "osc2Octave": 2, "osc2Semitone": 0, "osc2Level": 0.4, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.9, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.001, "decay": 0.3, "sustain": 0.0, "release": 0.2,
+        "filterType": "bandpass", "filterSlope": "12db", "cutoff": 3000, "resonance": 1.5, "filterKeytrack": 0,
+        "filterEnvEnabled": true, "filterEnvAmount": 60, "filterEnvAttack": 0.001, "filterEnvDecay": 0.25, "filterEnvSustain": 0.0, "filterEnvRelease": 0.2,
+        "lfoEnabled": false, "lfoShape": "sine", "lfoRate": 5, "lfoDepth": 0, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "distortion": true, "reverb": true }, "states": { "distortion": { "drive": 25, "mix": 0.35 }, "reverb": { "decay": 1.8, "mix": 0.4 } } }
+    },
+    {
+      "name": "Thunder Rumble",
+      "category": "FX",
+      "author": "factory",
+      "tags": ["thunder", "rumble", "low"],
+      "voice": {
+        "waveform": "sine", "detune": 0, "pulseWidth": 0.5, "octaveOffset": -2,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": true, "subWaveform": "sine", "subVolume": 0.8,
+        "osc2Enabled": false, "osc2Waveform": "sine", "osc2Detune": 0, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.6, "noiseColor": "brown", "noiseMode": "amp",
+        "attack": 0.2, "decay": 2.5, "sustain": 0.1, "release": 3.0,
+        "filterType": "lowpass", "filterSlope": "24db", "cutoff": 400, "resonance": 1.5, "filterKeytrack": 0,
+        "filterEnvEnabled": true, "filterEnvAmount": 40, "filterEnvAttack": 0.1, "filterEnvDecay": 2.0, "filterEnvSustain": 0.1, "filterEnvRelease": 2.5,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 0.2, "lfoDepth": 15, "lfoTarget": "filter",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true, "compressor": true }, "states": { "reverb": { "decay": 5.0, "mix": 0.6 }, "compressor": { "threshold": -20, "ratio": 4, "attack": 0.01, "release": 0.3 } } }
+    },
+    {
+      "name": "Cricket Chirp",
+      "category": "FX",
+      "author": "factory",
+      "tags": ["cricket", "insect", "nature"],
+      "voice": {
+        "waveform": "sine", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 3,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sine", "osc2Detune": 4, "osc2Octave": 3, "osc2Semitone": 0, "osc2Level": 0.5, "osc2Pan": 0,
+        "noiseEnabled": false, "noiseLevel": 0, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.01, "decay": 0.1, "sustain": 0.0, "release": 0.05,
+        "filterType": "bandpass", "filterSlope": "12db", "cutoff": 6000, "resonance": 8.0, "filterKeytrack": 0,
+        "filterEnvEnabled": true, "filterEnvAmount": 20, "filterEnvAttack": 0.01, "filterEnvDecay": 0.1, "filterEnvSustain": 0.0, "filterEnvRelease": 0.05,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 18.0, "lfoDepth": 70, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true }, "states": { "reverb": { "decay": 1.5, "mix": 0.25 } } }
+    },
+    {
+      "name": "Bird Call",
+      "category": "FX",
+      "author": "factory",
+      "tags": ["bird", "nature", "morning"],
+      "voice": {
+        "waveform": "triangle", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 2,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "sine", "osc2Detune": 2, "osc2Octave": 2, "osc2Semitone": 0, "osc2Level": 0.4, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.05, "noiseColor": "white", "noiseMode": "transient",
+        "attack": 0.01, "decay": 0.3, "sustain": 0.0, "release": 0.2,
+        "filterType": "bandpass", "filterSlope": "12db", "cutoff": 4000, "resonance": 3.0, "filterKeytrack": 0,
+        "filterEnvEnabled": true, "filterEnvAmount": 30, "filterEnvAttack": 0.01, "filterEnvDecay": 0.25, "filterEnvSustain": 0.0, "filterEnvRelease": 0.2,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 9.0, "lfoDepth": 45, "lfoTarget": "pitch",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "reverb": true, "chorus": true }, "states": { "reverb": { "decay": 2.0, "mix": 0.3 }, "chorus": { "rate": 1.5, "depth": 0.002, "mix": 0.2, "type": "chorus" } } }
+    },
+    {
+      "name": "Heavy Rain",
+      "category": "FX",
+      "author": "factory",
+      "tags": ["rain", "weather", "ambient"],
+      "voice": {
+        "waveform": "sine", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 1, "unisonSpread": 0, "unisonPanSpread": 0,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": false, "osc2Waveform": "sine", "osc2Detune": 0, "osc2Octave": 0, "osc2Semitone": 0, "osc2Level": 0, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.65, "noiseColor": "pink", "noiseMode": "amp",
+        "attack": 0.5, "decay": 0.1, "sustain": 0.9, "release": 1.0,
+        "filterType": "lowpass", "filterSlope": "12db", "cutoff": 4000, "resonance": 0.5, "filterKeytrack": 0,
+        "filterEnvEnabled": false, "filterEnvAmount": 0, "filterEnvAttack": 0.05, "filterEnvDecay": 0.3, "filterEnvSustain": 0.6, "filterEnvRelease": 0.3,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 0.1, "lfoDepth": 10, "lfoTarget": "filter",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "chorus": true, "reverb": true }, "states": { "chorus": { "rate": 0.4, "depth": 0.003, "mix": 0.4, "type": "chorus" }, "reverb": { "decay": 2.5, "mix": 0.3 } } }
+    },
+    {
+      "name": "Sci-Fi Scanner",
+      "category": "FX",
+      "author": "factory",
+      "tags": ["scanner", "sci-fi", "sweep"],
+      "voice": {
+        "waveform": "sine", "detune": 0, "pulseWidth": 0.5, "octaveOffset": 0,
+        "unisonVoices": 2, "unisonSpread": 5, "unisonPanSpread": 0.4,
+        "subEnabled": false, "subWaveform": "sine", "subVolume": 0.5,
+        "osc2Enabled": true, "osc2Waveform": "triangle", "osc2Detune": 0, "osc2Octave": 1, "osc2Semitone": 0, "osc2Level": 0.3, "osc2Pan": 0,
+        "noiseEnabled": true, "noiseLevel": 0.2, "noiseColor": "white", "noiseMode": "amp",
+        "attack": 0.5, "decay": 0.5, "sustain": 0.5, "release": 0.5,
+        "filterType": "bandpass", "filterSlope": "24db", "cutoff": 1000, "resonance": 15.0, "filterKeytrack": 0,
+        "filterEnvEnabled": true, "filterEnvAmount": 60, "filterEnvAttack": 0.5, "filterEnvDecay": 0.5, "filterEnvSustain": 0.5, "filterEnvRelease": 0.5,
+        "lfoEnabled": true, "lfoShape": "sine", "lfoRate": 0.6, "lfoDepth": 55, "lfoTarget": "filter",
+        "glideEnabled": false, "glideTime": 0.15
+      },
+      "effects": { "active": { "phaser": true, "reverb": true }, "states": { "phaser": { "rate": 0.8, "depth": 0.7, "feedback": 0.5, "mix": 0.4 }, "reverb": { "decay": 2.0, "mix": 0.35 } } }
+    }
+  ]
+}
