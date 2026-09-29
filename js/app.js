@@ -185,6 +185,7 @@ const configMap = {
 
 const app = {
     tracks: null,
+    songBuilder: null,
     pianoOffset: 0,
     pianoMaxScroll: 0,
     currentOctave: 4,
@@ -304,6 +305,137 @@ const app = {
 
     exportTrack() {
         console.log('Export track not yet implemented');
+    },
+
+    _getGenreProfile() {
+        const genreId = this.project?.genre || 'house';
+        const g = window.Genres?.getGenre(genreId);
+        return g || null;
+    },
+
+    // -- Helper: apply a drum grid to sequencer with undo support --
+    _applyDrumGrid(grid) {
+        const seq = this.sequencer;
+        if (!seq) return;
+
+        const before = seq.pattern.map(row => row.map(cell => seq._normStep(cell)));
+        const after = grid.map(row => row.map(cell => seq._normStep(cell)));
+
+        const apply = (snapshot) => {
+            seq.pattern = snapshot.map(row => row.map(c => ({ ...c })));
+            seq.render();
+            if (this.patterns) this.patterns.updatePatternInfo();
+        };
+
+        this.history.push({
+            label: 'Generate Drums',
+            do: () => apply(after),
+            undo: () => apply(before),
+        });
+    },
+
+    // -- Helper: apply a synth grid to sequencer with undo support --
+    _applySynthGrid(grid) {
+        const seq = this.synthSequencer;
+        if (!seq) return;
+
+        const before = seq.pattern.map(row => row.map(cell => seq._normStep(cell)));
+        const after = grid.map(row => row.map(cell => seq._normStep(cell)));
+
+        const apply = (snapshot) => {
+            seq.pattern = snapshot.map(row => row.map(c => ({ ...c })));
+            seq.render();
+            if (this.patterns) this.patterns.updatePatternInfo();
+        };
+
+        this.history.push({
+            label: 'Generate Synth',
+            do: () => apply(after),
+            undo: () => apply(before),
+        });
+    },
+
+    // -- Public: generate drums --
+    generateDrumsFromGenre() {
+        if (!this.project) return;
+        const genreId = this.project.genre;
+        if (!genreId) { alert('Pick a genre in Settings first.'); return; }
+
+        const grid = window.GenreGenerator.generateBeat(genreId, {
+            steps: this.sequencer.steps,
+            drumPads: this.drumPads,
+            padCount: 8,
+            variationAmount: 0.15,
+        });
+        this._applyDrumGrid(grid);
+        this.setMode('sequencer', document.querySelector('.menu-btn[title="Drum Sequencer"]'));
+    },
+
+    // -- Public: generate melody --
+    generateMelodyFromGenre() {
+        if (!this.project) return;
+        const genreId = this.project.genre;
+        if (!genreId) { alert('Pick a genre in Settings first.'); return; }
+
+        const seq = this.synthSequencer;
+        const grid = window.GenreGenerator.generateMelody(genreId, this.project, {
+            steps: seq.steps,
+            rows: seq.rows,
+            baseMidiNote: seq.baseMidiNote,
+            variation: 1,
+        });
+        this._applySynthGrid(grid);
+        this.setMode('synthseq', document.querySelector('.menu-btn[title="Synth Sequencer"]'));
+    },
+
+    // -- Public: generate chords --
+    generateChordsFromGenre() {
+        if (!this.project) return;
+        const genreId = this.project.genre;
+        if (!genreId) { alert('Pick a genre in Settings first.'); return; }
+
+        const seq = this.synthSequencer;
+        const grid = window.GenreGenerator.generateChords(genreId, this.project, {
+            steps: seq.steps,
+            rows: seq.rows,
+            baseMidiNote: seq.baseMidiNote,
+        });
+        this._applySynthGrid(grid);
+        this.setMode('synthseq', document.querySelector('.menu-btn[title="Synth Sequencer"]'));
+    },
+
+    generateFullSong() {
+        if (!this.project) return;
+        const genreId = this.project.genre;
+        if (!genreId) { alert('Pick a genre in Settings first.'); return; }
+
+        // Use the SongBuilder for the arrangement-aware path
+        if (this.songBuilder) {
+            if (this.songBuilder.generateSong()) {
+                this.songBuilder.openPanel();
+                return;
+            }
+        }
+
+        // Fallback: old single-pass generation (if SongBuilder not ready)
+        const drumGrid = window.GenreGenerator.generateBeat(genreId, {
+            steps: this.sequencer.steps,
+            drumPads: this.drumPads,
+            padCount: 8,
+            variationAmount: 0.15,
+        });
+        this._applyDrumGrid(drumGrid);
+
+        const synthSeq = this.synthSequencer;
+        const synthGrid = window.GenreGenerator.generateFullSynth(genreId, this.project, {
+            steps: synthSeq.steps,
+            rows: synthSeq.rows,
+            baseMidiNote: synthSeq.baseMidiNote,
+        });
+        this._applySynthGrid(synthGrid);
+
+        const drumBtn = document.querySelector('.menu-btn[title="Drum Sequencer"]');
+        this.setMode('sequencer', drumBtn);
     },
 
     drumPads: new Array(8).fill(null).map(() => ({
@@ -586,6 +718,12 @@ const app = {
             projNameDisplay.textContent = this.project.name || 'New Project';
         }
 
+        const genreSel = document.getElementById('proj-genre');
+        if (genreSel && window.Genres) {
+            window.Genres.populateGenreSelect(genreSel);
+            genreSel.value = this.project?.genre || 'house';
+        }
+
         const qualitySelect = document.getElementById('proj-wav-quality');
         if (qualitySelect) {
             this.project.wavQuality = parseInt(qualitySelect.value, 10) || 16;
@@ -602,6 +740,7 @@ const app = {
         this.project.setupProjectSettings();
 
         this.tracks = new TrackSystem(this);
+        this.songBuilder = new SongBuilder(this);
         this.stepContextMenu = new StepContextMenu(this);
         this.padManager = new PadManager(this);
         this.synthSequencer = new SynthSequencer(this);
@@ -815,6 +954,9 @@ const app = {
         } else {
             modal.classList.remove('show');
             setTimeout(() => modal.style.display = 'none', 200);
+        }
+        if (window.audioCache) {
+            this.showAudioCacheStats();
         }
     },
 
@@ -1175,6 +1317,23 @@ const app = {
             this.synthSequencer._wavKey = null;
             this.synthSequencer._ensureWavBuffer();
         }
+        try { this.renderCurrentToneSample(); } catch (_) {}
+    },
+
+    async showAudioCacheStats() {
+        const el = document.getElementById('audio-cache-stats');
+        if (!el) return;
+        if (!window.audioCache) { el.textContent = 'unavailable'; return; }
+        const s = await window.audioCache.fullStats();
+        el.textContent = `${s.idbEntries} renders · ${s.idbMB} MB · hits ${s.hits}`;
+    },
+
+    async clearAudioCache() {
+        if (!window.audioCache) return;
+        if (!confirm('Clear all cached WAV renders? Next push will re-render.')) return;
+        await window.audioCache.clearAll();
+        alert('Cache cleared.');
+        this.showAudioCacheStats();
     },
 
     getCurrentTone() {

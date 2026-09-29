@@ -469,6 +469,24 @@ class AudioEngine {
         app.updateStatusDisplay();
     }
 
+    renderCurrentToneSample(midi = 60, durationSec = 2.0) {
+        if (!window.audioCache || !window.OfflineRenderer) return;
+        const voice = this.params || {};
+        const effects = {
+            active: Object.assign({}, this.activeEffects),
+            states: JSON.parse(JSON.stringify(this.effectStates || {})),
+        };
+        const key = window.audioCache.keyForToneSample({ voice, effects, midi, durationSec });
+
+        window.audioCache.getOrRender(key, () =>
+            window.OfflineRenderer.renderToneSample({ voice, effects, midi, durationSec })
+        ).then(buf => {
+            if (buf) console.log('[AudioEngine] tone sample cached:', key);
+        }).catch(err => {
+            console.warn('[AudioEngine] tone sample render failed:', err);
+        });
+    }
+
     loadSample(buffer) {
         this.sampleBuffer = buffer;
         app.updateStatusDisplay();

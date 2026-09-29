@@ -124,7 +124,7 @@
         const offline = new OfflineAudioContext(2, length, sampleRate);
 
         const masterGain = offline.createGain();
-        masterGain.gain.value = 1.0;
+        masterGain.gain.value = 0.6;
         const masterPanner = offline.createStereoPanner();
         masterPanner.pan.value = 0;
         masterGain.connect(masterPanner);
@@ -318,23 +318,42 @@
         if (!clip || clip.mode !== 'wav' || !clip.pattern) return null;
 
         const key = computeFreezeKey(clip, projectBpm);
+
+        // 1. In-clip cache hit
         if (clip._frozen && clip._frozen.key === key && clip._frozen.buffer) {
             return clip._frozen.buffer;
         }
 
+        // 2. Already rendering
         if (clip._freezePromise) {
             return clip._freezePromise;
         }
 
+        // 3. Persistent cache hit (audioCache)
+        if (window.audioCache) {
+            clip._freezePromise = (async () => {
+                try {
+                    const buffer = await window.audioCache.getOrRender(key, () =>
+                        queueRender(() => renderClip(clip, projectBpm, opts))
+                    );
+                    if (buffer) {
+                        clip._frozen = { key, buffer, renderedAt: Date.now() };
+                        return buffer;
+                    }
+                    return null;
+                } finally {
+                    clip._freezePromise = null;
+                }
+            })();
+            return clip._freezePromise;
+        }
+
+        // 4. Fallback: no audioCache (shouldn't happen, but safe)
         clip._freezePromise = (async () => {
             try {
                 const buffer = await queueRender(() => renderClip(clip, projectBpm, opts));
                 if (buffer) {
-                    clip._frozen = {
-                        key,
-                        buffer,
-                        renderedAt: Date.now(),
-                    };
+                    clip._frozen = { key, buffer, renderedAt: Date.now() };
                     return buffer;
                 }
                 return null;
@@ -342,7 +361,6 @@
                 clip._freezePromise = null;
             }
         })();
-
         return clip._freezePromise;
     }
 

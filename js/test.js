@@ -1,0 +1,1 @@
+No i don't update this for now keep synth sequencer as is now. Just make on toggle synth step related piano key to be highlighted, on tap or pointerdown on piano key related synth row label to be highlighted. This festure is very usefull for user to identify keys and octaves.

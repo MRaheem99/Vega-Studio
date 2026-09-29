@@ -80,7 +80,7 @@ class DrumSequencer {
                     <button class="seq-btn" onclick="app.sequencer.clear()" title="Clear Pattern">
                         <i class="fa-solid fa-eraser"></i>
                     </button>
-                    <button class="seq-btn" onclick="app.sequencer.randomize()" title="Random Pattern">
+                    <button class="seq-btn" onclick="app.sequencer.randomize()" title="Generate from Genre">
                         <i class="fa-solid fa-dice"></i>
                     </button>
                 
@@ -478,8 +478,12 @@ class DrumSequencer {
     stop() {
         this.isPlaying = false;
         document.querySelectorAll(".seq-step").forEach(el => el.classList.remove("play"));
-        
+
+        // If the synth seq is also stopped, clean up any lingering voices
         if (!this.app.synthSequencer?.isPlaying) {
+            if (this.app.audioEngine?.stopAllNotes) {
+                try { this.app.audioEngine.stopAllNotes(); } catch (_) {}
+            }
             this.app.transport.stop();
         }
         if (this.app?.updateStatusDisplay) this.app.updateStatusDisplay();
@@ -517,6 +521,13 @@ class DrumSequencer {
     }
 
     randomize(options = {}) {
+        const app = this.app;
+        if (app && typeof app.generateDrumsFromGenre === 'function'
+            && app.project && app.project.genre && window.GenreGenerator) {
+            app.generateDrumsFromGenre();
+            return;
+        }
+
         const {
             density = 0.3,
             padWeights = {0: 0.7, 1: 0.5, 2: 0.8, 3: 0.3, 4: 0.4, 5: 0.3, 6: 0.4, 7: 0.3},

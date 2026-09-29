@@ -101,12 +101,17 @@ class TrackSystem {
                 this.modifierDown = down;
                 document.body.classList.toggle('daw-modifier', down);
             }
+
+            // Ctrl/Cmd tracking for pan cursor hint
+            const ctrlDown = e.ctrlKey || e.metaKey;
+            document.body.classList.toggle('daw-ctrl-held', ctrlDown);
         };
         document.addEventListener('keydown', update);
         document.addEventListener('keyup', update);
         window.addEventListener('blur', () => {
             this.modifierDown = false;
             document.body.classList.remove('daw-modifier');
+            document.body.classList.remove('daw-ctrl-held');
         });
     }
 
@@ -185,16 +190,27 @@ class TrackSystem {
             const labelWidth = window.innerWidth <= 768 ? 120 : 180;
             const x = clientX - rect.left;
             if (x < labelWidth) return;
+
+            // Preserve current selection — scrubbing shouldn't clear it
+            const savedTrack = this.selectedTrack;
+            const savedClip = this.selectedClip;
+
             const time = (x - labelWidth + scrollArea.scrollLeft) / this.zoom;
             this.playheadPosition = Math.max(0, time);
             this.playheadActive = true;
             this.updatePlayhead(true);
+
             const timeEl = document.getElementById('tracks-time-value');
             if (timeEl) timeEl.innerText = this.formatTime(this.playheadPosition);
+
+            // Restore selection (defensive — nothing should have cleared it)
+            this.selectedTrack = savedTrack;
+            this.selectedClip = savedClip;
         };
 
         const startAltPan = (e) => {
-            if (e.button !== 0 || !e.altKey) return false;
+            if (e.button !== 0) return false;
+            if (!e.altKey && !e.ctrlKey && !e.metaKey) return false;
             e.preventDefault();
             e.stopPropagation();
 
@@ -1138,6 +1154,10 @@ class TrackSystem {
             const t = e.touches[0];
 
             if (e.target.closest('.clip-resize-handle')) return;
+            if (this.selectedTrack !== track.id) {
+                this.selectedTrack = track.id;
+                this.renderTracks({ trackId: track.id });
+            }
 
             const envIdx = hitEnvelopePoint(t.clientX, t.clientY);
             if (envIdx !== -1) {
@@ -1227,6 +1247,10 @@ class TrackSystem {
             e.stopPropagation();
             if (!this.dragState.isDragging && !this.dragState.isResizing) {
                 this.selectedClip = { trackId: track.id, clipId: clip.id };
+                // Auto-select track on clip click
+                if (this.selectedTrack !== track.id) {
+                    this.selectedTrack = track.id;
+                }
                 this.renderTracks();
             }
         });
@@ -1300,23 +1324,39 @@ class TrackSystem {
         const scrollArea = document.getElementById('tracks-scroll-area');
         if (scrollArea) {
             scrollArea.addEventListener('scroll', () => { this.hideContextMenu(); }, { passive: true });
+        }
+
+        // ---- Ctrl/Cmd + wheel zoom anywhere in the tracks panel ----
+        const zoomHost = document.getElementById('panel-tracks') || document.getElementById('tracks-timeline');
+        if (zoomHost) {
             let wheelTimeout;
-            scrollArea.addEventListener('wheel', (e) => {
-                if (!e.ctrlKey) return;
+            zoomHost.addEventListener('wheel', (e) => {
+                // Standard DAW modifier: Ctrl (Windows/Linux) or Cmd (Mac)
+                if (!(e.ctrlKey || e.metaKey)) return;
                 e.preventDefault();
+                e.stopPropagation();
+
                 clearTimeout(wheelTimeout);
                 wheelTimeout = setTimeout(() => {
+                    const scroller = document.getElementById('tracks-scroll-area');
+                    if (!scroller) return;
+
+                    // Anchor point — cursor X relative to scroller viewport
+                    const rect = scroller.getBoundingClientRect();
+                    const anchorX = e.clientX - rect.left;
+                    const timeAtAnchor = (scroller.scrollLeft + anchorX) / this.zoom;
+
                     const oldZoom = this.zoom;
-                    this.zoom = Math.max(20, Math.min(400, this.zoom + (e.deltaY > 0 ? -10 : 10)));
-                    const scale = this.zoom / oldZoom;
-                    const oldScroll = scrollArea.scrollLeft;
+                    const step = e.deltaY > 0 ? -0.1 : 0.1;   // 10% per notch
+                    this.zoom = Math.max(20, Math.min(400, this.zoom * (1 + step)));
+
                     requestAnimationFrame(() => {
                         this.renderRuler();
                         this._debouncedZoomRender();
-                        scrollArea.scrollLeft = oldScroll * scale;
+                        scroller.scrollLeft = timeAtAnchor * this.zoom - anchorX;
                     });
-                }, 50);
-            }, { passive: false });
+                }, 30);
+            }, { passive: false, capture: true });
         }
     }
 
@@ -1750,6 +1790,8 @@ el.addEventListener('click', (e) => {
         const menu = this._ensureMenu('track-context-menu');
         const clickTime = this.longPressPosition?.time ?? this.playheadPosition;
 
+        const hasClipboard = !!this.clipboard;
+
         const items = [
             {
                 id: 'add-wav',
@@ -1770,6 +1812,14 @@ el.addEventListener('click', (e) => {
                 action: () => this.importAudioFile(trackId, clickTime),
             },
             { divider: true },
+            {
+                id: 'paste',
+                icon: 'fa-paste',
+                label: 'Paste Clip Here',
+                action: () => this.pasteClipAt(trackId, clickTime),
+                disabled: !hasClipboard,
+            },
+            { divider: true },
             { id: 'mute',    icon: 'fa-volume-xmark', label: track.muted ? 'Unmute Track' : 'Mute Track', action: () => this.toggleMute(trackId) },
             { id: 'solo',    icon: 'fa-headphones',   label: track.solo ? 'Unsolo Track' : 'Solo Track',  action: () => this.toggleSolo(trackId) },
             { id: 'manage',  icon: 'fa-sliders',      label: 'Manage Track…',       action: () => this.openTrackManager(trackId) },
@@ -1781,6 +1831,62 @@ el.addEventListener('click', (e) => {
         this._positionMenu(menu, x, y);
     }
 
+        /**
+     * Paste the clipboard clip at a specific time on a specific track.
+     * Auto-selects the target track. Undoable.
+     */
+    pasteClipAt(trackId, timeSec) {
+        if (!this.clipboard) return;
+
+        const track = this.getTrack(trackId);
+        if (!track) return;
+
+        const pasteTime = Math.max(0, timeSec ?? this.playheadPosition);
+
+        const newClip = {
+            ...this.clipboard,
+            id: Date.now() + Math.random(),
+            name: (this.clipboard.name || 'Clip') + ' (paste)',
+            startTime: pasteTime,
+            envelope: (this.clipboard.envelope || []).map(p => ({ ...p })),
+        };
+        delete newClip.sourceTrackId;
+        delete newClip._frozen;      // fresh clip — no stale frozen buffer
+        delete newClip._freezePromise;
+
+        const self = this;
+
+        this.app.history.push({
+            label: 'Paste Clip',
+            do: () => {
+                if (!track.clips.find(c => c.id === newClip.id)) {
+                    track.clips.push(newClip);
+                    self.sortClips(track);
+                    // If it's a WAV pattern clip, kick off a render
+                    if (newClip.type === 'pattern' && newClip.mode === 'wav' && window.ClipFreezer) {
+                        const bpm = self.app.project?.bpm || 120;
+                        window.ClipFreezer.freeze(newClip, bpm).then(() => {
+                            self.renderTracks({ trackId });
+                        }).catch(err => console.warn('[paste] freeze failed:', err));
+                    }
+                    self.renderTracks({ trackId });
+                }
+            },
+            undo: () => {
+                track.clips = track.clips.filter(c => c.id !== newClip.id);
+                if (window.ClipFreezer) window.ClipFreezer.dispose(newClip);
+                self.renderTracks({ trackId });
+            },
+        });
+
+        // Auto-select the target track + the new clip
+        this.selectedTrack = trackId;
+        this.selectedClip = { trackId, clipId: newClip.id };
+        this.contextClip = this.selectedClip;
+
+        requestAnimationFrame(() => this.renderTracks({ trackId }));
+    }
+
     hideContextMenu() {
         const clipMenu = document.getElementById('clip-context-menu');
         const trackMenu = document.getElementById('track-context-menu');
@@ -1788,6 +1894,50 @@ el.addEventListener('click', (e) => {
         if (clipMenu) clipMenu.classList.remove('show');
         if (trackMenu) trackMenu.classList.remove('show');
         if (addTrackMenu) addTrackMenu.classList.remove('show');
+    }
+
+        /**
+     * Clear all clips from a track (undoable).
+     */
+    clearTrack(trackId) {
+        const track = this.getTrack(trackId);
+        if (!track) return;
+        if (track.clips.length === 0) {
+            alert('This track is already empty.');
+            return;
+        }
+        if (!confirm(`Remove all ${track.clips.length} clip(s) from "${track.name}"?`)) return;
+
+        const beforeClips = track.clips.slice();
+        const self = this;
+
+        this.app.history.push({
+            label: 'Clear Track',
+            do: () => {
+                // Dispose any audio resources
+                beforeClips.forEach(c => self._disposeClipAudio(c));
+                track.clips = [];
+                self.renderTracks({ trackId });
+            },
+            undo: () => {
+                track.clips = beforeClips.slice();
+                self.sortClips(track);
+                self.renderTracks({ trackId });
+            },
+        });
+
+        this.closeTrackManager();
+    }
+
+    /**
+     * Delete a track with confirmation (used by the modal).
+     */
+    deleteTrackFromModal(trackId) {
+        const track = this.getTrack(trackId);
+        if (!track) return;
+        if (!confirm(`Delete track "${track.name}"${track.clips.length ? ` and its ${track.clips.length} clip(s)` : ''}?`)) return;
+        this.deleteTrack(trackId);
+        this.closeTrackManager();
     }
 
     deleteTrack(trackId) {
@@ -2619,9 +2769,19 @@ el.addEventListener('click', (e) => {
     }
 
     startDrag(e, clip, track) {
+        if (e.ctrlKey || e.metaKey) {
+            this.startTimelinePan(e);
+            return;
+        }
+
         e.preventDefault();
         e.stopPropagation();
         this.hideContextMenu();
+
+        if (this.selectedTrack !== track.id) {
+            this.selectedTrack = track.id;
+            this.renderTracks({ trackId: track.id });
+        }
         this.dragState = {
             isDragging: true, isResizing: false,
             clip, track,
@@ -2650,6 +2810,10 @@ el.addEventListener('click', (e) => {
     }
 
     startResize(e, clip, track) {
+        if (e.ctrlKey || e.metaKey) {
+            this.startTimelinePan(e);
+            return;
+        }
         e.preventDefault();
         e.stopPropagation();
         this.hideContextMenu();
@@ -2679,6 +2843,55 @@ el.addEventListener('click', (e) => {
         document.addEventListener('mouseup', this.onDragEnd);
         document.addEventListener('touchend', this.onDragEnd);
         document.addEventListener('touchcancel', this.onDragEnd);
+    }
+
+        /**
+     * Ctrl/Cmd + drag anywhere → pan the timeline like a hand tool.
+     * Works over clips, empty lanes, and the ruler.
+     */
+    startTimelinePan(e) {
+        const scroller = document.getElementById('tracks-scroll-area');
+        if (!scroller) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        const isTouch = !!(e.touches && e.touches.length);
+        const getPoint = (ev) => isTouch
+            ? { x: ev.touches[0].clientX, y: ev.touches[0].clientY }
+            : { x: ev.clientX, y: ev.clientY };
+
+        const start = getPoint(e);
+        const startScrollLeft = scroller.scrollLeft;
+        const startScrollTop = scroller.scrollTop;
+
+        // Visual cursor feedback
+        scroller.style.cursor = 'grabbing';
+        document.body.classList.add('daw-panning');
+
+        const onMove = (ev) => {
+            if (!ev.touches && ev.buttons === 0 && !isTouch) return;   // mouse released
+            const p = getPoint(ev);
+            scroller.scrollLeft = startScrollLeft - (p.x - start.x);
+            scroller.scrollTop  = startScrollTop  - (p.y - start.y);
+            if (ev.cancelable) ev.preventDefault();
+        };
+
+        const onEnd = () => {
+            scroller.style.cursor = '';
+            document.body.classList.remove('daw-panning');
+            window.removeEventListener('mousemove', onMove);
+            window.removeEventListener('mouseup', onEnd);
+            window.removeEventListener('touchmove', onMove);
+            window.removeEventListener('touchend', onEnd);
+            window.removeEventListener('touchcancel', onEnd);
+        };
+
+        window.addEventListener('mousemove', onMove, { passive: false });
+        window.addEventListener('mouseup', onEnd);
+        window.addEventListener('touchmove', onMove, { passive: false });
+        window.addEventListener('touchend', onEnd);
+        window.addEventListener('touchcancel', onEnd);
     }
 
     onDragMove(e) {
@@ -4026,6 +4239,16 @@ el.addEventListener('click', (e) => {
 
         document.getElementById('track-manager-color').oninput = (e) =>
             this.updateTrackColor(trackId, e.target.value);
+
+                // Wire danger-zone buttons
+        const clearBtn = document.getElementById('track-manager-clear');
+        const deleteBtn = document.getElementById('track-manager-delete');
+        if (clearBtn) {
+            clearBtn.onclick = () => this.clearTrack(trackId);
+        }
+        if (deleteBtn) {
+            deleteBtn.onclick = () => this.deleteTrackFromModal(trackId);
+        }
 
         requestAnimationFrame(() => {
             this._buildTrackManagerSliders(trackId);

@@ -1,94 +1,131 @@
 //js/project.js
 class Project {
-	constructor(){
-		this.name = "New Project";
-		this.bpm = 120;
-		this.bars = 8;
-		this.timeSignature = "4/4";
-		this.swing = 0;
-		this.key = "C";
-		this.scale = "major";
-		this.metronomeVolume = 0.5;
-		this.listeners = [];
-	}
-	
-	setBPM(val){
-		if(!Number.isFinite(val)) return;
-		this.bpm = val;
-		this.emit("bpm");
-	}
+    constructor(){
+        this.name = "New Project";
+        this.bpm = 120;
+        this.bars = 8;
+        this.timeSignature = "4/4";
+        this.swing = 0;
+        this.key = "C";
+        this.scale = "major";
+        this.genre = "house";  
+		this.songLengthBars = 32;
+        this.breakCount = 2;
+        this.metronomeVolume = 0.5;
+        this.listeners = [];
+    }
 
-	setBars(val){
-		if(!Number.isFinite(val)) return; 
-		this.bars = val;
-		this.emit("bars");
-	}
+    setBPM(val){
+        if(!Number.isFinite(val)) return;
+        this.bpm = val;
+        this.emit("bpm");
+    }
 
-	setTimeSignature(val){
-		this.timeSignature = val;
-		this.emit("timesig");
-	}
+    setBars(val){
+        if(!Number.isFinite(val)) return; 
+        this.bars = val;
+        this.emit("bars");
+    }
 
-	setSwing(val){
-		this.swing = val;
-		this.emit("swing");
-	}
+    setTimeSignature(val){
+        this.timeSignature = val;
+        this.emit("timesig");
+    }
 
-	setKey(val){
-		this.key = val;
-		this.emit("key");
-	}
+    setSwing(val){
+        this.swing = val;
+        this.emit("swing");
+    }
 
-	setScale(val){
-		this.scale = val;
-		this.emit("scale");
-	}
-	
-	setMetronomeVolume(val) {
-    	const v = Math.max(0, Math.min(1, parseFloat(val) || 0));
-    	this.metronomeVolume = v;
-    	this.emit("metronomeVolume");
-	}
+    setKey(val){
+        this.key = val;
+        this.emit("key");
+    }
 
-	setupProjectSettings(){
-		document.getElementById("proj-bpm").addEventListener("change",(e)=>{
-			const projectbpm = parseFloat(e.target.value);
-			this.setBPM(projectbpm);
-		});
+    setScale(val){
+        this.scale = val;
+        this.emit("scale");
+    }
 
-		document.getElementById("proj-bars").addEventListener("change",(e)=>{
-			const projectbars = parseInt(e.target.value);
-			this.setBars(projectbars);
-		});
+    setGenre(val){                          // ← NEW
+        if (!val) return;
+        this.genre = val;
+        this.emit("genre");
+    }
 
-		document.getElementById("proj-timesig").addEventListener("change",(e)=>{
-			this.setTimeSignature(e.target.value);
-		});
-		
-		document.getElementById("proj-swing").addEventListener("input",(e)=>{
-			this.setSwing(parseFloat(e.target.value));
-		});
+    setMetronomeVolume(val) {
+        const v = Math.max(0, Math.min(1, parseFloat(val) || 0));
+        this.metronomeVolume = v;
+        this.emit("metronomeVolume");
+    }
 
-		document.getElementById("proj-key").addEventListener("change",(e)=>{
-			this.setKey(e.target.value);
-		});
+    setupProjectSettings(){
+        document.getElementById("proj-bpm").addEventListener("change",(e)=>{
+            const projectbpm = parseFloat(e.target.value);
+            this.setBPM(projectbpm);
+        });
 
-		document.getElementById("proj-scale").addEventListener("change",(e)=>{
-			this.setScale(e.target.value);
-		});
-		
-		document.getElementById("proj-metronome-vol").addEventListener("input", (e) => {
-    		this.setMetronomeVolume(e.target.value);
-		});
-	}
+        document.getElementById("proj-bars").addEventListener("change",(e)=>{
+            const projectbars = parseInt(e.target.value);
+            this.setBars(projectbars);
+        });
 
-	subscribe(fn){
-		this.listeners.push(fn);
-	}
+        document.getElementById("proj-timesig").addEventListener("change",(e)=>{
+            this.setTimeSignature(e.target.value);
+        });
 
-	emit(type){
-		this.listeners.forEach(fn => fn(type,this));
-	}
+        document.getElementById("proj-swing").addEventListener("input",(e)=>{
+            this.setSwing(parseFloat(e.target.value));
+        });
+
+        document.getElementById("proj-key").addEventListener("change",(e)=>{
+            this.setKey(e.target.value);
+        });
+
+        document.getElementById("proj-scale").addEventListener("change",(e)=>{
+            this.setScale(e.target.value);
+        });
+
+        // ← NEW: genre selector
+        const genreSel = document.getElementById("proj-genre");
+        if (genreSel) {
+            genreSel.addEventListener("change", (e) => {
+                this.setGenre(e.target.value);
+            });
+        }
+
+        document.getElementById("proj-metronome-vol").addEventListener("input", (e) => {
+            this.setMetronomeVolume(e.target.value);
+        });
+
+		        const songLenEl = document.getElementById("proj-song-length");
+        if (songLenEl) songLenEl.addEventListener("change", (e) => this.setSongLengthBars(e.target.value));
+
+        const breakCountEl = document.getElementById("proj-break-count");
+        if (breakCountEl) breakCountEl.addEventListener("change", (e) => this.setBreakCount(e.target.value));
+    }
+
+	setSongLengthBars(val) {
+        const n = parseInt(val);
+        if (!Number.isFinite(n) || n < 4) return;
+        this.songLengthBars = n;
+        this.emit("songLengthBars");
+    }
+
+    setBreakCount(val) {
+        const n = parseInt(val);
+        if (!Number.isFinite(n) || n < 0 || n > 6) return;
+        this.breakCount = n;
+        this.emit("breakCount");
+    }
+
+    subscribe(fn){
+        this.listeners.push(fn);
+    }
+
+    emit(type){
+        this.listeners.forEach(fn => fn(type,this));
+    }
 }
 
 window.Project = Project;

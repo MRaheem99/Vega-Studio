@@ -347,7 +347,7 @@ class SynthSequencer {
                     `<button class="seq-btn" onclick="app.synthSequencer.clear()" title="Clear">` +
                         `<i class="fa-solid fa-eraser"></i>` +
                     `</button>` +
-                    `<button class="seq-btn" onclick="app.synthSequencer.randomize()" title="Randomize">` +
+                    `<button class="seq-btn" onclick="app.synthSequencer.randomize()" title="Generate melody from genre">` +
                         `<i class="fa-solid fa-dice"></i>` +
                     `</button>` +
                     `<div class="seq-steps-control">` +
@@ -985,6 +985,14 @@ class SynthSequencer {
     }
 
     randomize() {
+        const app = this.app;
+        if (app && typeof app.generateMelodyFromGenre === 'function'
+            && app.project && app.project.genre && window.GenreGenerator) {
+            app.generateMelodyFromGenre();
+            return;
+        }
+
+        // --- Legacy fallback (unchanged behavior) ---
         const project = this.app.project || {};
         const key = project.key || 'C';
         const scale = project.scale || 'major';
@@ -1151,9 +1159,15 @@ class SynthSequencer {
         const el = document.getElementById('ss-step');
         if (el) el.innerText = '1';
 
+        // Stop any tracked active notes (WAV mode)
         if (this._activeNotes) {
             this._activeNotes.forEach(note => this.app.audioEngine.stopNote(note));
             this._activeNotes.clear();
+        }
+
+        // NEW: kill all scheduled voices (native mode)
+        if (this.app.audioEngine?.stopAllNotes) {
+            try { this.app.audioEngine.stopAllNotes(); } catch (_) {}
         }
 
         this.stopWavPlayback();
