@@ -1,0 +1,322 @@
+/* ============================================================
+   TONE PICKER — modal for browsing/applying tone presets.
+   Shares the visual language of FX cards.
+   ============================================================ */
+
+.tone-picker-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2200;
+    display: none;
+}
+.tone-picker-overlay.show {
+    display: block;
+}
+
+.tone-picker {
+    position: absolute;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%) translateY(6px);
+    width: 480px;
+    max-width: calc(100vw - 24px);
+    max-height: calc(100vh - 140px);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.65);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    pointer-events: auto;
+    opacity: 0;
+    transition: opacity 0.16s ease, transform 0.16s ease;
+    touch-action: auto;
+}
+.tone-picker-overlay.show .tone-picker {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Header (draggable) */
+.tone-picker-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    background: var(--surface-light);
+    border-bottom: 1px solid var(--border);
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+    min-height: 38px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+.tone-picker-header:active { cursor: grabbing; }
+
+.tone-picker-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    color: var(--primary);
+    text-transform: uppercase;
+}
+
+.tone-picker-close {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    font-size: 14px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+.tone-picker-close:hover,
+.tone-picker-close:active {
+    color: var(--danger);
+    background: rgba(255, 82, 82, 0.12);
+}
+
+/* Filters */
+.tone-picker-filters {
+    display: flex;
+    gap: 8px;
+    padding: 10px 12px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+}
+
+.tone-picker-search {
+    flex: 1 1 auto;
+    min-width: 0;
+    background: var(--surface-light);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    padding: 7px 10px;
+    border-radius: 5px;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.15s ease;
+}
+.tone-picker-search:focus { border-color: var(--primary); }
+.tone-picker-search::placeholder { color: var(--text-dim); }
+
+.tone-picker-category {
+    flex: 0 0 auto;
+    background: var(--surface-light);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    padding: 7px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    outline: none;
+    cursor: pointer;
+    min-width: 100px;
+    max-width: 160px;
+}
+.tone-picker-category:focus { border-color: var(--primary); }
+
+/* Preset list */
+.tone-picker-list {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 6px 8px 10px;
+    -webkit-overflow-scrolling: touch;
+    min-height: 200px;
+}
+
+.tone-picker-group {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    opacity: 0.75;
+    padding: 10px 8px 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    margin-bottom: 4px;
+}
+
+.tone-picker-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 9px 10px;
+    margin-bottom: 2px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.12s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    min-height: 40px;
+    box-sizing: border-box;
+}
+.tone-picker-item:hover,
+.tone-picker-item:active {
+    background: rgba(0, 230, 118, 0.12);
+}
+
+.tone-picker-item-main { min-width: 0; flex: 1 1 auto; }
+
+.tone-picker-item-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tone-picker-item-meta {
+    font-size: 10px;
+    color: var(--text-dim);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 2px;
+}
+
+.tone-picker-item-badges {
+    flex: 0 0 auto;
+    display: flex;
+    gap: 4px;
+}
+
+.tone-badge {
+    display: inline-block;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 2px 5px;
+    border-radius: 6px;
+    text-transform: uppercase;
+}
+.tone-badge.user {
+    background: rgba(224, 64, 251, 0.15);
+    color: #e040fb;
+    border: 1px solid rgba(224, 64, 251, 0.35);
+}
+
+.tone-picker-empty {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 12px;
+    padding: 40px 20px;
+}
+
+/* Action bar */
+.tone-picker-actions {
+    display: flex;
+    gap: 6px;
+    padding: 10px 12px;
+    background: var(--surface-light);
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+}
+
+.tone-picker-btn {
+    flex: 1 1 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 10px;
+    min-height: 36px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    color: var(--text-main);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+.tone-picker-btn:hover,
+.tone-picker-btn:active {
+    background: rgba(0, 230, 118, 0.12);
+    border-color: var(--primary);
+    color: var(--primary);
+}
+.tone-picker-btn i { font-size: 12px; }
+
+/* Context menu (long-press / right-click) */
+.tone-picker-menu {
+    position: fixed;
+    min-width: 170px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 0;
+    z-index: 2300;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.65);
+    pointer-events: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.tone-picker-menu-item {
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    color: var(--text-main);
+    cursor: pointer;
+    min-height: 40px;
+    box-sizing: border-box;
+    transition: background 0.12s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+.tone-picker-menu-item:hover,
+.tone-picker-menu-item:active {
+    background: rgba(0, 230, 118, 0.15);
+    color: var(--primary);
+}
+.tone-picker-menu-item.danger { color: var(--danger); }
+.tone-picker-menu-item.danger:hover,
+.tone-picker-menu-item.danger:active {
+    background: rgba(229, 57, 53, 0.15);
+}
+.tone-picker-menu-item i {
+    width: 16px;
+    text-align: center;
+    font-size: 12px;
+    opacity: 0.85;
+    flex-shrink: 0;
+}
+.tone-picker-menu-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 4px 0;
+}
+
+/* Mobile */
+@media (max-width: 520px) {
+    .tone-picker {
+        top: 60px;
+        width: calc(100vw - 16px);
+        max-height: calc(100vh - 80px);
+    }
+    .tone-picker-filters { flex-wrap: wrap; }
+    .tone-picker-category {
+        max-width: none;
+        flex: 1 1 100%;
+    }
+    .tone-picker-actions {
+        flex-wrap: wrap;
+    }
+    .tone-picker-btn {
+        flex: 1 1 calc(50% - 3px);
+    }
+}
