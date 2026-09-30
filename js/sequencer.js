@@ -1,6 +1,9 @@
 //js/sequencer.js
 class DrumSequencer {
     constructor(app) {
+        Object.defineProperty(this, 'selection', {
+            get() { return this._selection; },
+        });
         this.app = app;
         this.steps = 16;
         this.minSteps = 4;
@@ -22,7 +25,10 @@ class DrumSequencer {
         this._rowClipboard = null;
         this._lastPlayEls = [];
         this._projectSubscribed = false;
+        this._selection = null;
     }
+
+    get selection() { return this._selection; }
 
     _blankCell() {
         return {
@@ -83,6 +89,26 @@ class DrumSequencer {
                     <button class="seq-btn" onclick="app.sequencer.randomize()" title="Generate from Genre">
                         <i class="fa-solid fa-dice"></i>
                     </button>
+                    <button class="seq-btn" id="seq-mode-btn"
+                            onclick="app.sequencer.selection.toggleMode()"
+                            title="Edit mode">
+                        <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="seq-btn" id="seq-mode-btn"
+                            onclick="app.sequencer._selection.toggleMode()"
+                            title="Edit mode (click to toggle steps)">
+                        <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="seq-btn" id="seq-select-all-btn"
+                            onclick="app.sequencer._selection.selectAll()"
+                            title="Select all (Ctrl+A)">
+                        <i class="fa-solid fa-vector-square"></i>
+                    </button>
+                    <button class="seq-btn" id="seq-clear-sel-btn"
+                            onclick="app.sequencer._selection.clear()"
+                            title="Clear selection (Esc)">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
                 
                     <div class="seq-steps-control">
                         <label for="seq-steps-input" class="visually-hidden">Steps</label>
@@ -135,6 +161,23 @@ class DrumSequencer {
             this._applyStepVisuals(el, this.pattern[padIndex][stepIndex]);
             this._wireStepContextMenu(el, padIndex, stepIndex);
         });
+
+        if (!this._selection) {
+            this._selection = new window.SequencerSelection(this, {
+                cellSelector: '.seq-step',
+                rowDataAttr: 'data-pad',
+                stepDataAttr: 'data-step',
+                stepIndexBase: 1,
+                gridEl: () => document.getElementById('sequencer'),
+            });
+        }
+        container.querySelectorAll('.seq-step').forEach(el => {
+            const r = parseInt(el.dataset.pad, 10);
+            const s = parseInt(el.dataset.step, 10) - 1;
+            this._selection.wireCell(el, r, s);
+        });
+        this._selection.applyVisuals();
+        this._selection.applyVisuals();
     }
 
     _wireStepContextMenu(el, padIndex, stepIndex) {
@@ -186,7 +229,13 @@ class DrumSequencer {
             e.preventDefault();
             e.stopPropagation();
             if (fired) return;
-            openMenu(e.clientX, e.clientY);
+
+            const sel = this._selection;
+            if (sel && sel.selected.size > 0) {
+                this.app.stepContextMenu.showSelectionMenu(e.clientX, e.clientY, this);
+            } else {
+                openMenu(e.clientX, e.clientY);
+            }
         });
     }
 

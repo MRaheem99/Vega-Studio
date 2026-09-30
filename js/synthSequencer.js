@@ -41,7 +41,10 @@ class SynthSequencer {
             'Power':      [0, 7],
             'Octave':     [0, 12],
         };
+        this._selection = null;
     }
+
+    get selection() { return this._selection; }
 
     _blankCell() {
         return {
@@ -350,6 +353,11 @@ class SynthSequencer {
                     `<button class="seq-btn" onclick="app.synthSequencer.randomize()" title="Generate melody from genre">` +
                         `<i class="fa-solid fa-dice"></i>` +
                     `</button>` +
+                    `<button class="seq-btn" id="ss-mode-btn" ` +
+                            `onclick="app.synthSequencer.selection.toggleMode()" ` +
+                            `title="Edit mode">` +
+                        `<i class="fa-solid fa-pen"></i>` +
+                    `</button>` +
                     `<div class="seq-steps-control">` +
                         `<input type="number" id="ss-steps-input" value="${this.steps}" ` +
                             `min="${this.minSteps}" max="${this.maxSteps}" class="seq-steps-input" ` +
@@ -434,6 +442,21 @@ class SynthSequencer {
             this._wireStepContextMenu(el, row, step);
         });
 
+        if (!this._selection) {
+            this._selection = new window.SequencerSelection(this, {
+                cellSelector: '.ss-step',
+                rowDataAttr: 'data-row',
+                stepDataAttr: 'data-step',
+                stepIndexBase: 0,
+                gridEl: () => document.getElementById('synthseq'),
+            });
+        }
+        container.querySelectorAll('.ss-step').forEach(el => {
+            const r = parseInt(el.dataset.row, 10);
+            const s = parseInt(el.dataset.step, 10);
+            this._selection.wireCell(el, r, s);
+        });
+
         container.querySelectorAll('.ss-key').forEach(keyEl => {
             const row = parseInt(keyEl.dataset.row, 10);
 
@@ -473,6 +496,8 @@ class SynthSequencer {
                 this.app.project?.bpm || 120
             );
         }
+
+        this._selection.applyVisuals();
     }
 
     setRenderMode(mode) {
@@ -760,6 +785,16 @@ class SynthSequencer {
             if (e.pointerType === 'mouse' && e.button !== 0) return;
             fired = false;
 
+            const sel = this._selection;
+            if (sel) {
+                const mod = e.ctrlKey || e.metaKey;
+                const isSelected = sel.isSelected(row, step);
+                if (mod || isSelected) {
+                    // Selection engine will handle this pointerdown
+                    return;
+                }
+            }
+
             const midi = this.baseMidiNote + row;
             if (this.app?.highlightForMidi) {
                 this.app.highlightForMidi(midi, { scrollPiano: true });
@@ -808,13 +843,22 @@ class SynthSequencer {
             const clientY = e.clientY;
             pressTimer = setTimeout(() => {
                 pressTimer = null;
-                
+
                 if (dragState && dragState.thresholdPassed) return;
 
                 if (dragState) {
                     cleanupDragListeners();
                     dragState = null;
                 }
+
+                // If selection is active, long-press adds to selection instead
+                const sel = this._selection;
+                if (sel && (sel.selected.size > 0 || this._touchSelectionActive)) {
+                    sel.toggle(row, step);
+                    if (navigator.vibrate) navigator.vibrate(15);
+                    return;
+                }
+
                 openMenu(clientX, clientY);
                 if (navigator.vibrate) navigator.vibrate(15);
             }, 450);
@@ -842,7 +886,13 @@ class SynthSequencer {
         el.addEventListener('contextmenu', (e) => {
             e.preventDefault();
             e.stopPropagation();
-            openMenu(e.clientX, e.clientY);
+
+            const sel = this._selection;
+            if (sel && sel.selected.size > 0) {
+                this.app.stepContextMenu.showSelectionMenu(e.clientX, e.clientY, this);
+            } else {
+                openMenu(e.clientX, e.clientY);
+            }
         });
     }
 

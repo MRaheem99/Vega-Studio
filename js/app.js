@@ -33,6 +33,70 @@ const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     });
 })();
 
+// ---- Sequencer selection keyboard shortcuts ----
+(function installSequencerShortcuts() {
+    document.addEventListener('keydown', (e) => {
+        const tag = (e.target?.tagName || '').toUpperCase();
+        if (tag === 'INPUT' || tag === 'TEXTAREA' || e.target?.isContentEditable) return;
+        if (e.target?.closest?.('.modal-overlay, .fx-editor-modal, .step-context-menu')) return;
+
+        const seq = (window.app?.currentMode === 'synthseq')
+            ? window.app?.synthSequencer
+            : window.app?.sequencer;
+        const sel = seq?.selection;
+        if (!sel) return;
+
+        const mod = e.ctrlKey || e.metaKey;
+
+        // Copy / Cut / Paste / Select All / Delete / Escape
+        if (mod && e.key.toLowerCase() === 'c') { sel.copy(); e.preventDefault(); return; }
+        if (mod && e.key.toLowerCase() === 'x') { sel.cut(); e.preventDefault(); return; }
+        if (mod && e.key.toLowerCase() === 'v') {
+            // Paste at mouse cursor if hovering over a cell
+            const at = sel.lastMouseCell;
+            sel.paste(at?.r, at?.s);
+            e.preventDefault();
+            return;
+        }
+        if (mod && e.key.toLowerCase() === 'a') { sel.selectAll(); e.preventDefault(); return; }
+        if ((e.key === 'Delete' || e.key === 'Backspace') && sel.selected.size > 0) {
+            sel.delete();
+            e.preventDefault();
+            return;
+        }
+        if (e.key === 'Escape') {
+            if (sel.selected.size > 0) { sel.clear(); e.preventDefault(); }
+            return;
+        }
+
+        // Arrow keys — move selection
+        if (sel.selected.size > 0) {
+            const shift = e.shiftKey;
+            const dup = e.altKey;   // Alt+arrow = duplicate
+            let dR = 0, dS = 0;
+            if (e.key === 'ArrowUp')    dR = -1;
+            else if (e.key === 'ArrowDown')  dR = 1;
+            else if (e.key === 'ArrowLeft')  dS = -1;
+            else if (e.key === 'ArrowRight') dS = 1;
+            else return;
+
+            if (shift) {
+                // Extend selection by one cell in that direction
+                const b = sel.getBounds();
+                if (b) {
+                    if (dR < 0) sel.selectRange(b.rMin - 1, b.sMin, b.rMax, b.sMax, true);
+                    else if (dR > 0) sel.selectRange(b.rMin, b.sMin, b.rMax + 1, b.sMax, true);
+                    else if (dS < 0) sel.selectRange(b.rMin, b.sMin - 1, b.rMax, b.sMax, true);
+                    else if (dS > 0) sel.selectRange(b.rMin, b.sMin, b.rMax, b.sMax + 1, true);
+                }
+            } else {
+                sel.moveBy(dR, dS, dup);
+            }
+            e.preventDefault();
+        }
+    });
+})();
+
 const configMap = {
     adsr: {
         labels: {
@@ -1865,6 +1929,19 @@ const app = {
         addSlider('env-sliders',     'decay',        'Decay',   0.01,  2, 0.2,  0.01, 'horizontal', 260, 40);
         addSlider('env-sliders',     'sustain',      'Sustain', 0,     1, 0.6,  0.01, 'horizontal', 260, 40);
         addSlider('env-sliders',     'release',      'Release', 0.01,  5, 0.3,  0.01, 'horizontal', 260, 40);
+    },
+    showToast(msg) {
+        let el = document.getElementById('daw-toast');
+        if (!el) {
+            el = document.createElement('div');
+            el.id = 'daw-toast';
+            el.className = 'daw-toast';
+            document.body.appendChild(el);
+        }
+        el.textContent = msg;
+        el.classList.add('show');
+        clearTimeout(this._toastTimer);
+        this._toastTimer = setTimeout(() => el.classList.remove('show'), 1600);
     }
 };
 
