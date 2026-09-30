@@ -1,0 +1,45 @@
+/* Selected step highlight */
+.seq-step.selected,
+.ss-step.selected {
+    outline: 2px solid #00e676;
+    outline-offset: -1px;
+    z-index: 2;
+    position: relative;
+}
+.seq-step.selected::after,
+.ss-step.selected::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 230, 118, 0.18);
+    pointer-events: none;
+    border-radius: inherit;
+}
+
+/* Marquee rectangle */
+.seq-marquee {
+    position: fixed;
+    border: 1px solid #00e676;
+    background: rgba(0, 230, 118, 0.12);
+    border-radius: 2px;
+    pointer-events: none;
+    z-index: 10000;
+}
+
+/* Mode button active state */
+#seq-mode-btn.active,
+#ss-mode-btn.active {
+    background: rgba(0, 230, 118, 0.25);
+    border-color: #00e676;
+    color: #00e676;
+}
+
+/* Transform mode cursor */
+body.seq-transform-mode .seq-step,
+body.seq-transform-mode .ss-step {
+    cursor: grab;
+}
+body.seq-transform-mode .seq-step.selected,
+body.seq-transform-mode .ss-step.selected {
+    cursor: move;
+}
