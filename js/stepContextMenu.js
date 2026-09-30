@@ -1,10 +1,11 @@
 class StepContextMenu {
-    constructor(app) {
+        constructor(app) {
         this.app = app;
         this.menuEl = null;
         this.padIndex = -1;
         this.stepIndex = -1;
         this._openedAt = 0;
+        this._stepClipboard = null;
         this._build();
         this._wireGlobalClose();
     }
@@ -45,6 +46,7 @@ class StepContextMenu {
             : `Step ${stepIndex + 1} · Pad ${padIndex + 1}`;
 
         const hasRowClipboard = !!seq._rowClipboard;
+        const hasStepClipboard = !!this._stepClipboard;
 
         const items = [
             {
@@ -63,6 +65,23 @@ class StepContextMenu {
                 id: 'edit', icon: 'fa-sliders',
                 label: 'Edit Step…',
                 action: () => this._openEditor(),
+            },
+            { divider: true },
+            {
+                id: 'copy-step', icon: 'fa-copy',
+                label: 'Copy Step',
+                action: () => this._copyStep(),
+            },
+            {
+                id: 'cut-step', icon: 'fa-scissors',
+                label: 'Cut Step',
+                action: () => this._cutStep(),
+            },
+            {
+                id: 'paste-step', icon: 'fa-paste',
+                label: 'Paste Step',
+                action: () => this._pasteStep(),
+                disabled: !hasStepClipboard,
             },
             { divider: true },
             {
@@ -143,6 +162,7 @@ class StepContextMenu {
     }
 
     _getSequencer() {
+        if (this.mode === 'selection') return null;
         if (this.mode === 'synth') return this.app.synthSequencer;
         return this.app.sequencer;
     }
@@ -244,11 +264,108 @@ class StepContextMenu {
     _toggleStep() {
         const step = this._getStep();
         step.active = !step.active;
+        if (!step.active) {
+            step.length = 1;
+            step.attack = null;
+            step.decay = null;
+            step.sustain = null;
+            step.release = null;
+            step.velocity = 1;
+            step.probability = 1;
+            step.ratchet = 1;
+            step.pan = 0;
+            step.pitch = 0;
+        }
         this._setStep(step);
         if (this.mode === 'synth') this._getSequencer()._refreshRow(this.padIndex);
     }
 
+    _copyFocusedStep(seq) {
+        const focus = seq._lastFocusedStep || seq.selection?.lastMouseCell;
+        if (!focus) return;
+        const cell = seq._normStep(seq.pattern[focus.r]?.[focus.s]);
+        this._stepClipboard = { cell: { ...cell }, mode: seq === this.app.synthSequencer ? 'synth' : 'drums' };
+        window.app?.showToast?.('Step copied');
+    }
+
+    _pasteFocusedStep(seq) {
+        if (!this._stepClipboard) return;
+        const focus = seq._lastFocusedStep || seq.selection?.lastMouseCell;
+        if (!focus) return;
+        const before = seq._normStep(seq.pattern[focus.r][focus.s]);
+        const after = seq._normStep(this._stepClipboard.cell);
+        const apply = (state) => {
+            seq.pattern[focus.r][focus.s] = { ...state };
+            if (seq === this.app.synthSequencer) seq._refreshRow(focus.r);
+            else seq.render();
+            this.app.patterns?.updatePatternInfo?.();
+        };
+        if (window.app?.history) {
+            window.app.history.push({
+                label: 'Paste Step',
+                do: () => apply(after),
+                undo: () => apply(before),
+            });
+        } else apply(after);
+        window.app?.showToast?.('Step pasted');
+    }
+
+    _copyStep() {
+        const step = this._getStep();
+        this._stepClipboard = {
+            cell: { ...step },
+            mode: this.mode,
+        };
+        if (window.app?.showToast) window.app.showToast('Step copied');
+    }
+
+    _cutStep() {
+        const step = this._getStep();
+        this._stepClipboard = {
+            cell: { ...step },
+            mode: this.mode,
+        };
+        const seq = this._getSequencer();
+        seq.pattern[this.padIndex][this.stepIndex] = seq._blankCell
+            ? seq._blankCell()
+            : { active: false, velocity: 1, probability: 1, ratchet: 1, pan: 0, pitch: 0, length: 1, attack: null, decay: null, sustain: null, release: null };
+        this._refreshStepVisual();
+        this._refreshPadInfo();
+        if (this.mode === 'synth') seq._refreshRow(this.padIndex);
+        if (window.app?.showToast) window.app.showToast('Step cut');
+    }
+
+    _pasteStep() {
+        if (!this._stepClipboard) return;
+        if (this._stepClipboard.mode !== this.mode) {
+            console.info('[paste] Cross-mode step paste');
+        }
+        const seq = this._getSequencer();
+        const cell = { ...this._stepClipboard.cell };
+
+        const before = seq._normStep(seq.pattern[this.padIndex][this.stepIndex]);
+        const after = seq._normStep(cell);
+
+        const applyVisual = (state) => {
+            seq.pattern[this.padIndex][this.stepIndex] = { ...state };
+            if (this.mode === 'synth') seq._refreshRow(this.padIndex);
+            else this._refreshStepVisual();
+            this._refreshPadInfo();
+        };
+
+        if (window.app?.history) {
+            window.app.history.push({
+                label: 'Paste Step',
+                do: () => applyVisual(after),
+                undo: () => applyVisual(before),
+            });
+        } else {
+            applyVisual(after);
+        }
+    }
+
     _clearStep() {
+        if (this.mode === 'selection') return;
         const seq = this._getSequencer();
         seq.pattern[this.padIndex][this.stepIndex] = false;
         this._refreshStepVisual();
@@ -264,6 +381,7 @@ class StepContextMenu {
     }
 
     _fillRow() {
+        if (this.mode === 'selection') return;
         const seq = this._getSequencer();
         for (let s = 0; s < seq.steps; s++) {
             seq.pattern[this.padIndex][s] = {
@@ -289,11 +407,13 @@ class StepContextMenu {
     }
 
     _copyRow() {
+        if (this.mode === 'selection') return;
         const seq = this._getSequencer();
         seq._rowClipboard = seq.pattern[this.padIndex].map(s => seq._normStep(s));
     }
 
     _pasteRow() {
+        if (this.mode === 'selection') return;
         const seq = this._getSequencer();
         if (!seq._rowClipboard) return;
         const targetLen = seq.steps;
@@ -308,6 +428,7 @@ class StepContextMenu {
     }
 
     _togglePadMute() {
+        if (this.mode === 'selection') return;
         if (this.mode === 'synth') return;
         const pad = this.app.drumPads[this.padIndex];
         if (!pad) return;
@@ -315,6 +436,7 @@ class StepContextMenu {
     }
 
     _togglePadSolo() {
+        if (this.mode === 'selection') return;
         if (this.mode === 'synth') return;
         const pad = this.app.drumPads[this.padIndex];
         if (!pad) return;
@@ -322,16 +444,19 @@ class StepContextMenu {
     }
 
     _managePad() {
+        if (this.mode === 'selection') return;
         if (this.mode === 'synth') return;
         if (this.app.openPadManager) this.app.openPadManager(this.padIndex);
     }
 
     _copyPattern() {
+        if (this.mode === 'selection') return;
         const seq = this._getSequencer();
         seq._patternClipboard = seq.pattern.map(row => row.map(s => seq._normStep(s)));
     }
 
     _pastePattern() {
+        if (this.mode === 'selection') return;
         const seq = this._getSequencer();
         if (!seq._patternClipboard) return;
         const cb = seq._patternClipboard;
@@ -344,6 +469,7 @@ class StepContextMenu {
     }
 
     _clearPattern() {
+        if (this.mode === 'selection') return;
         if (!confirm('Clear the entire pattern?')) return;
         const seq = this._getSequencer();
         seq.pattern = new Array(seq.pattern.length)
@@ -354,6 +480,7 @@ class StepContextMenu {
     }
 
     _openEditor() {
+        if (this.mode === 'selection') return;
         const step = this._getStep();
         const pad = (this.mode === 'synth') ? {} : (this.app.drumPads[this.padIndex] || {});
         const bpm = this.app.project?.bpm || 120;
@@ -910,6 +1037,34 @@ class StepContextMenu {
             if (modal.classList.contains('show')) return;
             modal.style.display = 'none';
         }, 200);
+    }
+
+        /**
+     * Show the context menu for a multi-step selection.
+     */
+    showSelectionMenu(clientX, clientY, seq) {
+        this.mode = 'selection';
+        this._openedAt = Date.now();
+        const sel = seq.selection;
+        const count = sel.selected.size;
+        const hasClipboard = !!sel.clipboard;
+
+        const header = `${count} step${count === 1 ? '' : 's'} selected`;
+
+        const items = [
+            { id: 'copy',  icon: 'fa-copy',        label: 'Copy',   action: () => sel.copy() },
+            { id: 'cut',   icon: 'fa-scissors',    label: 'Cut',    action: () => sel.cut() },
+            { id: 'paste', icon: 'fa-paste',       label: 'Paste',  action: () => sel.paste(),
+              disabled: !hasClipboard },
+            { divider: true },
+            { id: 'selall', icon: 'fa-vector-square', label: 'Select All', action: () => sel.selectAll() },
+            { id: 'desel',  icon: 'fa-xmark',         label: 'Deselect',   action: () => sel.clear() },
+            { divider: true },
+            { id: 'del',   icon: 'fa-trash',       label: 'Delete',       action: () => sel.delete(), danger: true },
+        ];
+
+        this._render(items, header);
+        this._position(clientX, clientY);
     }
 }
 

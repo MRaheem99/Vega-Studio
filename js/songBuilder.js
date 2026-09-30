@@ -1,5 +1,3 @@
-// js/songBuilder.js
-// Multi-track song section state, preview, push-to-tracks, regeneration.
 class SongBuilder {
     constructor(app) {
         this.app = app;
@@ -18,9 +16,6 @@ class SongBuilder {
         });
     }
 
-    // ----------------------------------------------------------
-    // GENERATION
-    // ----------------------------------------------------------
 
     generateSong() {
         const project = this.app.project;
@@ -53,10 +48,9 @@ class SongBuilder {
             bass:   sec.bass,
             chords: sec.chords,
             melody: sec.melody,
-            synth:  sec.synth,     // legacy stacked version
+            synth:  sec.synth,
         }));
 
-        // Apply track presets to each section
         const instruments = window.Genres?.getGenre?.(genreId)?.song?.instruments || {};
         this.sections.forEach(sec => {
             sec.presets = {
@@ -106,9 +100,6 @@ class SongBuilder {
         if (this.generateSong()) this.renderSongPanel();
     }
 
-    // ----------------------------------------------------------
-    // PREVIEW (multi-track)
-    // ----------------------------------------------------------
 
     _mergeGrids(...grids) {
         const rows = grids[0].length;
@@ -135,20 +126,17 @@ class SongBuilder {
         const section = this.sections.find(s => s.id === sectionId);
         if (!section) return;
 
-        // If we're already previewing this exact section, toggle = stop
         if (this.previewPlaying && this.previewIndex === section.index) {
             this.stopPreview();
             return;
         }
 
-        // Always stop any current preview first
         this.stopPreview();
 
         const drumSeq = this.app.sequencer;
         const synthSeq = this.app.synthSequencer;
         const ae = this.app.audioEngine;
 
-        // Save current state
         this._savedDrums = drumSeq.pattern.map(r => r.map(c => drumSeq._normStep(c)));
         this._savedSynth = synthSeq.pattern.map(r => r.map(c => synthSeq._normStep(c)));
         this._savedTone = (this.app.getCurrentTone)
@@ -156,7 +144,6 @@ class SongBuilder {
             : null;
         this._savedSynthVol = ae?.params?.synthVolume ?? 1;
 
-        // Apply chord preset
         if (section.presets?.chords && typeof this.app.loadTone === 'function') {
             const p = section.presets.chords;
             try {
@@ -166,7 +153,6 @@ class SongBuilder {
             }
         }
 
-        // Section volume
         const sectionVol = {
             intro: 0.55, build: 0.65, main: 0.55, verse: 0.55,
             chorus: 0.6, break: 0.6, bridge: 0.55, climax: 0.6, outro: 0.5,
@@ -176,17 +162,14 @@ class SongBuilder {
             ae.setSynthVolume(sectionVol);
         }
 
-        // Merge grids for preview
         const merged = this._mergeGrids(section.bass, section.chords, section.melody);
 
-        // Swap patterns
         drumSeq.pattern = section.drums.map(r => r.map(c => drumSeq._normStep(c)));
         synthSeq.pattern = merged.map(r => r.map(c => synthSeq._normStep(c)));
         drumSeq.render();
         synthSeq.render();
         if (synthSeq.renderMode === 'wav') synthSeq._ensureWavBuffer();
 
-        // FIX: set state BEFORE starting (so stop always works)
         this.previewPlaying = true;
         this.previewIndex = section.index;
 
@@ -196,7 +179,6 @@ class SongBuilder {
         drumSeq.start();
         synthSeq.start();
 
-        // FIX: also listen for user pressing escape or panel closing
         this._previewTimer = setTimeout(() => {
             this.stopPreview();
         }, durationMs);
@@ -205,13 +187,11 @@ class SongBuilder {
     }
 
     stopPreview() {
-        // Clear timer first
         if (this._previewTimer) {
             clearTimeout(this._previewTimer);
             this._previewTimer = null;
         }
 
-        // FIX: always stop the sequencers, regardless of saved state
         const drumSeq = this.app.sequencer;
         const synthSeq = this.app.synthSequencer;
         const ae = this.app.audioEngine;
@@ -219,7 +199,6 @@ class SongBuilder {
         try { drumSeq.stop(); } catch (_) {}
         try { synthSeq.stop(); } catch (_) {}
 
-        // Restore patterns if saved
         if (this._savedDrums) {
             drumSeq.pattern = this._savedDrums;
             drumSeq.render();
@@ -232,19 +211,16 @@ class SongBuilder {
             this._savedSynth = null;
         }
 
-        // Restore tone
         if (this._savedTone && typeof this.app.loadTone === 'function') {
             try { this.app.loadTone(this._savedTone); } catch (_) {}
         }
         this._savedTone = null;
 
-        // Restore synth bus volume
         if (ae && typeof ae.setSynthVolume === 'function' && this._savedSynthVol != null) {
             try { ae.setSynthVolume(this._savedSynthVol); } catch (_) {}
         }
         this._savedSynthVol = null;
 
-        // FIX: reset state ALWAYS, even if nothing was playing
         this.previewPlaying = false;
         this.previewIndex = -1;
         this.renderSongPanel();
@@ -289,9 +265,6 @@ class SongBuilder {
         this.renderSongPanel();
     }
 
-    // ----------------------------------------------------------
-    // EDIT
-    // ----------------------------------------------------------
 
     editSectionDrums(sectionId) {
         const section = this.sections.find(s => s.id === sectionId);
@@ -357,7 +330,6 @@ class SongBuilder {
         const synthSeq = this.app.synthSequencer;
         const totalJobs = this.sections.length * 4;
 
-        // Progress overlay
         const overlay = this._showRenderProgress('Preparing render…', 0, totalJobs);
         let done = 0;
 
@@ -369,7 +341,6 @@ class SongBuilder {
                 const sectionSec = (section.steps / 4) * (60 / bpm);
                 const name = `${i + 1}. ${section.type.toUpperCase()}`;
 
-                // ---- DRUMS ----
                 const drumData = {
                     kind: 'drums', name: name + ' (Drums)',
                     steps: section.steps, rows: 8, bpm,
@@ -383,9 +354,8 @@ class SongBuilder {
                 };
 
                 this._updateRenderProgress(overlay, `Rendering ${name} · Drums…`, ++done, totalJobs);
-                await this._pushOneWavClip(drumTrack.id, drumData, cursorSec, /*fromDrums*/ true);
+                await this._pushOneWavClip(drumTrack.id, drumData, cursorSec, true);
 
-                // ---- BASS / CHORDS / MELODY ----
                 const tracksToPush = [
                     { grid: section.bass,   preset: section.presets?.bass,   label: 'Bass',   track: bassTrack },
                     { grid: section.chords, preset: section.presets?.chords, label: 'Chords', track: chordTrack },
@@ -411,7 +381,7 @@ class SongBuilder {
                     };
 
                     this._updateRenderProgress(overlay, `Rendering ${name} · ${label}…`, ++done, totalJobs);
-                    await this._pushOneWavClip(track.id, synthData, cursorSec, /*fromDrums*/ false);
+                    await this._pushOneWavClip(track.id, synthData, cursorSec, false);
                 }
 
                 cursorSec += sectionSec;
@@ -450,7 +420,6 @@ class SongBuilder {
         const steps = patternData.steps || 16;
         const duration = (steps / 4) * (60 / bpm);
 
-        // Build the pattern object the same way addPatternAsWavClip does
         const normUniversal = (cell) => {
             if (cell && typeof cell === 'object') {
                 return {
@@ -508,7 +477,7 @@ class SongBuilder {
             loop: true,
             loopStart: 0,
             loopEnd: duration,
-            volume: fromDrums ? 1.0 : 0.75,   // ← synth clips quieter by default
+            volume: fromDrums ? 1.0 : 0.75,
             pan: 0,
             speed: 1,
             muted: false,
@@ -540,7 +509,6 @@ class SongBuilder {
             });
         }
 
-        // Add to track with undo
         const self = this;
         const track = tracks.getTrack(trackId);
         if (!track) return;
@@ -553,7 +521,6 @@ class SongBuilder {
                     tracks.sortClips(track);
                     tracks.renderTracks({ trackId });
                 }
-                // Fire the render (cached)
                 if (window.ClipFreezer) {
                     window.ClipFreezer.freeze(clip, bpm).then(() => {
                         tracks.renderTracks({ trackId });
@@ -567,12 +534,10 @@ class SongBuilder {
             },
         });
 
-        // Add immediately
         track.clips.push(clip);
         tracks.sortClips(track);
         tracks.renderTracks({ trackId });
 
-        // Trigger render
         if (window.ClipFreezer) {
             try {
                 const buf = await window.ClipFreezer.freeze(clip, bpm);
@@ -627,9 +592,6 @@ class SongBuilder {
         setTimeout(() => { try { el.remove(); } catch (_) {} }, 600);
     }
 
-    // ----------------------------------------------------------
-    // PANEL UI
-    // ----------------------------------------------------------
 
     openPanel() {
         const modal = document.getElementById('song-panel-modal');
@@ -641,7 +603,6 @@ class SongBuilder {
     closePanel() {
         const modal = document.getElementById('song-panel-modal');
         if (modal) modal.classList.remove('show');
-        // FIX: always stop preview when closing panel
         this.stopPreview();
     }
 

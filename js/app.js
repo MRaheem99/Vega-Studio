@@ -33,7 +33,6 @@ const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     });
 })();
 
-// ---- Sequencer selection keyboard shortcuts ----
 (function installSequencerShortcuts() {
     document.addEventListener('keydown', (e) => {
         const tag = (e.target?.tagName || '').toUpperCase();
@@ -48,13 +47,31 @@ const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
         const mod = e.ctrlKey || e.metaKey;
 
-        // Copy / Cut / Paste / Select All / Delete / Escape
-        if (mod && e.key.toLowerCase() === 'c') { sel.copy(); e.preventDefault(); return; }
-        if (mod && e.key.toLowerCase() === 'x') { sel.cut(); e.preventDefault(); return; }
+        if (mod && e.key.toLowerCase() === 'c') {
+            if (sel.selected.size > 0) {
+                sel.copy();
+            } else {
+                app.stepContextMenu?._copyFocusedStep?.(seq);
+            }
+            e.preventDefault();
+            return;
+        }
+        if (mod && e.key.toLowerCase() === 'x') {
+            if (sel.selected.size > 0) {
+                sel.cut();
+            } else {
+                app.stepContextMenu?._cutFocusedStep?.(seq);
+            }
+            e.preventDefault();
+            return;
+        }
         if (mod && e.key.toLowerCase() === 'v') {
-            // Paste at mouse cursor if hovering over a cell
-            const at = sel.lastMouseCell;
-            sel.paste(at?.r, at?.s);
+            if (sel.selected.size > 0) {
+                const at = sel.lastMouseCell;
+                sel.paste(at?.r, at?.s);
+            } else {
+                app.stepContextMenu?._pasteFocusedStep?.(seq);
+            }
             e.preventDefault();
             return;
         }
@@ -69,10 +86,9 @@ const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             return;
         }
 
-        // Arrow keys — move selection
         if (sel.selected.size > 0) {
             const shift = e.shiftKey;
-            const dup = e.altKey;   // Alt+arrow = duplicate
+            const dup = e.altKey;
             let dR = 0, dS = 0;
             if (e.key === 'ArrowUp')    dR = -1;
             else if (e.key === 'ArrowDown')  dR = 1;
@@ -81,7 +97,6 @@ const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             else return;
 
             if (shift) {
-                // Extend selection by one cell in that direction
                 const b = sel.getBounds();
                 if (b) {
                     if (dR < 0) sel.selectRange(b.rMin - 1, b.sMin, b.rMax, b.sMax, true);
@@ -377,7 +392,6 @@ const app = {
         return g || null;
     },
 
-    // -- Helper: apply a drum grid to sequencer with undo support --
     _applyDrumGrid(grid) {
         const seq = this.sequencer;
         if (!seq) return;
@@ -398,7 +412,6 @@ const app = {
         });
     },
 
-    // -- Helper: apply a synth grid to sequencer with undo support --
     _applySynthGrid(grid) {
         const seq = this.synthSequencer;
         if (!seq) return;
@@ -419,7 +432,6 @@ const app = {
         });
     },
 
-    // -- Public: generate drums --
     generateDrumsFromGenre() {
         if (!this.project) return;
         const genreId = this.project.genre;
@@ -435,7 +447,6 @@ const app = {
         this.setMode('sequencer', document.querySelector('.menu-btn[title="Drum Sequencer"]'));
     },
 
-    // -- Public: generate melody --
     generateMelodyFromGenre() {
         if (!this.project) return;
         const genreId = this.project.genre;
@@ -452,7 +463,6 @@ const app = {
         this.setMode('synthseq', document.querySelector('.menu-btn[title="Synth Sequencer"]'));
     },
 
-    // -- Public: generate chords --
     generateChordsFromGenre() {
         if (!this.project) return;
         const genreId = this.project.genre;
@@ -473,7 +483,6 @@ const app = {
         const genreId = this.project.genre;
         if (!genreId) { alert('Pick a genre in Settings first.'); return; }
 
-        // Use the SongBuilder for the arrangement-aware path
         if (this.songBuilder) {
             if (this.songBuilder.generateSong()) {
                 this.songBuilder.openPanel();
@@ -481,7 +490,6 @@ const app = {
             }
         }
 
-        // Fallback: old single-pass generation (if SongBuilder not ready)
         const drumGrid = window.GenreGenerator.generateBeat(genreId, {
             steps: this.sequencer.steps,
             drumPads: this.drumPads,

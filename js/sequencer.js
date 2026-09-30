@@ -245,8 +245,17 @@ class DrumSequencer {
         const seq = this;
 
         const applyVisual = (state) => {
-            const stepEl = document.querySelector(`.seq-steps[data-pad="${padIndex}"] .seq-step[data-step="${stepIndex + 1}"]`);
+            const stepEl = document.querySelector(
+                `.seq-steps[data-pad="${padIndex}"] .seq-step[data-step="${stepIndex + 1}"]`
+            );
             if (stepEl) seq._applyStepVisuals(stepEl, state);
+
+            if (seq._selection) seq._selection.applyVisuals();
+
+            const other = seq.app?.synthSequencer;
+            if (other?._selection) other._selection.applyVisuals();
+
+            // Shared pattern info
             if (seq.app.patterns) seq.app.patterns.updatePatternInfo();
         };
 

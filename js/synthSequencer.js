@@ -648,6 +648,14 @@ class SynthSequencer {
             });
         }
 
+        if (this._selection) {
+            newRow.querySelectorAll('.ss-step').forEach(cell => {
+                const s = parseInt(cell.dataset.step, 10);
+                this._selection.wireCell(cell, fromTop, s);
+            });
+            this._selection.applyVisuals();
+        }
+
         if (this.app?.tracks && this.currentPatternName) {
             this.app.tracks._notifyPatternEdited(
                 this.currentPatternName,
@@ -790,7 +798,6 @@ class SynthSequencer {
                 const mod = e.ctrlKey || e.metaKey;
                 const isSelected = sel.isSelected(row, step);
                 if (mod || isSelected) {
-                    // Selection engine will handle this pointerdown
                     return;
                 }
             }
@@ -851,7 +858,6 @@ class SynthSequencer {
                     dragState = null;
                 }
 
-                // If selection is active, long-press adds to selection instead
                 const sel = this._selection;
                 if (sel && (sel.selected.size > 0 || this._touchSelectionActive)) {
                     sel.toggle(row, step);
@@ -921,6 +927,19 @@ class SynthSequencer {
 
         const current = this._normStep(this.pattern[row][step]);
         current.active = !current.active;
+        if (!current.active) {
+            current.length = 1;
+            current.attack = null;
+            current.decay = null;
+            current.sustain = null;
+            current.release = null;
+            current.velocity = 1;
+            current.probability = 1;
+            current.ratchet = 1;
+            current.pan = 0;
+            current.pitch = 0;
+        }
+
         this.pattern[row][step] = current;
         this._refreshRow(row);
 
@@ -1042,7 +1061,6 @@ class SynthSequencer {
             return;
         }
 
-        // --- Legacy fallback (unchanged behavior) ---
         const project = this.app.project || {};
         const key = project.key || 'C';
         const scale = project.scale || 'major';
@@ -1209,13 +1227,11 @@ class SynthSequencer {
         const el = document.getElementById('ss-step');
         if (el) el.innerText = '1';
 
-        // Stop any tracked active notes (WAV mode)
         if (this._activeNotes) {
             this._activeNotes.forEach(note => this.app.audioEngine.stopNote(note));
             this._activeNotes.clear();
         }
 
-        // NEW: kill all scheduled voices (native mode)
         if (this.app.audioEngine?.stopAllNotes) {
             try { this.app.audioEngine.stopAllNotes(); } catch (_) {}
         }

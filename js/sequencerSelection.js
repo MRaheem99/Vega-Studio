@@ -1,5 +1,3 @@
-// js/sequencerSelection.js
-// Step selection engine — desktop + mobile.
 (function () {
     'use strict';
 
@@ -10,11 +8,11 @@
     class SequencerSelection {
         constructor(seq, opts) {
             this.seq = seq;
-            this.mode = 'edit';                  // 'edit' | 'transform' (transform affects touch only)
-            this.selected = new Set();           // "row,step"
-            this.anchor = null;                  // { r, s }
-            this.clipboard = null;               // { width, height, cells }
-            this.lastMouseCell = null;           // for Ctrl+V paste position
+            this.mode = 'edit';
+            this.selected = new Set();
+            this.anchor = null;
+            this.clipboard = null;
+            this.lastMouseCell = null;
 
             this._marqueeEl = null;
             this._transformState = null;
@@ -32,9 +30,6 @@
             this._bindGlobalDeselect();
         }
 
-        // ------------------------------------------------------------
-        // Selection model
-        // ------------------------------------------------------------
 
         _key(r, s) { return r + ',' + s; }
         isSelected(r, s) { return this.selected.has(this._key(r, s)); }
@@ -125,16 +120,12 @@
                 });
                 clearTimeout(this._arrowCoalesceTimer);
                 this._arrowCoalesceTimer = setTimeout(() => {
-                    // Force next arrow to make a fresh history entry
                     if (window.app.history) window.app.history._lastCoalesceKey = null;
                 }, 500);
             }
             return true;
         }
 
-        // ------------------------------------------------------------
-        // Copy / cut / paste / delete
-        // ------------------------------------------------------------
 
         copy() {
             const b = this.getBounds();
@@ -161,7 +152,7 @@
             const seq = this.seq;
             const grid = seq.pattern;
             const before = grid.map(row => row.map(c => seq._normStep(c)));
-            const beforeSel = new Set(this.selected);   // preserve selection
+            const beforeSel = new Set(this.selected);
 
             beforeSel.forEach(k => {
                 const [r, s] = k.split(',').map(Number);
@@ -176,7 +167,7 @@
                     label: 'Cut Steps',
                     do: () => {
                         seq.pattern = after.map(row => row.map(c => ({ ...c })));
-                        self.selected = new Set(beforeSel);   // keep selection
+                        self.selected = new Set(beforeSel);
                         self._refreshDOM();
                     },
                     undo: () => {
@@ -187,7 +178,6 @@
                 });
             }
 
-            // Keep the selection alive so user can immediately Ctrl+V at the same spot
             this.selected = new Set(beforeSel);
             this._refreshDOM();
             window.app?.showToast?.(`Cut ${this.selected.size} step(s) — press Ctrl+V to paste`);
@@ -282,9 +272,6 @@
             return true;
         }
 
-        // ------------------------------------------------------------
-        // Cell wiring — called from parent's render()
-        // ------------------------------------------------------------
 
         wireCell(el, r, s) {
             if (el._seqSelWired) return;
@@ -292,32 +279,27 @@
             const self = this;
 
             el.addEventListener('pointerdown', (e) => {
-                // Only left button / touch
                 if (e.pointerType === 'mouse' && e.button !== 0) return;
 
                 const isTouch = e.pointerType === 'touch' || matchMedia('(pointer: coarse)').matches;
                 const mod = e.ctrlKey || e.metaKey;
 
-                // Update last mouse cell
                 self.lastMouseCell = { r, s };
+                self.seq._lastFocusedStep = { r, s };
 
-                // ---- Touch path ----
                 if (isTouch) {
                     self._onTouchStart(el, r, s, e);
                     return;
                 }
 
-                // ---- Ctrl/Cmd + click → toggle selection ----
                 if (mod) {
                     e.preventDefault();
                     e.stopPropagation();
                     self.toggle(r, s);
-                    // Also consider marquee: if user drags far, start marquee
                     self._maybeStartMarquee(e, r, s);
                     return;
                 }
 
-                // ---- Plain click on a selected cell → prepare drag-move ----
                 if (self.isSelected(r, s)) {
                     e.preventDefault();
                     e.stopPropagation();
@@ -325,25 +307,19 @@
                     return;
                 }
 
-                // ---- Plain click on unselected cell → let existing handler run ----
-                // (existing per-step toggle is triggered by click listener in parent)
-                // But we need to clear selection and re-anchor
                 if (self.selected.size > 0) {
-                    // Keep selection but update anchor (so arrow keys work from here)
                     self.anchor = { r, s };
                     self.lastMouseCell = { r, s };
+                    self.seq._lastFocusedStep = { r, s };
                 }
             }, { passive: false });
 
-            // Track hover position for Ctrl+V paste-at-cursor
             el.addEventListener('pointerenter', () => {
                 self.lastMouseCell = { r, s };
+                self.seq._lastFocusedStep = { r, s };
             });
         }
 
-        // ------------------------------------------------------------
-        // Ctrl+drag marquee
-        // ------------------------------------------------------------
 
         _maybeStartMarquee(e, r, s) {
             const self = this;
@@ -378,7 +354,6 @@
                     const rect = marqueeEl._rect;
                     marqueeEl.remove();
 
-                    // Compute cell range from pixel rect
                     const grid = self.opts.gridEl();
                     if (!grid || !rect) return;
                     const cells = grid.querySelectorAll(self.opts.cellSelector);
@@ -399,8 +374,7 @@
                         hit = true;
                     });
                     if (hit) {
-                        // Additive with Ctrl; the initial Ctrl+click already selected one cell
-                        self.selectRange(rMin, sMin, rMax, sMax, /*additive*/ true);
+                        self.selectRange(rMin, sMin, rMax, sMax, true);
                     }
                 }
             };
@@ -421,7 +395,6 @@
             const cw = sample ? sample.getBoundingClientRect().width : 26;
             const ch = sample ? sample.getBoundingClientRect().height : 20;
 
-            // ---- Snapshot for a single undo entry ----
             const snapshotBefore = seq.pattern.map(row => row.map(c => seq._normStep(c)));
             const snapshotSelBefore = new Set(this.selected);
 
@@ -444,7 +417,6 @@
                 lastDS = dS; lastDR = dR;
 
                 if (stepDS || stepDR) {
-                    // Move without history (we'll push one entry at the end)
                     this._applyMove(stepDR, stepDS, duplicate);
                 }
             };
@@ -519,9 +491,6 @@
             return true;
         }
 
-        // ------------------------------------------------------------
-        // Touch: long-press enters selection mode
-        // ------------------------------------------------------------
 
         _onTouchStart(el, r, s, e) {
             const self = this;
@@ -541,12 +510,10 @@
                 if (dist > DRAG_THRESHOLD_PX) {
                     if (this._pressTimer) { clearTimeout(this._pressTimer); this._pressTimer = null; }
 
-                    // If transform mode + this cell is selected → drag-move
                     if (this.mode === 'transform' && this.isSelected(r, s)) {
                         this._beginMoveDrag(r, s, ev);
                         cleanup();
                     } else if (this.seq._touchSelectionActive) {
-                        // Cancel touch gesture — let user scroll
                     }
                 }
             };
@@ -555,14 +522,11 @@
                 if (this._pressTimer) { clearTimeout(this._pressTimer); this._pressTimer = null; }
                 cleanup();
                 if (!longPressed) {
-                    // Tap
                     if (this.seq._touchSelectionActive) {
                         this.toggle(r, s);
                     } else {
-                        // Normal step toggle (existing behavior)
                         if (this.seq.toggleStep) this.seq.toggleStep(r, s);
                         else if (this.seq.selection === this) {
-                            // synth: call toggleStep if exists
                         }
                     }
                 }
@@ -579,9 +543,6 @@
             window.addEventListener('pointercancel', onUp);
         }
 
-        // ------------------------------------------------------------
-        // Mode toggle (mobile + accessibility)
-        // ------------------------------------------------------------
 
         setMode(mode) {
             if (mode !== 'edit' && mode !== 'transform') return;
@@ -607,9 +568,6 @@
             document.body.classList.toggle('seq-transform-mode', this.mode === 'transform');
         }
 
-        // ------------------------------------------------------------
-        // Visuals + change event
-        // ------------------------------------------------------------
 
         applyVisuals() {
             const grid = this.opts.gridEl();
@@ -628,7 +586,6 @@
             if (seq.constructor.name === 'SynthSequencer' && typeof seq._refreshRow === 'function') {
                 const rowsToRefresh = new Set();
 
-                // Rows with active cells now
                 for (let r = 0; r < seq.pattern.length; r++) {
                     for (let s = 0; s < seq.steps; s++) {
                         const c = seq._normStep(seq.pattern[r][s]);
@@ -636,7 +593,6 @@
                     }
                 }
 
-                // Rows that currently show notes in the DOM (source of moved notes)
                 const grid = this.opts.gridEl();
                 if (grid) {
                     grid.querySelectorAll('.ss-row').forEach(rowEl => {
@@ -663,7 +619,6 @@
                     }
                 });
             } else {
-                // Drum: just re-apply per-cell visuals
                 this._refreshStepVisuals();
             }
 
@@ -696,15 +651,11 @@
             }
         }
 
-        // ------------------------------------------------------------
-        // Global deselect on click-outside / Escape
-        // ------------------------------------------------------------
 
         _bindGlobalDeselect() {
-            // Preserve list: any click inside these elements keeps the selection
             const PRESERVE_SELECTORS = [
-                '#sequencer',           // drum root
-                '#synthseq',            // synth root
+                '#sequencer',
+                '#synthseq',
                 '.seq-context-menu',
                 '.step-context-menu',
                 '.fx-editor-modal',
@@ -724,10 +675,9 @@
 
             document.addEventListener('pointerdown', (e) => {
                 if (this.selected.size === 0) return;
-                if (e.button !== 0 && e.pointerType === 'mouse') return;   // left-click only
+                if (e.button !== 0 && e.pointerType === 'mouse') return;
                 if (shouldPreserve(e.target)) return;
 
-                // Everything else → clear
                 this.clear();
             }, { capture: true });
         }

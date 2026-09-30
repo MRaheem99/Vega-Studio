@@ -102,7 +102,6 @@ class TrackSystem {
                 document.body.classList.toggle('daw-modifier', down);
             }
 
-            // Ctrl/Cmd tracking for pan cursor hint
             const ctrlDown = e.ctrlKey || e.metaKey;
             document.body.classList.toggle('daw-ctrl-held', ctrlDown);
         };
@@ -191,14 +190,13 @@ class TrackSystem {
             const x = clientX - rect.left;
             if (x < labelWidth) return;
 
-            // Preserve current selection
             const savedTrack = this.selectedTrack;
             const savedClip = this.selectedClip;
 
             const time = Math.max(0, (x - labelWidth + scrollArea.scrollLeft) / this.zoom);
 
             const wasPlaying = this.isPlaying;
-            const isFinal = opts.final !== false;   // during scrub we skip audio resync
+            const isFinal = opts.final !== false;
 
             this.playheadPosition = time;
             this.playheadActive = true;
@@ -207,11 +205,9 @@ class TrackSystem {
             const timeEl = document.getElementById('tracks-time-value');
             if (timeEl) timeEl.innerText = this.formatTime(this.playheadPosition);
 
-            // Restore selection
             this.selectedTrack = savedTrack;
             this.selectedClip = savedClip;
 
-            // If playing and this is a finalized seek, resync audio
             if (wasPlaying && isFinal) {
                 this._rescheduleFromPlayhead();
             }
@@ -248,7 +244,7 @@ class TrackSystem {
         rulerContainer.addEventListener('mousedown', (e) => {
             if (startAltPan(e)) return;
             this.scrubbing = true;
-            seekTo(e.clientX, { final: false });   // don't reschedule on first click
+            seekTo(e.clientX, { final: false });
         });
 
         rulerContainer.addEventListener('pointerdown', (e) => {
@@ -261,7 +257,7 @@ class TrackSystem {
         const moveHandler = (e) => {
             if (e.altKey && e.buttons === 1) return;
             if (!this.scrubbing) return;
-            seekTo(e.clientX, { final: false });   // scrub — no reschedule yet
+            seekTo(e.clientX, { final: false });
         };
         rulerContainer.addEventListener('pointermove', moveHandler);
         rulerContainer.addEventListener('mousemove', moveHandler);
@@ -269,7 +265,6 @@ class TrackSystem {
         const end = (e) => {
             if (!this.scrubbing) return;
             this.scrubbing = false;
-            // Final seek — now actually reschedule audio if playing
             const x = (e.clientX ?? e.changedTouches?.[0]?.clientX);
             if (typeof x === 'number') {
                 seekTo(x, { final: true });
@@ -1266,7 +1261,6 @@ class TrackSystem {
             e.stopPropagation();
             if (!this.dragState.isDragging && !this.dragState.isResizing) {
                 this.selectedClip = { trackId: track.id, clipId: clip.id };
-                // Auto-select track on clip click
                 if (this.selectedTrack !== track.id) {
                     this.selectedTrack = track.id;
                 }
@@ -1345,12 +1339,10 @@ class TrackSystem {
             scrollArea.addEventListener('scroll', () => { this.hideContextMenu(); }, { passive: true });
         }
 
-        // ---- Ctrl/Cmd + wheel zoom anywhere in the tracks panel ----
         const zoomHost = document.getElementById('panel-tracks') || document.getElementById('tracks-timeline');
         if (zoomHost) {
             let wheelTimeout;
             zoomHost.addEventListener('wheel', (e) => {
-                // Standard DAW modifier: Ctrl (Windows/Linux) or Cmd (Mac)
                 if (!(e.ctrlKey || e.metaKey)) return;
                 e.preventDefault();
                 e.stopPropagation();
@@ -1360,13 +1352,12 @@ class TrackSystem {
                     const scroller = document.getElementById('tracks-scroll-area');
                     if (!scroller) return;
 
-                    // Anchor point — cursor X relative to scroller viewport
                     const rect = scroller.getBoundingClientRect();
                     const anchorX = e.clientX - rect.left;
                     const timeAtAnchor = (scroller.scrollLeft + anchorX) / this.zoom;
 
                     const oldZoom = this.zoom;
-                    const step = e.deltaY > 0 ? -0.1 : 0.1;   // 10% per notch
+                    const step = e.deltaY > 0 ? -0.1 : 0.1;
                     this.zoom = Math.max(20, Math.min(400, this.zoom * (1 + step)));
 
                     requestAnimationFrame(() => {
@@ -1870,7 +1861,7 @@ el.addEventListener('click', (e) => {
             envelope: (this.clipboard.envelope || []).map(p => ({ ...p })),
         };
         delete newClip.sourceTrackId;
-        delete newClip._frozen;      // fresh clip — no stale frozen buffer
+        delete newClip._frozen;
         delete newClip._freezePromise;
 
         const self = this;
@@ -1881,7 +1872,6 @@ el.addEventListener('click', (e) => {
                 if (!track.clips.find(c => c.id === newClip.id)) {
                     track.clips.push(newClip);
                     self.sortClips(track);
-                    // If it's a WAV pattern clip, kick off a render
                     if (newClip.type === 'pattern' && newClip.mode === 'wav' && window.ClipFreezer) {
                         const bpm = self.app.project?.bpm || 120;
                         window.ClipFreezer.freeze(newClip, bpm).then(() => {
@@ -1898,7 +1888,6 @@ el.addEventListener('click', (e) => {
             },
         });
 
-        // Auto-select the target track + the new clip
         this.selectedTrack = trackId;
         this.selectedClip = { trackId, clipId: newClip.id };
         this.contextClip = this.selectedClip;
@@ -1933,7 +1922,6 @@ el.addEventListener('click', (e) => {
         this.app.history.push({
             label: 'Clear Track',
             do: () => {
-                // Dispose any audio resources
                 beforeClips.forEach(c => self._disposeClipAudio(c));
                 track.clips = [];
                 self.renderTracks({ trackId });
@@ -2884,12 +2872,11 @@ el.addEventListener('click', (e) => {
         const startScrollLeft = scroller.scrollLeft;
         const startScrollTop = scroller.scrollTop;
 
-        // Visual cursor feedback
         scroller.style.cursor = 'grabbing';
         document.body.classList.add('daw-panning');
 
         const onMove = (ev) => {
-            if (!ev.touches && ev.buttons === 0 && !isTouch) return;   // mouse released
+            if (!ev.touches && ev.buttons === 0 && !isTouch) return;
             const p = getPoint(ev);
             scroller.scrollLeft = startScrollLeft - (p.x - start.x);
             scroller.scrollTop  = startScrollTop  - (p.y - start.y);
@@ -3362,17 +3349,14 @@ el.addEventListener('click', (e) => {
         const ctx = this.audioContext || this.app.audioEngine.ctx;
         if (!ctx) return;
 
-        // 1. Stop everything currently playing
         this.activeSources.forEach(({ source }) => {
             try { source.stop(); } catch (_) {}
         });
         this.activeSources = [];
 
-        // 2. Reset the animation baseline
         cancelAnimationFrame(this.animationFrame);
         this.animationFrame = null;
 
-        // 3. Clear envelope gains on clips so they don't leak
         this.tracks.forEach(track => {
             track.clips.forEach(clip => {
                 if (clip._activeEnvelopeGain) {
@@ -3382,10 +3366,8 @@ el.addEventListener('click', (e) => {
             });
         });
 
-        // 4. Set the new start position
         this.playStartPosition = this.playheadPosition;
 
-        // 5. Re-schedule everything from here
         const now = ctx.currentTime;
         const startOffset = this.playheadPosition;
         const soloActive = this.tracks.some(t => t.solo);
@@ -3412,7 +3394,6 @@ el.addEventListener('click', (e) => {
                         return;
                     }
 
-                    // Audio clips
                     const playFrom = Math.max(0, startOffset - clip.startTime);
                     const remaining = clip.duration - playFrom;
                     if (remaining <= 0) return;
@@ -3465,7 +3446,6 @@ el.addEventListener('click', (e) => {
             });
         });
 
-        // 6. Restart the animation loop with the new baseline
         this._resumePlayheadAnimation();
     }
 
@@ -4419,7 +4399,6 @@ el.addEventListener('click', (e) => {
         document.getElementById('track-manager-color').oninput = (e) =>
             this.updateTrackColor(trackId, e.target.value);
 
-                // Wire danger-zone buttons
         const clearBtn = document.getElementById('track-manager-clear');
         const deleteBtn = document.getElementById('track-manager-delete');
         if (clearBtn) {
